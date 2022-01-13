@@ -1,0 +1,20 @@
+.mintWindow{
+    margin: 0 auto;
+
+    margin-top: 45px;
+
+    max-width: 850px;
+    height: 450px;
+    
+    background: #262626;
+    border-radius: 60px;
+}
+
+#mintBtn{
+width: 200px;
+height: 50px;
+
+
+background: rgba(134, 133, 132, 0.94);
+border-radius: 35px;
+}

@@ -1,10 +1,12 @@
+import MintWindow from './components/MintWindow';
+import AdvertisementBoard from './components/AdvertisementBoard';
 
-import Mycomp from './components/Mycomp';
 
 function App() {
   return (
     <div>
-      <Mycomp></Mycomp>
+      <AdvertisementBoard></AdvertisementBoard>
+      <MintWindow></MintWindow>
       </div>
   );
 }
