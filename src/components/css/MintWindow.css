@@ -1,20 +1,13 @@
 .mintWindow{
     margin: 0 auto;
 
-    margin-top: 45px;
-
-    max-width: 850px;
-    height: 450px;
+    width: 600px;
+    height: 100%;
     
     background: #262626;
     border-radius: 60px;
-}
 
-#mintBtn{
-width: 200px;
-height: 50px;
+    color: rgb(255, 255, 255);
 
-
-background: rgba(134, 133, 132, 0.94);
-border-radius: 35px;
+    text-align: center;
 }

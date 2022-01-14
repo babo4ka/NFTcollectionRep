@@ -1,0 +1,13 @@
+.sds{
+    display: flex;
+    flex-direction: row;
+
+    height: 450px;
+
+    margin-top: 45px;
+}
+
+.divider{
+    background-color: blue;
+    width: 35px;
+}
