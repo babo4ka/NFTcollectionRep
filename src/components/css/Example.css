@@ -3,8 +3,8 @@
 
     border: 5px dashed black;
 
-    max-height: 250px;
-    width: 250px;
+    height: 100%;
+    width: 100%;
 
     background-image: url('/src/images/exmpl.jpg');
     background-size: 100%;

@@ -1,8 +1,9 @@
 import './css/Example.css';
 
-const Example = () =>{
+const Example = (props) =>{
+    const objClassName = "example_window " + props.cn;
     return(
-        <div className="example_window">
+        <div className={objClassName}>
         </div>
     )
 }

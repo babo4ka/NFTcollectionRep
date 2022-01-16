@@ -1,7 +1,7 @@
-.mintWindow{
-    margin: 0 auto;
+.mint_window{
+    /* margin: 0 auto; */
 
-    width: 600px;
+    width: 100%;
     height: 100%;
     
     background: #262626;
@@ -10,4 +10,6 @@
     color: rgb(255, 255, 255);
 
     text-align: center;
+
+    flex: 2 1 0%;
 }
