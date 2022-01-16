@@ -2,21 +2,21 @@ import MintWindow from './components/MintWindow';
 import AdvertisementBoard from './components/AdvertisementBoard';
 import Example from './components/Example';
 
-import './App.css';
+import './App.scss';
 
 function App() {
   const sds_item_className = "sds_item";
   return (
-    <div>
+    <div className="container">
       <AdvertisementBoard></AdvertisementBoard>
-      <div className="sds">
-        <div className="example_box sds_item">
+      <div className="sds row">
+        <div className="example_box sds_item col">
         <Example></Example>
         </div>
         
-        <MintWindow cn={sds_item_className}></MintWindow>
+        <MintWindow cn={sds_item_className + " col"}></MintWindow>
 
-        <div className="example_box sds_item">
+        <div className="example_box sds_item col">
         <Example></Example>
         </div>
       </div>

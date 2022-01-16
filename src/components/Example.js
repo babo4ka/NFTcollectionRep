@@ -1,9 +1,10 @@
-import './css/Example.css';
+import './css/Example.scss';
 
 const Example = (props) =>{
     const objClassName = "example_window " + props.cn;
     return(
         <div className={objClassName}>
+            
         </div>
     )
 }

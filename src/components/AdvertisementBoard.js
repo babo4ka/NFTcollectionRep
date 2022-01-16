@@ -1,4 +1,4 @@
-import './css/AdvertisementBoard.css'
+import './css/AdvertisementBoard.scss'
 
 const AdvertisementBoard = ()=>{
     return(

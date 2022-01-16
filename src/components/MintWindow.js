@@ -1,4 +1,4 @@
-import './css/MintWindow.css'
+import './css/MintWindow.scss'
 
 const MintWindow = (props) =>{
     const objClassName = "mint_window " + props.cn;
