@@ -1,8 +1,8 @@
 .sds{
-    display: flex;
-    flex-direction: row;
+    // display: flex;
+    // flex-direction: row;
 
-    height: 450px;
+    // height: 450px;
 
     margin-top: 45px;
 
@@ -12,10 +12,8 @@
 }
 
 .sds_item{
-    margin: 0 30px;
+    margin: 30px;
 }
-
-
 
 .example_box{
     display: flex;
@@ -27,7 +25,6 @@
     align-items: center;
 
     width: 100%;
-    flex: 1 1 0%;
 }
 
 

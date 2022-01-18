@@ -5,6 +5,7 @@ const MintWindow = (props) =>{
     return(
         <div className={objClassName}>minter window
         {/* <button id="mintBtn">GO MINT</button> */}
+
     </div>
     )
 }
