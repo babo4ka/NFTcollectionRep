@@ -7,7 +7,7 @@ import './App.scss';
 function App() {
   const sds_item_className = "sds_item";
   return (
-    <div className="container fluid">
+    <div className="container-fluid">
       <AdvertisementBoard></AdvertisementBoard>
       <div className="sds row">
         {/* <div className="example_box sds_item col">
