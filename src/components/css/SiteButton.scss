@@ -1,0 +1,38 @@
+.amount_btn{
+    border-radius: 50%;
+
+    width: 40px;
+    height: 40px;
+
+    margin: 0 15px;
+}
+
+.mint_btn{
+    border-radius: 25px;
+}
+
+.site_btn{
+    background-color: white;
+
+    color: black;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    border: black;
+
+    padding: 5px 10px 5px 10px;
+    
+}
+
+.site_btn:hover{
+    background-color: black;
+
+    color: white;
+
+    border: 1px solid white;
+
+    transform: scaleX(1.15) scaleY(1.15);
+    // transform: scaleY(1.5);
+}

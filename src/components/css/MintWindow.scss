@@ -1,7 +1,6 @@
 .mint_window{
     /* margin: 0 auto; */
 
-    
     background: #262626;
     border-radius: 60px;
 
@@ -10,4 +9,13 @@
     text-align: center;
 
     min-height: 350px;
+}
+
+.minter_item{
+    margin: 20px 0px;
+
+}
+
+#amount_chooser{
+    justify-content: center;
 }
