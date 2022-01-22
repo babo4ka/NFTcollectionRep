@@ -1,14 +1,18 @@
 .mint_window{
     /* margin: 0 auto; */
 
-    background: #262626;
+    background: rgb(4, 0, 37);
     border-radius: 60px;
+
+    border: 5px solid rgb(255, 255, 255);
 
     color: rgb(255, 255, 255);
 
     text-align: center;
 
     min-height: 350px;
+
+    box-shadow: inset 0px 100px 100px rgba(0, 0, 0, 0.575);
 }
 
 .minter_item{

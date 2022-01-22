@@ -12,19 +12,29 @@
 }
 
 
-#line{
+.line{
+    color: white;
 
     border-radius: 5px;
-    height: 5px;
+    height: 2px;
 
     width: 75%;
     
     margin: auto;
+
+    margin-top: 25px;
 }
 
 #examples_txt{
     margin-top: 140px;
     text-align: center;
+    color: white;
+}
+
+#orders_txt{
+    margin-top: 50px;
+    text-align: center;
+    color: white;
 }
 
 .welcomes{
@@ -59,6 +69,8 @@
     font-size: 25px;
 
     margin: 25px 0px;
+
+    color: white;
 }
 
 #ads_order{

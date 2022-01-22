@@ -19,10 +19,12 @@ function MinterPage() {
       </div>
 
       <h3 id="examples_txt">EXAMPLES OF COLLECTION</h3>
-      <hr id="line"/>
+      <hr class="line"/>
 
       <Examples/>
 
+      <h3 id="orders_txt">ORDERS FOR YOU</h3>
+      <hr class="line"/>
 
       <div className="row welcomes">
 
