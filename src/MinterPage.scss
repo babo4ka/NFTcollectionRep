@@ -12,16 +12,17 @@
 }
 
 
-.example_box{
-    display: flex;
-    flex-direction: column;
+#line{
+    background-color: rgb(0, 0, 0);
+    border-radius: 5px;
+    height: 5px;
 
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-
-    width: 100%;
+    width: 75%;
+    
+    margin: auto;
 }
 
-
+#examples_txt{
+    margin-top: 140px;
+    text-align: center;
+}
