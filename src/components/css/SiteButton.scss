@@ -11,18 +11,26 @@
     border-radius: 25px;
 }
 
+.order_btn{
+    border-radius: 15px;
+
+    padding: 25px;
+
+    font-size: 20px;
+
+    padding: 5px 45px 5px 45px;
+}
+
 .site_btn{
     background-color: white;
 
     color: black;
 
-    font-size: 15px;
-
     font-weight: bold;
 
     border: black;
 
-    padding: 5px 10px 5px 10px;
+    
     
 }
 
@@ -34,5 +42,4 @@
     border: 1px solid white;
 
     transform: scaleX(1.15) scaleY(1.15);
-    // transform: scaleY(1.5);
 }
