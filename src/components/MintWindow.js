@@ -8,7 +8,7 @@ const MintWindow = (props) =>{
         
         <h3 id="collection_name" className="minter_item">COLLECTION NAME</h3>
 
-        <a id="link_to_examples" className="minter_item">look on examples...</a>
+        <a href="#examples_txt" id="link_to_examples" className="minter_item">look on examples</a>
 
         <div id="current_tokens_count" className="minter_item">
             0/count of tokens

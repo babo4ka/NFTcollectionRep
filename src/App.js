@@ -1,11 +1,32 @@
-import MintWindow from './components/MintWindow';
-import AdvertisementBoard from './components/AdvertisementBoard';
 import MinterPage  from './MinterPage';
+import Rebuses from './components/Rebuses';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 
 function App() {
   return (
-    <MinterPage></MinterPage>
+
+    <Router>
+      <div>
+      <Switch>
+
+        <Route exact path="/">
+          <MinterPage></MinterPage>
+        </Route>
+
+        <Route exact path="/rebuses">
+          <Rebuses></Rebuses>
+        </Route>
+        
+      </Switch>
+      </div>
+    </Router>
+
   );
 }
 
