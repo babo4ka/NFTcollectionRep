@@ -1,43 +1,59 @@
 #back_to_minter_btn{
+    text-decoration: none;
+
     height: 50px;
 
     font-size: 25px;
 
-    color: white;
+    color: rgb(16, 0, 161);
 
-    background-color: rgba(36, 36, 36, 0);
+    background-color: rgba(0, 0, 0, 0.342);
+
+    text-align: center;
+
+    position: relative;
+}
+
+#back_to_minter_btn:after{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '';
+  
+  height: 1px;
 }
 
 #back_to_minter_btn:hover{
-    border: 1px solid white;
+  color: whitesmoke;
 }
 
-.shape1,
-.shape2 {
-  stroke-dasharray: 1120;
-  stroke-width: 5px;
-  fill: transparent;
-  stroke: #19f6e8;
-  border-bottom: 5px solid black;
-  transition-timing-function: linear;
-  transition: stroke-dashoffset 4s, stroke-dasharray 4s;
+#back_to_minter_btn:hover:after{
+  background-color: whitesmoke;
+  width: 100%;
+  -webkit-transition: width 1s ease-in-out;
+  -moz--transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out;
+
+  z-index: -1;
 }
-.shape1 {
-  stroke-dashoffset: 1120;
-}
-.shape2 {
-  stroke-dashoffset: -1120;
-}
+
 
 .btn_holder{
-    justify-content: center;
+  justify-content: center;
+
+  margin-top: 50px;
 }
 
 .text_holder{
-    justify-content: center;
+  justify-content: center;
+
+  margin-top: 50px;
 }
 
 #rebuses_info_txt{
-    text-align: center;
-    color: wheat;
+  text-align: center;
+  color: wheat;
 }
