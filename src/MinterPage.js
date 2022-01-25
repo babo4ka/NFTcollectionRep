@@ -5,8 +5,8 @@ import Examples from './components/Examples';
 import './MinterPage.scss';
 import SiteButton from './components/SiteButton';
 
-function MinterPage() {
-
+function MinterPage() { 
+  
   return (
     <div className="container-fluid">
 
@@ -23,7 +23,7 @@ function MinterPage() {
 
       <Examples/>
 
-      <h3 id="orders_txt">ORDERS FOR YOU</h3>
+      <h3 id="orders_txt">OFFERS FOR YOU</h3>
       <hr class="line"/>
 
       <div className="row welcomes">
