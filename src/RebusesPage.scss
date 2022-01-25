@@ -1,0 +1,43 @@
+#back_to_minter_btn{
+    height: 50px;
+
+    font-size: 25px;
+
+    color: white;
+
+    background-color: rgba(36, 36, 36, 0);
+}
+
+#back_to_minter_btn:hover{
+    border: 1px solid white;
+}
+
+.shape1,
+.shape2 {
+  stroke-dasharray: 1120;
+  stroke-width: 5px;
+  fill: transparent;
+  stroke: #19f6e8;
+  border-bottom: 5px solid black;
+  transition-timing-function: linear;
+  transition: stroke-dashoffset 4s, stroke-dasharray 4s;
+}
+.shape1 {
+  stroke-dashoffset: 1120;
+}
+.shape2 {
+  stroke-dashoffset: -1120;
+}
+
+.btn_holder{
+    justify-content: center;
+}
+
+.text_holder{
+    justify-content: center;
+}
+
+#rebuses_info_txt{
+    text-align: center;
+    color: wheat;
+}

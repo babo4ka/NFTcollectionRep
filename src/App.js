@@ -1,5 +1,5 @@
 import MinterPage  from './MinterPage';
-import Rebuses from './components/Rebuses';
+import RebusesPage from './RebusesPage';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -20,7 +20,7 @@ function App() {
         </Route>
 
         <Route exact path="/rebuses">
-          <Rebuses></Rebuses>
+          <RebusesPage></RebusesPage>
         </Route>
         
       </Switch>
