@@ -29,14 +29,48 @@
     font-weight: bold;
 
     border: black;
+
+    position: relative;
+
+    height: 42px;
 }
 
-.site_btn:hover{
-    background-color: rgba(59, 59, 59, 0.137);
+.site_btn::after{
+    content:'';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 42px;
+	background: rgb(0, 0, 0);
+	border-radius: 25px;
+	transition: all .3s ease-in-out;
+}
 
+.site_btn:hover::after{
+    width: 100%;
+    border: .5px solid white;
     color: white;
 
-    border: 1px solid white;
-
-    transform: scaleX(1.15) scaleY(1.15);
+    z-index: 1;
+    
 }
+
+
+.btn_text{
+    position: relative;
+    z-index: 2;
+    color: black;
+}
+
+
+
+// .site_btn:hover{
+//     background-color: rgba(59, 59, 59, 0.137);
+
+//     color: white;
+
+//     border: 1px solid white;
+
+//     transform: scaleX(1.15) scaleY(1.15);
+// }

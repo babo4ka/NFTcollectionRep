@@ -24,6 +24,10 @@
   width: 0%;
   content: '';
   
+  -webkit-transition: all .3s ease-in-out;
+  -moz--transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+
   height: 1px;
 }
 
@@ -34,9 +38,7 @@
 #back_to_minter_btn:hover:after{
   background-color: whitesmoke;
   width: 100%;
-  -webkit-transition: width 1s ease-in-out;
-  -moz--transition: width 1s ease-in-out;
-  transition: width 1s ease-in-out;
+
 
   z-index: -1;
 }
