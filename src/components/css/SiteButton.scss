@@ -47,13 +47,15 @@
 	transition: all .3s ease-in-out;
 }
 
-.site_btn:hover::after{
+.site_btn:hover::after {
     width: 100%;
     border: .5px solid white;
-    color: white;
 
     z-index: 1;
-    
+}
+
+.site_btn:hover .btn_text{
+    color: white;
 }
 
 
@@ -61,7 +63,11 @@
     position: relative;
     z-index: 2;
     color: black;
+
+    // height: inherit;
 }
+
+
 
 
 
