@@ -5,7 +5,7 @@
 
     font-size: 25px;
 
-    color: rgb(16, 0, 161);
+    color: rgb(94, 94, 94);
 
     background-color: rgba(0, 0, 0, 0.342);
 
@@ -13,6 +13,7 @@
 
     position: relative;
 }
+
 
 #back_to_minter_btn:after{
   position: absolute;
@@ -57,3 +58,33 @@
   text-align: center;
   color: wheat;
 }
+
+.cards_holder{
+  margin-top: 50px;
+}
+
+.cards_row{
+  justify-content: center;
+}
+
+.rebus_body{
+  margin: 25px 10px;
+}
+
+
+.rebus_number{
+
+
+  font-size: 55px;
+
+  font-weight: bolder;
+}
+
+.rebus_desc{
+
+
+  font-size: 15px;
+
+  font-weight: bolder;
+}
+

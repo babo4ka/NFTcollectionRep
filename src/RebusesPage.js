@@ -1,6 +1,19 @@
 import SiteButton from "./components/SiteButton";
 import './RebusesPage.scss';
 
+const Rebus = (props)=>{
+
+    return(
+        <div className="card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 rebus_body">
+            <div className="card-body card_body">
+                <h1 className="rebus_number">#{props.number}</h1>
+                <p className="card-text rebus_desc">Try to solve this rebus for 2 MATIC and get one SYM</p>
+                <SiteButton text="open rebus"></SiteButton>
+            </div>
+        </div>
+    )
+}
+
 const RebusesPage = ()=>{
     return(
         <div className="container">
@@ -11,6 +24,29 @@ const RebusesPage = ()=>{
     
             <div className="row text_holder">
                 <span id="rebuses_info_txt" className="col-sm-6">тут будет инфа о ребусах)0)</span>
+            </div>
+
+            <div className="container cards_holder">
+                <div className="row cards_row">
+                    <Rebus number="1"></Rebus>
+                    <Rebus number="2"></Rebus>
+                    <Rebus number="3"></Rebus>
+                    <Rebus number="4"></Rebus>
+                    <Rebus number="5"></Rebus>
+                    <Rebus number="6"></Rebus>
+                    <Rebus number="7"></Rebus>
+                    <Rebus number="8"></Rebus>
+                    <Rebus number="9"></Rebus>
+                    <Rebus number="10"></Rebus>
+                    <Rebus number="11"></Rebus>
+                    <Rebus number="12"></Rebus>
+                    <Rebus number="13"></Rebus>
+                    <Rebus number="14"></Rebus>
+                    <Rebus number="15"></Rebus>
+                    <Rebus number="16"></Rebus>
+                    <Rebus number="17"></Rebus>
+                    <Rebus number="18"></Rebus>
+                </div>
             </div>
         </div>
     )

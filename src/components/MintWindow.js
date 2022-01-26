@@ -20,9 +20,9 @@ const MintWindow = (props) =>{
 
 
         <div className="row minter_item" id="amount_chooser">
-            <SiteButton isLeading={false} cn="amount_btn col-sm-auto an1" text="-"></SiteButton>
+            <SiteButton isLeading={false} cn="amount_btn col-sm-auto" text="-"></SiteButton>
             <h4 className="col-sm-auto">0</h4>
-            <SiteButton isLeading={false} cn="amount_btn col-sm-auto an1" text="+"></SiteButton>
+            <SiteButton isLeading={false} cn="amount_btn col-sm-auto" text="+"></SiteButton>
         </div>
 
 
@@ -31,7 +31,7 @@ const MintWindow = (props) =>{
         </div>
 
         {/* <button id="mint_btn" className="btn btn-primary minter_item">MINT/CONNECT WALLET</button> */}
-        <SiteButton isLeading={false} cn="mint_btn an1" text="MINT/CONNECT WALLET"></SiteButton>
+        <SiteButton isLeading={false} cn="mint_btn" text="MINT/CONNECT WALLET"></SiteButton>
 
         <div id="info_line" className="minter_item">
             some onformation
