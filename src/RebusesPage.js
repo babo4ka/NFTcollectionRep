@@ -2,13 +2,20 @@ import SiteButton from "./components/SiteButton";
 import './RebusesPage.scss';
 
 const Rebus = (props)=>{
-
+    const ttt = false;
     return(
         <div className="card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 rebus_body">
             <div className="card-body card_body">
                 <h1 className="rebus_number">#{props.number}</h1>
                 <p className="card-text rebus_desc">Try to solve this rebus for 2 MATIC and get one SYM</p>
-                <SiteButton text="open rebus"></SiteButton>
+                <SiteButton cn="fillable" text="open rebus"></SiteButton>
+                {ttt==true?
+                (
+                <div>Is being solved now...</div>
+                ):
+                ("")
+                }
+                
             </div>
         </div>
     )

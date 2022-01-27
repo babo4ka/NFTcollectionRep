@@ -31,7 +31,7 @@ const MintWindow = (props) =>{
         </div>
 
         {/* <button id="mint_btn" className="btn btn-primary minter_item">MINT/CONNECT WALLET</button> */}
-        <SiteButton isLeading={false} cn="mint_btn" text="MINT/CONNECT WALLET"></SiteButton>
+        <SiteButton isLeading={false} cn="mint_btn fillable" text="MINT/CONNECT WALLET"></SiteButton>
 
         <div id="info_line" className="minter_item">
             some onformation

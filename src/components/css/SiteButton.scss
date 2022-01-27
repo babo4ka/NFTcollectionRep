@@ -1,18 +1,17 @@
-.amount_btn{
-    border-radius: 50%;
+.amount_btn:hover{
+    background-color: black;
 
-    width: 40px;
-    height: 40px;
+    color: white;
 
-    margin: 0 15px;
+    border: 1px solid white;
 }
 
 .mint_btn{
-    border-radius: 25px;
+    // border-radius: 25px;
 }
 
 .order_btn{
-    border-radius: 15px;
+    // border-radius: 25px;
 
     padding: 25px;
 
@@ -22,6 +21,8 @@
 }
 
 .site_btn{
+    border-radius: 10px;
+
     background-color: rgb(230, 216, 216);
 
     color: black;
@@ -30,24 +31,35 @@
 
     border: black;
 
-    position: relative;
-
-    height: 42px;
+    height: 40px;
 }
 
-.site_btn::after{
+.amount_btn{
+    border-radius: 50%;
+
+    width: 40px;
+    height: 40px;
+
+    margin: 0 15px;
+}
+
+.fillable{
+    position: relative;
+}
+
+.fillable::after{
     content:'';
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 0;
-	height: 42px;
+	height: 100%;
 	background: rgb(0, 0, 0);
-	border-radius: 25px;
+	border-radius: 10px;
 	transition: all .3s ease-in-out;
 }
 
-.site_btn:hover::after {
+.fillable:hover::after{
     width: 100%;
     border: .5px solid white;
 
@@ -64,7 +76,7 @@
     z-index: 2;
     color: black;
 
-    // height: inherit;
+    margin: 0px 10px;
 }
 
 

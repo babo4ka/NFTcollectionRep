@@ -90,3 +90,21 @@
   font-weight: bolder;
 }
 
+.rebus_body{
+  background-color: rgb(0, 0, 0);
+
+  box-shadow: 15px 15px 55px inset rgba(0, 0, 255, 0.26);
+
+  border: 1px solid white;
+
+  border-radius: 10px;
+
+  
+  color: rgb(255, 255, 255);
+}
+
+.rebus_body:hover{
+  transform: scaleX(1.25) scaleY(1.25);
+
+  z-index: 2;
+}

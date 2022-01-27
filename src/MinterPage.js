@@ -34,7 +34,7 @@ function MinterPage() {
             <br/>
             <h3>1 month, 1 week or even 1 hour as much as you want</h3>
             <br/>
-            <SiteButton isLeading={true} page="/" cn="order_btn an1" text="READ MORE"></SiteButton>
+            <SiteButton isLeading={true} page="/" cn="order_btn fillable" text="READ MORE"></SiteButton>
 
         </div>
 
@@ -45,7 +45,7 @@ function MinterPage() {
             <br/>
             <h3 >Just solve one of proposed rebuses and get one SYM</h3>
             <br/>
-            <SiteButton isLeading={true} page="/rebuses" cn="order_btn an1" text="Let's try!"></SiteButton>
+            <SiteButton isLeading={true} page="/rebuses" cn="order_btn fillable" text="Let's try!"></SiteButton>
 
         </div>
       </div>
