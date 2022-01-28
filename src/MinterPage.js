@@ -3,7 +3,7 @@ import AdvertisementBoard from './components/AdvertisementBoard';
 import Examples from './components/Examples';
 
 import './MinterPage.scss';
-import SiteButton from './components/SiteButton';
+import SiteButton, {PageButton} from './components/SiteButton';
 
 function MinterPage() { 
   
@@ -34,7 +34,7 @@ function MinterPage() {
             <br/>
             <h3>1 month, 1 week or even 1 hour as much as you want</h3>
             <br/>
-            <SiteButton isLeading={true} page="/" cn="order_btn fillable" text="READ MORE"></SiteButton>
+            <PageButton page="/" cn="order_btn fillable" text="READ MORE"></PageButton>
 
         </div>
 
@@ -45,7 +45,7 @@ function MinterPage() {
             <br/>
             <h3 >Just solve one of proposed rebuses and get one SYM</h3>
             <br/>
-            <SiteButton isLeading={true} page="/rebuses" cn="order_btn fillable" text="Let's try!"></SiteButton>
+            <PageButton page="/rebuses" cn="order_btn fillable" text="Let's try!"></PageButton>
 
         </div>
       </div>
