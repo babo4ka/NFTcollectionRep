@@ -41,15 +41,6 @@ const Rebus = (props) =>{
 
 export default class RebusesPage extends Component{
 
-    constructor(props){
-        super(props);
-
-        this.state={
-            rebusNumber:1
-        }
-    }
-
-
     render(){
         return(
             <div className="container">
@@ -84,7 +75,7 @@ export default class RebusesPage extends Component{
                     </div>
                 </div>
     
-                <RebusWindow number={this.state.rebusNumber}></RebusWindow>
+                <RebusWindow></RebusWindow>
             </div>
         )
     }

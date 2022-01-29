@@ -1,4 +1,10 @@
 import React , {Component} from 'react';
+import './css/RebusWindow.scss';
+
+
+
+function $(x) {return document.getElementById(x);}
+
 
 export default class RebusWindow extends Component{
 
@@ -14,17 +20,21 @@ export default class RebusWindow extends Component{
         return(
             <div class="modal fade" id="rebusWindow" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
+                    <div class="modal-content rebus_content">
+
+                        <div className="rebus_header">
                             <h5 class="modal-title" id="exampleModalLabel">#</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                         </div>
                         
-                        <div class="modal-body">
-                            hello world
+                        <div className="rebus_main_content">
+                            
+                            <div className="exmpl">1</div>
+                            <div className="exmpl">2</div>
+                            <div className="exmpl">3</div>
+
                         </div>
 
-                        <div class="modal-footer">
+                        <div>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                             <button type="button" class="btn btn-primary">Сохранить изменения</button>
                         </div>
