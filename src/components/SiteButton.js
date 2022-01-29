@@ -19,7 +19,13 @@ export function OpenRebusButton(props){
     const btn_class_name = "site_btn " + props.cn;
 
     return(
-        <button data-bs-toggle={props.data_bs_toggle} data-bs-target={props.data_bs_target} id={props.id} className={btn_class_name}>
+        <button 
+        onClick={props.setNumber} 
+        data-bs-toggle={props.data_bs_toggle} 
+        data-bs-target={props.data_bs_target} 
+        data-bs-whatever={props.data_bs_whatever}
+        id={props.id} 
+        className={btn_class_name}>
             <div className="btn_text">{props.text}</div>
         </button>
     )
