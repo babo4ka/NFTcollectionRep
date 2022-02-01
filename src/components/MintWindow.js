@@ -3,6 +3,8 @@ import SiteButton from './SiteButton';
 
 const MintWindow = (props) =>{
     const objClassName = "container mint_window " + props.cn;
+
+
     return(
         <div className={objClassName}>
         
@@ -20,9 +22,9 @@ const MintWindow = (props) =>{
 
 
         <div className="row minter_item" id="amount_chooser">
-            <SiteButton isLeading={false} cn="amount_btn col-sm-auto" text="-"></SiteButton>
+            <SiteButton cn="amount_btn col-sm-auto" text="-"></SiteButton>
             <h4 className="col-sm-auto">0</h4>
-            <SiteButton isLeading={false} cn="amount_btn col-sm-auto" text="+"></SiteButton>
+            <SiteButton cn="amount_btn col-sm-auto" text="+"></SiteButton>
         </div>
 
 
@@ -31,7 +33,7 @@ const MintWindow = (props) =>{
         </div>
 
         {/* <button id="mint_btn" className="btn btn-primary minter_item">MINT/CONNECT WALLET</button> */}
-        <SiteButton isLeading={false} cn="mint_btn fillable" text="MINT/CONNECT WALLET"></SiteButton>
+        <SiteButton id="mint_btn" cn="mint_btn fillable" text="MINT/CONNECT WALLET"></SiteButton>
 
         <div id="info_line" className="minter_item">
             some onformation

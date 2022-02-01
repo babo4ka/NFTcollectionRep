@@ -34,6 +34,14 @@
     height: 40px;
 }
 
+.site_btn:disabled{
+    background-color: gray;
+}
+
+.site_btn:disabled .btn_text{
+    color: rgb(182, 182, 182);
+}
+
 .amount_btn{
     border-radius: 50%;
 
@@ -66,7 +74,7 @@
     z-index: 1;
 }
 
-.site_btn:hover .btn_text{
+.site_btn:hover .btn_text_fill{
     color: white;
 }
 
@@ -79,16 +87,10 @@
     margin: 0px 10px;
 }
 
+// .disabled_btn{
+//     background-color: gray;
+// }
 
-
-
-
-// .site_btn:hover{
-//     background-color: rgba(59, 59, 59, 0.137);
-
-//     color: white;
-
-//     border: 1px solid white;
-
-//     transform: scaleX(1.15) scaleY(1.15);
+// .btn_text_disabled{
+//     color: rgb(155, 155, 155);
 // }
