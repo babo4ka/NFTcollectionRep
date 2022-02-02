@@ -34,11 +34,7 @@ function MinterPage() {
             <br/>
             <h3>1 month, 1 week or even 1 hour as much as you want</h3>
             <br/>
-<<<<<<< HEAD
-            <SiteButton isLeading={true} page="/adsorder" cn="order_btn fillable" text="READ MORE"></SiteButton>
-=======
-            <PageButton page="/" cn="order_btn fillable" text="READ MORE"></PageButton>
->>>>>>> rebus-window-start
+            <PageButton page="/adsorder" cn="order_btn fillable" text="READ MORE"></PageButton>
 
         </div>
 

@@ -9,7 +9,7 @@ export function PageButton(props){
 
     return(
         <button id={props.id} onClick={()=>goToPage()} className={btn_class_name}>
-            <div className="btn_text">{props.text}</div>
+            <div className="btn_text btn_text_fill">{props.text}</div>
         </button>
     )
 }
@@ -26,7 +26,7 @@ export function OpenRebusButton(props){
         data-bs-whatever={props.data_bs_whatever}
         id={props.id} 
         className={btn_class_name}>
-            <div className="btn_text">{props.text}</div>
+            <div className="btn_text btn_text_fill">{props.text}</div>
         </button>
     )
 }
