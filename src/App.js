@@ -6,6 +6,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import AdvertismentForm from './AdvertismentForm';
 
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
 
         <Route exact path="/rebuses">
           <RebusesPage></RebusesPage>
+        </Route>
+
+        <Route exact path="/adsorder">
+          <AdvertismentForm></AdvertismentForm>
         </Route>
         
       </Switch>

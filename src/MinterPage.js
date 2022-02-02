@@ -34,7 +34,7 @@ function MinterPage() {
             <br/>
             <h3>1 month, 1 week or even 1 hour as much as you want</h3>
             <br/>
-            <SiteButton isLeading={true} page="/" cn="order_btn fillable" text="READ MORE"></SiteButton>
+            <SiteButton isLeading={true} page="/adsorder" cn="order_btn fillable" text="READ MORE"></SiteButton>
 
         </div>
 
