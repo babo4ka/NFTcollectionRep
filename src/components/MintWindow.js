@@ -22,9 +22,9 @@ const MintWindow = (props) =>{
 
 
         <div className="row minter_item" id="amount_chooser">
-            <SiteButton cn="amount_btn col-sm-auto" text="-"></SiteButton>
+            <SiteButton cn="amount_btn col-sm-auto" tn="btn_text_amount" text="-"></SiteButton>
             <h4 className="col-sm-auto">0</h4>
-            <SiteButton cn="amount_btn col-sm-auto" text="+"></SiteButton>
+            <SiteButton cn="amount_btn col-sm-auto" tn="btn_text_amount" text="+"></SiteButton>
         </div>
 
 

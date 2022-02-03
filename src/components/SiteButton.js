@@ -31,14 +31,14 @@ export function OpenRebusButton(props){
     )
 }
 
-
 const SiteButton = (props)=>{
     const btn_class_name = "site_btn " + props.cn;
+    const text_class_name = "btn_text btn_text_fill " + props.tn;
 
 
     return(
         <button id={props.id} className={btn_class_name}>
-            <div className="btn_text btn_text_fill">{props.text}</div>
+            <div className={text_class_name}>{props.text}</div>
         </button>
     )
 }

@@ -15,3 +15,82 @@
     height: 150px;
     width: 100%;
 }
+
+#line{
+    margin-top: 40px;
+
+    height: 2px;
+
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    border-radius: 15px;
+}
+
+.holder{
+    min-height: 150px;
+    color: white;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+
+@media (min-width: 768px) {
+    .btns_holder{
+        text-align: right;
+     }
+}
+
+
+#description_area{
+    width: 100%;
+    height: 85px;
+
+    font-size: 13px;
+
+    resize: none;
+
+    border-radius: 5px;
+}
+
+.amount_btns{
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.dur_btn{
+    height: 35px;
+    width: 35px;
+}
+
+.form_btn{
+    margin: 15px 5px;
+    max-width: 150px;
+
+    height: 50px;
+
+    background-color: black;
+
+    border: 2px solid white;
+}
+
+
+.form_btn_text{
+    color: white;
+}
+
+#reset_btn{
+    box-shadow: inset -10px 10px 25px #710000;
+}
+
+#reset_btn:hover{
+    box-shadow: inset -10px 10px 25px #d30000;
+}
+
+#submit_btn{
+    box-shadow: inset -10px 10px 25px #00095A;
+}
+
+#submit_btn:hover{
+    box-shadow: inset -10px 10px 25px #3443ce;
+}

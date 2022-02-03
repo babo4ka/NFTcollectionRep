@@ -44,7 +44,7 @@ export default class RebusesPage extends Component{
     render(){
         return(
             <div className="container">
-                    <div class="row btn_holder">
+                <div class="row btn_holder">
                     <a href="/" className="col-sm-6" id="back_to_minter_btn">Back to minter page</a>
                 </div>
         
