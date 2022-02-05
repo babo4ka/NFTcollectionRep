@@ -6,7 +6,7 @@
 
     color: bisque;
 
-    margin-top: 150px;
+    margin-top: 100px;
 
     min-height: 250px;
 }
@@ -94,3 +94,58 @@
 #submit_btn:hover{
     box-shadow: inset -10px 10px 25px #3443ce;
 }
+
+.form_footer{
+    min-height: 50px;
+
+    margin-bottom: 15px;
+}
+
+#price_text{
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+@media (max-width:991px){
+    .form_footer{
+        text-align: center;
+    }
+}
+
+#add_btn_box{
+    text-align: right;
+}
+
+#add_btn_block{
+    background-color: black;
+    box-shadow: inset -10px 10px 25px #5A007A;
+
+    border: 2px solid white;
+
+    border-radius: 15px;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+    height: 40px;
+}
+
+#add_btn_block:hover{
+    box-shadow: inset -10px 10px 25px #8d00c0;
+    cursor: pointer;
+}
+
+#add_txt{
+    padding: 5px;
+    text-align: center;
+}
+
+
+#add_icon{
+    font-size: 20px;
+}
+
