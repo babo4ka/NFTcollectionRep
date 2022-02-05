@@ -1,8 +1,18 @@
 import './AdvertismentForm.scss';
 import SiteButton from './components/SiteButton';
+import { useState } from 'react';
 
 const AdvertismentForm = ()=>{
 
+    
+    const [plus, setPlus] = useState("+");
+    function add_rem(){
+        if(plus == "+"){
+            setPlus("-");
+        }else{
+            setPlus("+");
+        }
+    }
     
     return(
         <div className="container">
@@ -75,16 +85,37 @@ const AdvertismentForm = ()=>{
 
                             <div className="col-12 col-lg-5 form_footer" id="add_btn_box">
                                 {/* <SiteButton id="add_btn" cn="" tn="add_btn_txt" text="Additional options"></SiteButton> */}
-                                <div className="container">
-                                    <div className="row" id="add_btn_block">
+                                <button 
+                                onClick={()=>add_rem()}
+                                className="container" 
+                                data-bs-toggle="collapse"
+                                data-bs-target="#link_add_form" 
+                                id="add_btn_block"
+                                >
+                                    <div className="row">
                                         <div className="col-9 col-md-7 col-lg-9 text-truncate" id="add_txt">Additional options</div>
-                                        <div className="col-3 col-md-5 col-lg-3" id="add_icon">+</div>
+                                        <div className="col-3 col-md-5 col-lg-3" id="add_icon">{plus}</div>
                                     </div>
-                                </div>
+                                </button>
                             </div>
                         </div>
 
                     </div>
+                    
+                    <div className="row link_add_form_box">
+                        <div className="collapse col-md-12" id="link_add_form">
+                            <div className="link_add_form_item">Place link to Your project below(+10% to the price)</div>
+                            
+                            <input 
+                            id="link_to_website_input" 
+                            className="link_add_form_item" 
+                            type="text" 
+                            placeholder='Link to the website'></input>
+                    </div>
+                    
+                    </div>
+
+                    
                 
                 </div>
 
