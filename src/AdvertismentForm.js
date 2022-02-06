@@ -1,19 +1,77 @@
 import './AdvertismentForm.scss';
 import SiteButton from './components/SiteButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const AdvertismentForm = ()=>{
 
-    
     const [plus, setPlus] = useState("+");
+
     function add_rem(){
         if(plus == "+"){
             setPlus("-");
+            setPerc(0.1);
         }else{
             setPlus("+");
+            setPerc(0);
         }
     }
+
+    const [file, setFile] = useState(undefined);
+    const [imgUrl, setImgUrl] = useState(undefined);
+
+    function loadImg(e){
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () =>{
+            setFile(file);
+            setImgUrl(reader.result);
+        }
+
+        reader.readAsDataURL(file);   
+    }
+
+    const ImagePreview = () =>{
+        return(
+            file == undefined?(
+                <div id="load_image_empty">
+                    Load image
+                </div>
+            ):(
+                <img src={imgUrl} className="img-fluid" id="image_prev"></img>
+            )
+        )
+    }
     
+    const [durationCount, setDurationCount] = useState(1);
+    const [durationType, setDurationType] = useState('hours');
+    const durationTypeMap = new Map(([
+        ['hours', 1],
+        ['12 hours', 10],
+        ['days', 15],
+        ['weeks', 80],
+        ['months', 250]
+    ]));
+
+
+    //выбор типа продолжительности
+    function calcAdsType(){
+        var type = document.getElementById('duration_form').value;
+        setDurationType(type);
+        
+    }
+    //выбор количества продолжительности
+    function calcDurationCount(action){
+        if(action == '+'){
+            setDurationCount(durationCount+1);
+        }else{
+            if(durationCount != 1)
+            setDurationCount(durationCount-1);
+        }
+    }
+
+    const [perc, setPerc] = useState(0);
+
     return(
         <div className="container">
 
@@ -25,13 +83,14 @@ const AdvertismentForm = ()=>{
 
                 <div className="container col-md-7" id="form_holder">
                     
-                    <div className="row">
-                        <div className="col-4">
-                            <h3>Input image of Your product:</h3>
+                    <div className="row" id="image_input_holder">
+                        <div className="col-12 col-md-4">
+                            <h4 id="input_image_txt">Input image of Your product:</h4>
                         </div>
-                        <div className="col-8 row">
-                            <image src="#" id="image_prev"></image>
-                            <input  id="image_load" type="file"></input>
+                        <div className="col-12 col-md-8 row">
+                            <ImagePreview></ImagePreview>
+                            <label id="image_load_label" for="image_load">Browse...</label>
+                            <input onChange={(e)=>loadImg(e)} id="image_load" type="file"></input>
                         </div>
                     </div>
 
@@ -54,18 +113,23 @@ const AdvertismentForm = ()=>{
                             <div className="col-md-4 duration_holder holder">
                                 <p>Choose show duration</p>
 
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Hours</option>
-                                    <option value="1">12 hours</option>
-                                    <option value="2">Days</option>
-                                    <option value="3">Weeks</option>
-                                    <option value="4">Months</option>
+                                <select 
+                                class="form-select" 
+                                aria-label="Default select example"
+                                id="duration_form"
+                                onChange={calcAdsType}
+                                >
+                                    <option class="dur_item" value="hours" selected>Hours</option>
+                                    <option class="dur_item" value="12 hours">12 hours</option>
+                                    <option class="dur_item" value="days">Days</option>
+                                    <option class="dur_item" value="weeks">Weeks</option>
+                                    <option class="dur_item" value="months">Months</option>
                                 </select>
 
                                 <div className="row amount_btns">
-                                    <SiteButton cn="amount_btn col-4 dur_btn" tn="btn_text_amount" text="-"></SiteButton>
-                                    <h4 className="col-4">0</h4>
-                                    <SiteButton cn="amount_btn col-4 dur_btn" tn="btn_text_amount" text="+"></SiteButton>
+                                    <SiteButton func={()=>calcDurationCount('-')} cn="amount_btn col-4 dur_btn" tn="btn_text_amount" text="-"></SiteButton>
+                                    <h4 className="col-4">{durationCount}</h4>
+                                    <SiteButton func={()=>calcDurationCount('+')} cn="amount_btn col-4 dur_btn" tn="btn_text_amount" text="+"></SiteButton>
                                 </div>
                             </div>
 
@@ -80,11 +144,12 @@ const AdvertismentForm = ()=>{
 
                         <div className="row">
                             <div className="col-12 col-lg-7 form_footer" id="price_text">
-                                <h5>Your price now is cost*time MATIC</h5>
+                                <h5>Your price now is {(durationTypeMap.get(durationType) * durationCount) 
+                                    +
+                                    (durationTypeMap.get(durationType) * durationCount * perc)} MATIC</h5>
                             </div>
 
                             <div className="col-12 col-lg-5 form_footer" id="add_btn_box">
-                                {/* <SiteButton id="add_btn" cn="" tn="add_btn_txt" text="Additional options"></SiteButton> */}
                                 <button 
                                 onClick={()=>add_rem()}
                                 className="container" 

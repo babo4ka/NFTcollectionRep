@@ -37,7 +37,7 @@ const SiteButton = (props)=>{
 
 
     return(
-        <button id={props.id} className={btn_class_name}>
+        <button onClick={props.func} id={props.id} className={btn_class_name}>
             <div className={text_class_name}>{props.text}</div>
         </button>
     )
