@@ -9,7 +9,7 @@
 
     min-height: 250px;
 
-    box-shadow: 0px 0px 10px white;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
 }
 
 #image_input_holder{
@@ -111,7 +111,7 @@
     border: none;
     background-color: rgba(0, 0, 0, 0.09);
     border-radius: 7px;
-    box-shadow: 0px 0px 5px white;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
     color: white;
 }
 
@@ -145,7 +145,7 @@
 }
 
 #reset_btn{
-    box-shadow: inset -10px 10px 25px#4e0000;
+    box-shadow: inset -10px 10px 25px#790000;
 }
 
 #reset_btn:hover{
@@ -153,11 +153,11 @@
 }
 
 #submit_btn{
-    box-shadow: inset -10px 10px 25px #00095A;
+    box-shadow: inset -10px 10px 25px #000d81;
 }
 
 #submit_btn:hover{
-    box-shadow: inset -15px 15px 25px #0011a8;
+    box-shadow: inset -15px 15px 25px #0013bd;
 }
 
 .form_footer{
@@ -184,7 +184,7 @@
 
 #add_btn_block{
     background-color: rgba(0, 0, 0, 0.09);
-    box-shadow: inset -10px 10px 25px #5A007A;
+    box-shadow: inset -10px 10px 25px #6b0092;
 
     border-radius: 15px;
 

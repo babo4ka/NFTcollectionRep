@@ -26,6 +26,7 @@
     color: rgb(230, 216, 216);
 }
 
+
 #orders_txt{
     margin-top: 50px;
     text-align: center;
@@ -39,9 +40,9 @@
 .welcome_page{
     min-height: 250px;
 
-    background-color: #181B32;
+    background-color: #181b32af;
 
-    border: 1px solid black;
+    border-radius: 10px;
 
     margin: 15px 30px;
 
@@ -66,9 +67,9 @@
 }
 
 #ads_order{
-    box-shadow: inset 45px 71px 63px rgba(8, 0, 50, 0.25);
+    box-shadow: inset 45px 71px 63px rgba(8, 0, 50, 0.25), 0px 0px 5px rgb(0, 0, 0);
 }
 
 #rebus_welc{
-    box-shadow: inset -45px 73px 63px rgba(0, 0, 0, 0.25);
+    box-shadow: inset -45px 73px 63px rgba(0, 0, 0, 0.25), 0px 0px 5px rgb(0, 0, 0);
 }
