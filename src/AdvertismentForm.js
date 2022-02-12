@@ -95,18 +95,6 @@ const AdvertismentForm = ()=>{
         }
     }
 
-    useEffect(()=>{
-        image_load_field.addEventListener("click", ()=>{
-            image_load_field.classList.remove("empty_field_required");
-        });
-        description_input_field.addEventListener("click", ()=>{
-            description_input_field.classList.remove("empty_field_nonrequired");
-        });
-
-        link_to_website_input_field.addEventListener("click", ()=>{
-            link_to_website_input_field.classList.remove("empty_field_required");
-        });
-    }, [])
 
 
     return(
@@ -132,6 +120,7 @@ const AdvertismentForm = ()=>{
                             onChange={(e)=>loadImg(e)} 
                             id="image_load" 
                             type="file"
+                            onClick={()=>image_load_field.classList.remove("empty_field_required")}
                             ></input>
                         </div>
                     </div>
@@ -148,6 +137,7 @@ const AdvertismentForm = ()=>{
                                 maxLength={150} 
                                 placeholder='Put your description(150 symbols max)'
                                 id="description_area"
+                                onClick={()=>description_input_field.classList.remove("empty_field_nonrequired")}
                                 ></textarea>
                                 </p>
                             </div>
@@ -217,7 +207,9 @@ const AdvertismentForm = ()=>{
                             id="link_to_website_input" 
                             className="link_add_form_item"
                             type="text" 
-                            placeholder='Link to the website'></input>
+                            placeholder='Link to the website'
+                            onClick={()=> link_to_website_input_field.classList.remove("empty_field_required")}
+                            ></input>
                     </div>
                     
                     </div>
