@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 const AdvertismentForm = ()=>{
 
+    //плюс/минус на кнопке доп функций
     const [plus, setPlus] = useState("+");
 
     function add_rem(){
@@ -16,6 +17,7 @@ const AdvertismentForm = ()=>{
         }
     }
 
+    //картинка проекта
     const [file, setFile] = useState(undefined);
     const [imgUrl, setImgUrl] = useState(undefined);
 
@@ -43,6 +45,7 @@ const AdvertismentForm = ()=>{
         )
     }
     
+    //продолжительность показа рекламы
     const [durationCount, setDurationCount] = useState(1);
     const [durationType, setDurationType] = useState('hours');
     const durationTypeMap = new Map(([
@@ -69,8 +72,42 @@ const AdvertismentForm = ()=>{
             setDurationCount(durationCount-1);
         }
     }
-
+    //процент добавления к цене при доп опциях
     const [perc, setPerc] = useState(0);
+
+    const image_load_field = document.getElementById("image_load_label");
+
+    const description_input_field = document.getElementById("description_area");
+
+    const link_to_website_input_field = document.getElementById("link_to_website_input");
+
+    function writetocon(){
+        if(description_input_field.value == ""){
+            description_input_field.classList.add("empty_field_nonrequired");
+        }
+
+        if(plus == "-" && link_to_website_input_field.value == ""){
+            link_to_website_input_field.classList.add("empty_field_required");
+        }
+
+        if(document.getElementById("image_load").value == ""){
+            image_load_field.classList.add("empty_field_required");
+        }
+    }
+
+    useEffect(()=>{
+        image_load_field.addEventListener("click", ()=>{
+            image_load_field.classList.remove("empty_field_required");
+        });
+        description_input_field.addEventListener("click", ()=>{
+            description_input_field.classList.remove("empty_field_nonrequired");
+        });
+
+        link_to_website_input_field.addEventListener("click", ()=>{
+            link_to_website_input_field.classList.remove("empty_field_required");
+        });
+    }, [])
+
 
     return(
         <div className="container">
@@ -90,7 +127,12 @@ const AdvertismentForm = ()=>{
                         <div className="col-12 col-md-8 row">
                             <ImagePreview></ImagePreview>
                             <label id="image_load_label" for="image_load">Browse...</label>
-                            <input onChange={(e)=>loadImg(e)} id="image_load" type="file"></input>
+                            <input 
+                            accept='.jpg,.jpeg,.png' 
+                            onChange={(e)=>loadImg(e)} 
+                            id="image_load" 
+                            type="file"
+                            ></input>
                         </div>
                     </div>
 
@@ -136,7 +178,7 @@ const AdvertismentForm = ()=>{
                             <div className="col-md-4 btns_holder holder">
                                 <div classname="row form_btns">
                                     <SiteButton cn="col-md-12 form_btn" tn="form_btn_text" id="reset_btn" text="Reset"></SiteButton>
-                                    <SiteButton cn="col-md-12 form_btn" tn="form_btn_text" id="submit_btn" text="Submit"></SiteButton>
+                                    <SiteButton func={()=>writetocon()} cn="col-md-12 form_btn" tn="form_btn_text" id="submit_btn" text="Submit"></SiteButton>
                                 </div>
                             </div>
 
@@ -173,7 +215,7 @@ const AdvertismentForm = ()=>{
                             
                             <input 
                             id="link_to_website_input" 
-                            className="link_add_form_item" 
+                            className="link_add_form_item"
                             type="text" 
                             placeholder='Link to the website'></input>
                     </div>

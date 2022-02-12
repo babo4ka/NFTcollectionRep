@@ -25,7 +25,7 @@
 }
 
 #load_image_empty{
-    background-color: rgba(128, 128, 128, 0.274);
+    background-color: rgba(78, 78, 78, 0.274);
     min-height: 100%;
 
     font-weight: bolder;
@@ -36,7 +36,6 @@
 }
 
 #image_load_label{
-
     height: 30px;
 }
 
@@ -256,4 +255,12 @@
     border-bottom: 1px solid #03a9f4;
     box-shadow: none;
     background-color: rgba(238, 238, 238, 0);
-  }
+}
+
+.empty_field_required{
+    box-shadow: 0px 0px 10px rgb(192, 0, 0);
+}
+
+.empty_field_nonrequired{
+    box-shadow: 0px 0px 10px rgb(112, 114, 14)
+}
