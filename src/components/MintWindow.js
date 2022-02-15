@@ -4,7 +4,6 @@ import SiteButton from './SiteButton';
 const MintWindow = (props) =>{
     const objClassName = "container mint_window " + props.cn;
 
-
     return(
         <div className={objClassName}>
         

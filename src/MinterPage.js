@@ -5,7 +5,11 @@ import Examples from './components/Examples';
 import './MinterPage.scss';
 import SiteButton, {PageButton} from './components/SiteButton';
 
+import { useEffect } from 'react';
+
+
 function MinterPage() { 
+
   
   return (
     <div className="container-fluid">

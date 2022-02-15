@@ -75,6 +75,7 @@ const AdvertismentForm = ()=>{
     //процент добавления к цене при доп опциях
     const [perc, setPerc] = useState(0);
 
+
     const image_load_field = document.getElementById("image_load_label");
 
     const description_input_field = document.getElementById("description_area");
