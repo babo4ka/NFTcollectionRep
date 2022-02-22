@@ -5,10 +5,65 @@ import Examples from './components/Examples';
 import './MinterPage.scss';
 import SiteButton, {PageButton} from './components/SiteButton';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { 
+  connectWallet, 
+  getCurrentWalletConnected
+  } from './utils/interact';
 
 function MinterPage() { 
+
+  const [wallet, setWallet] = useState();
+  const [status, setStatus] = useState();
+
+  useEffect(async()=>{
+    const {address, status} = await getCurrentWalletConnected();
+    setWallet(address);
+    setStatus(status);
+
+    addWalletListener();
+  }, [])
+
+  function addWalletListener() {
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length > 0) {
+          setWallet(accounts[0]);
+        } else {
+          setWallet("");
+        }
+      });
+    } else {
+
+    }
+  }
+
+  const connectWalletPressed = async () => {
+    const walletResponse = await connectWallet();
+    setStatus(walletResponse.status);
+    setWallet(walletResponse.address);
+};
+
+  const [mintAmount, setMintAmount] = useState(1);
+  const maxMintAmount = 5;
+
+  function changeMintAmount(sign){
+    setStatus("");
+    if(sign == "-"){
+      if(mintAmount > 1){
+        setMintAmount(mintAmount-1)
+      }else{
+        setStatus("You cannot mint less than 1 NFT")
+      }
+    }else if(sign == "+"){
+      if(mintAmount < maxMintAmount){
+        setMintAmount(mintAmount+1)
+      }else{
+        setStatus("You cannot mint more than 5 NFTs")
+      }
+    }
+  }
 
   return (
     <div className="container-fluid">
@@ -17,7 +72,16 @@ function MinterPage() {
 
       <div className="minter row">
         
-        <MintWindow cn=" col col-md-7"></MintWindow>
+        <MintWindow 
+        onConnect={()=>connectWalletPressed} 
+        walletConnected={wallet != ""} 
+        cn=" col col-md-7"
+        status={status}
+        mintAmount={mintAmount}
+        incMintAmount={()=>changeMintAmount("+")}
+        decMintAmount={()=>changeMintAmount("-")}
+        >
+        </MintWindow>
 
       </div>
 

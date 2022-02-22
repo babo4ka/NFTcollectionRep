@@ -4,40 +4,49 @@ import SiteButton from './SiteButton';
 const MintWindow = (props) =>{
     const objClassName = "container mint_window " + props.cn;
 
+    let walletConnected = props.walletConnected;
+
     return(
         <div className={objClassName}>
         
-        <h3 id="collection_name" className="minter_item">COLLECTION NAME</h3>
+            <h3 id="collection_name" className="minter_item">COLLECTION NAME</h3>
 
-        <a href="#examples_txt" id="link_to_examples" className="minter_item">look on examples</a>
+            <a href="#examples_txt" id="link_to_examples" className="minter_item">look on examples</a>
 
-        <div id="current_tokens_count" className="minter_item">
-            0/count of tokens
+            <div id="current_tokens_count" className="minter_item">
+                0/count of tokens
+            </div>
+
+            <div id="token_cost" className="minter_item">
+                1 SYM costs *cost* MATIC
+            </div>
+
+            {walletConnected == true?(
+                <div>
+                    <div className="row minter_item" id="amount_chooser">
+                        <SiteButton func={()=>props.decMintAmount()} cn="amount_btn col-sm-auto" tn="btn_text_amount" text="-"></SiteButton>
+                        <h4 className="col-sm-auto">{props.mintAmount}</h4>
+                        <SiteButton func={()=>props.incMintAmount()} cn="amount_btn col-sm-auto" tn="btn_text_amount" text="+"></SiteButton>
+                    </div>
+            
+            
+                    <div id="total_cost" className="minter_item">
+                        Total cost *cost * amount* MATIC
+                    </div>
+            
+                    <SiteButton id="mint_btn" cn="mint_btn fillable" text="GET NFT"></SiteButton>
+                </div>
+            ):(
+                <div>
+                    <SiteButton func={()=>props.onConnect} text="Connect wallet"></SiteButton>    
+                </div>
+            )}
+
+
+            <div id="info_line" className="minter_item">
+                {props.status}
+            </div>
         </div>
-
-        <div id="token_cost" className="minter_item">
-            1 SYM costs *cost* MATIC
-        </div>
-
-
-        <div className="row minter_item" id="amount_chooser">
-            <SiteButton cn="amount_btn col-sm-auto" tn="btn_text_amount" text="-"></SiteButton>
-            <h4 className="col-sm-auto">0</h4>
-            <SiteButton cn="amount_btn col-sm-auto" tn="btn_text_amount" text="+"></SiteButton>
-        </div>
-
-
-        <div id="total_cost" className="minter_item">
-            Total cost *cost * amount* MATIC
-        </div>
-
-        {/* <button id="mint_btn" className="btn btn-primary minter_item">MINT/CONNECT WALLET</button> */}
-        <SiteButton id="mint_btn" cn="mint_btn fillable" text="MINT/CONNECT WALLET"></SiteButton>
-
-        <div id="info_line" className="minter_item">
-            some onformation
-        </div>
-    </div>
     )
 }
 
