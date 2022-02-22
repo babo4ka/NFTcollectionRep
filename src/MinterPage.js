@@ -21,8 +21,8 @@ function MinterPage() {
 
       </div>
 
-      <h3 id="examples_txt">EXAMPLES OF COLLECTION</h3>
-      <hr class="line"/>
+      <h3 id="examples_txt">FIND TOKEN BY ID</h3>
+      {/* <hr class="line"/> */}
 
       <Examples/>
 
