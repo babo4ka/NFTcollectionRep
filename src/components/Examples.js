@@ -1,5 +1,4 @@
 import './css/Examples.scss';
-import srch_icon from '../images/search_icon.png';
 import { useEffect } from 'react';
 import SiteButton from './SiteButton';
 
