@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 
 function MinterPage() { 
 
-  
   return (
     <div className="container-fluid">
 
