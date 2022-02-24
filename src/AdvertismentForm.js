@@ -2,7 +2,43 @@ import './AdvertismentForm.scss';
 import SiteButton from './components/SiteButton';
 import { useEffect, useState } from 'react';
 
+import { 
+    connectWallet, 
+    getCurrentWalletConnected
+} from './utils/interact';
+
 const AdvertismentForm = ()=>{
+
+    const [wallet, setWallet] = useState();
+    const [status, setStatus] = useState();
+
+    useEffect(async()=>{
+        const {address, status} = await getCurrentWalletConnected();
+        setWallet(address);
+        setStatus(status);
+
+        addWalletListener();
+    }, [])
+
+    function addWalletListener() {
+        if (window.ethereum) {
+        window.ethereum.on("accountsChanged", (accounts) => {
+            if (accounts.length > 0) {
+            setWallet(accounts[0]);
+            } else {
+            setWallet("");
+            }
+        });
+        } else {
+
+        }
+    }
+
+    const connectWalletPressed = async () => {
+        const walletResponse = await connectWallet();
+        setStatus(walletResponse.status);
+        setWallet(walletResponse.address);
+    };
 
     //плюс/минус на кнопке доп функций
     const [plus, setPlus] = useState("+");
@@ -105,8 +141,23 @@ const AdvertismentForm = ()=>{
                 <a href="/" className="col-sm-6" id="back_to_minter_btn">Back to minter page</a>
             </div>
 
-            <div className="row">
+            {wallet != ""?(
+                <div className='row justify-content-center wallet_holder'>
+                    <span className="col-7">Wallet connected: {wallet}</span>
+                </div>
+            ):(
+                <div className='row justify-content-center'>                 
+                    <SiteButton
+                    func={()=>connectWalletPressed()}
+                    text="Connect wallet"
+                    cn="col-4 mt-5 mb-3"
+                    >    
+                    </SiteButton>
+                </div>
+            )}
+            
 
+            <div className="row">
                 <div className="container col-md-7" id="form_holder">
                     
                     <div className="row" id="image_input_holder">

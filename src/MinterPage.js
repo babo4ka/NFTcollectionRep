@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { 
   connectWallet, 
   getCurrentWalletConnected
-  } from './utils/interact';
+} from './utils/interact';
 
 function MinterPage() { 
 

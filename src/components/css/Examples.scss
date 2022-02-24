@@ -42,9 +42,60 @@
     width: 75%;
 }
 
+@media (max-width:991px){
+    .token_image_holder{
+        width: 256px;
+        height: 256px;
+
+        margin: 10px 0px;
+    }
+
+    .token_traits_holder{
+        margin: 10px 0px;
+    }
+}
+
 #search_btn{
     height: 0;
 
     margin-top: 25px;
     min-height: 50px;
+}
+
+#token_info{
+    margin-top: 50px;
+    color: white;
+
+    display: none;
+}
+
+
+.trait_item{
+    margin: 5px 0px;
+}
+
+.token_image_holder{
+    width: 256px;
+    height: 256px;
+}
+
+#token_image{
+    width: inherit;
+    height: inherit;
+
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
+
+    border-radius: 10px;
+}
+
+.bet_btn{
+    background-color: rgba(0, 13, 199, 0.329);
+
+    min-height: 50px;
+}
+
+.bets_more{
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
 }
