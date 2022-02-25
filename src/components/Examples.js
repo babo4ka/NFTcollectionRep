@@ -2,6 +2,26 @@ import './css/Examples.scss';
 import { useEffect } from 'react';
 import SiteButton from './SiteButton';
 
+const BetsAbout = ()=>{
+    const rebus_about = "You can bet on any token and win MATIC if you mint it. Bet price is 0.25  MATIC. " + 
+    "As soon as you minted token you bet on, you will recieve 85% of total bets!"
+    
+    return(
+        <div class="modal fade" id="bets_about" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bets_about_modal">
+
+                    <div className="bets_about_content">
+                        {rebus_about}
+                    </div>
+
+                    <button class="site_btn mt-5" data-bs-dismiss="modal">Got it!</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 const Example = (props) =>{
     const imageURL = "https://99px.ru/sstorage/86/2016/06/image_860106162325305091788.gif";
     // const class_name = "col col-md-4 col-6 example";
@@ -42,9 +62,8 @@ const Example = (props) =>{
                     <div className="col-lg-8 col-12 token_traits_holder">
                         <div className="container-fluid">
                             <div className="row">
-                                <h4>Collection name #NUMBER</h4>
-                                <span className="trait_item">Total bets: </span>
-                                <span className="trait_item">Trait name: </span>
+                                <h3>Collection name #NUMBER</h3>
+                                <h5 className="trait_item">Total bets: </h5>
                                 <span className="trait_item">Trait name: </span>
                                 <span className="trait_item">Trait name: </span>
                                 <span className="trait_item">Trait name: </span>
@@ -58,7 +77,7 @@ const Example = (props) =>{
                                     cn="col-12 bet_btn"
                                     ></SiteButton>
 
-                                    <a className="col-12 bets_more">More about bets</a>
+                                    <a data-bs-toggle="modal" data-bs-target="#bets_about" className="col-12 bets_more">more about bets</a>
                                     </div>
 
                                 </div>
@@ -68,6 +87,8 @@ const Example = (props) =>{
 
                 </div>
             </div>
+
+            <BetsAbout></BetsAbout>
         </div>
     )
 }

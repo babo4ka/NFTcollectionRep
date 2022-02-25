@@ -38,7 +38,7 @@ const MintWindow = (props) =>{
                 </div>
             ):(
                 <div>
-                    <SiteButton func={()=>props.onConnect} text="Connect wallet"></SiteButton>    
+                    <SiteButton func={()=>props.onConnect()} text="Connect wallet"></SiteButton>    
                 </div>
             )}
 

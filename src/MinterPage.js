@@ -69,11 +69,16 @@ function MinterPage() {
     <div className="container-fluid">
 
       <AdvertisementBoard></AdvertisementBoard>
+      <div className="row justify-content-center">
+        <div className="col-6 mt-2" id="read_about_ads_link_holder">
+          <a id="read_about_ads_link" href="#ads_order">read more about ads</a>
+        </div>
+      </div>
 
       <div className="minter row">
         
         <MintWindow 
-        onConnect={()=>connectWalletPressed} 
+        onConnect={()=>connectWalletPressed()} 
         walletConnected={wallet != ""} 
         cn=" col col-md-7"
         status={status}
