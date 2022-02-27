@@ -33,6 +33,7 @@ const Rebus = (props) =>{
             <div className="card-body card_body">
                 <h1 className="rebus_number">#{props.number}</h1>
                 <p className="card-text rebus_desc">Try to solve this rebus for 2 MATIC and get one SYM</p>
+                <p className="rebus_desc">Total tries:</p>
                 {props.walletConnected == true?(
                 <OpenRebusButton 
                 setNumber={()=>rebusNumber()} 
@@ -87,6 +88,24 @@ const RebusesPage = (props)=>{
       setWallet(walletResponse.address);
   };
 
+  const RebusesAbout = ()=>{
+      return (
+          <div>
+            <div className="row justify-content-center text_holder">
+                <div className="col-12">
+                    <span>Hello! Feel free to try solving any of these rebuses</span><br/>
+                    <span>They are quite simple</span><br/>
+                    <span>There will be some cards. You will have some time to put them in right place</span><br/>
+                    <span>But there will be no prompts which places are right)0)</span><br/>
+                    <span>It's time to get your brain on!</span><br/>
+                    <span>Just pay 2 MATIC to open the rebus and go ahead!</span><br/>
+                    <span>If you will solve the rebus, you'll get one SYM and 50% of money other guys spent on tries</span>
+                </div>
+            </div>
+          </div>
+      )
+  }
+
 
     return(
         <div className="container">
@@ -94,9 +113,7 @@ const RebusesPage = (props)=>{
                 <a href="/" className="col-sm-6" id="back_to_minter_btn">Back to minter page</a>
             </div>
         
-            <div className="row text_holder">
-                <span id="rebuses_info_txt" className="col-sm-6">тут будет инфа о ребусах)0)</span>
-            </div>
+            <RebusesAbout></RebusesAbout>
 
             <div className="row info_holder justify-content-center mt-5">
                 <span id="info_label" className="col-6">{status}</span>

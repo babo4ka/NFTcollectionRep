@@ -1,6 +1,7 @@
 import './css/Examples.scss';
 import { useEffect } from 'react';
 import SiteButton from './SiteButton';
+import example_img from '../images/example.jpg'
 
 const BetsAbout = ()=>{
     const rebus_about = "You can bet on any token and win MATIC if you mint it. Bet price is 0.25  MATIC. " + 
@@ -56,7 +57,7 @@ const Example = (props) =>{
                 <div className="row justify-content-center" id="token_info">
 
                     <div className="col-lg-4 col-12 token_image_holder">
-                        <img id="token_image" src={imageURL}></img>
+                        <img id="token_image" src={example_img}></img>
                     </div>
 
                     <div className="col-lg-8 col-12 token_traits_holder">

@@ -133,6 +133,19 @@ const AdvertismentForm = ()=>{
     }
 
 
+    const AdsAbout = ()=>{
+        return(
+            <div className="row justify-content-center">
+                <div className="col-12 ads_about_holder mt-5">
+                    <span>You can order an ads for you project</span><br/>
+                    <span>It will be placed on a carousel on main page</span><br/>
+                    <span>Just put banner image of your project, put the link if you want and select the duration that you need</span><br/>
+                    <span>It will be queued and placed when the place is free</span><br/>
+                    <span>Duration will be counted from the moment of placement</span>
+                </div>
+            </div>
+        )
+    }
 
     return(
         <div className="container">
@@ -140,6 +153,8 @@ const AdvertismentForm = ()=>{
             <div class="row btn_holder">
                 <a href="/" className="col-sm-6" id="back_to_minter_btn">Back to minter page</a>
             </div>
+
+            <AdsAbout></AdsAbout>
 
             {wallet != ""?(
                 <div className='row justify-content-center wallet_holder'>
@@ -150,7 +165,7 @@ const AdvertismentForm = ()=>{
                     <SiteButton
                     func={()=>connectWalletPressed()}
                     text="Connect wallet"
-                    cn="col-4 mt-5 mb-3"
+                    cn="col-4 mt-5 mb-3 connect_btn"
                     >    
                     </SiteButton>
                 </div>

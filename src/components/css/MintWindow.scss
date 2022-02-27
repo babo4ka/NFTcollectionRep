@@ -21,12 +21,16 @@
     margin: 20px 0px;
 }
 
+div.minter_item{
+    font-size: 20px;
+}
+
 #amount_chooser{
     justify-content: center;
 }
 
 #link_to_examples{
     text-decoration: none;
-
+    color: blue;
     font-family: cursive;
 }

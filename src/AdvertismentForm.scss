@@ -5,6 +5,17 @@
     color: white;
 }
 
+.ads_about_holder{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.connect_btn{
+    min-height: 50px;
+}
+
 #form_holder{
     background-color: rgba(0, 0, 0, 0.09);
 
@@ -17,6 +28,8 @@
     min-height: 250px;
 
     box-shadow: 0px 0px 5px rgb(0, 0, 0);
+
+    margin-bottom: 150px;
 }
 
 #image_input_holder{
@@ -109,11 +122,6 @@
 }
 
 #duration_form{
-    
-    // border-bottom: 1px solid #ffffff;
-    // border-radius: 0;
-    // border-top-left-radius: 0.25rem;
-    // border-top-right-radius: 0.25rem;
     border: none;
     background-color: rgba(0, 0, 0, 0.09);
     border-radius: 7px;
@@ -151,20 +159,13 @@
 }
 
 #reset_btn{
-    box-shadow: inset -10px 10px 25px#790000;
-}
-
-#reset_btn:hover{
-    box-shadow: inset -15px 15px 25px #990000;
+    background-color: rgb(151, 0, 0);
 }
 
 #submit_btn{
-    box-shadow: inset -10px 10px 25px #000d81;
+    background-color: rgb(0, 0, 122);
 }
 
-#submit_btn:hover{
-    box-shadow: inset -15px 15px 25px #0013bd;
-}
 
 .form_footer{
     min-height: 50px;
@@ -189,8 +190,8 @@
 }
 
 #add_btn_block{
-    background-color: rgba(0, 0, 0, 0.09);
-    box-shadow: inset -10px 10px 25px #6b0092;
+    background-color: #4b0066;
+    
 
     border-radius: 15px;
 
@@ -206,7 +207,7 @@
 }
 
 #add_btn_block:hover{
-    box-shadow: inset -15px 15px 25px #8d00c0;
+    box-shadow: 0px 0px 3px rgb(0, 0, 0), .1px .1px 5px inset rgba(0, 0, 0, 0.801);
     cursor: pointer;
 }
 
