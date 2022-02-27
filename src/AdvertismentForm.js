@@ -132,6 +132,13 @@ const AdvertismentForm = ()=>{
         }
     }
 
+    function clearFields(){
+        description_input_field.value = "";
+        link_to_website_input_field.value= "";
+
+        setFile(undefined);
+    }
+
 
     const AdsAbout = ()=>{
         return(
@@ -234,7 +241,7 @@ const AdvertismentForm = ()=>{
 
                             <div className="col-md-4 btns_holder holder">
                                 <div classname="row form_btns">
-                                    <SiteButton cn="col-md-12 form_btn" tn="form_btn_text" id="reset_btn" text="Reset"></SiteButton>
+                                    <SiteButton func={()=>clearFields()} cn="col-md-12 form_btn" tn="form_btn_text" id="reset_btn" text="Reset"></SiteButton>
                                     <SiteButton func={()=>writetocon()} cn="col-md-12 form_btn" tn="form_btn_text" id="submit_btn" text="Submit"></SiteButton>
                                 </div>
                             </div>
