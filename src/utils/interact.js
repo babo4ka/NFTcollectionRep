@@ -1,6 +1,22 @@
 import Web3 from 'web3';
 
 export const web3 = new Web3("https://speedy-nodes-nyc.moralis.io/9fcfea6f5970d20ff23ae056/eth/rinkeby");
+const contractABI = require('../contract_abi.json');
+const contractAddress = "0x359a2d837308c6d054a7544257398043de5695da";
+
+export const getTokenImage = async (tokenId)=>{
+  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  let tokenURI = await window.contract.methods.tokenURI(tokenId).call();
+
+  tokenURI = `https://ipfs.io/ipfs/${tokenURI.split("ipfs://")[1]}`;
+
+  const tokenMetadata = await fetch(tokenURI).then((response)=>response.json());
+
+  return{
+    tokenMetadata:tokenMetadata
+  }
+}
 
 export const connectWallet = async () => {
     if (window.ethereum) {

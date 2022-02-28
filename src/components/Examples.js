@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import SiteButton from './SiteButton';
 import example_img from '../images/example.jpg'
 
+import { getTokenImage } from '../utils/interact';
+
 const BetsAbout = ()=>{
     const rebus_about = "You can bet on any token and win MATIC if you mint it. Bet price is 0.25  MATIC. " + 
     "As soon as you minted token you bet on, you will recieve 85% of total bets!"
@@ -24,11 +26,19 @@ const BetsAbout = ()=>{
 }
 
 const Example = (props) =>{
-    const imageURL = "https://99px.ru/sstorage/86/2016/06/image_860106162325305091788.gif";
     // const class_name = "col col-md-4 col-6 example";
     
     function write(){
         console.log(document.getElementById('token_input').value)
+
+        document.getElementById("token_info").style.display = "flex";
+    }
+
+    async function getImage(){
+        const {tokenMetadata} = await getTokenImage(document.getElementById('token_input').value);
+        let tokenImage = `https://ipfs.io/ipfs/${tokenMetadata["image"].split("ipfs://")[1]}`
+        
+        document.getElementById("token_image").src = tokenImage;
 
         document.getElementById("token_info").style.display = "flex";
     }
@@ -45,7 +55,7 @@ const Example = (props) =>{
                             </div>
 
                             <div className='row justify-content-center'>
-                                <SiteButton func={()=>write()} text="Search token" id="search_btn" cn="col-lg-2 col-sm-4 col-4"></SiteButton>
+                                <SiteButton func={()=>getImage()} text="Search token" id="search_btn" cn="col-lg-2 col-sm-4 col-4"></SiteButton>
                             </div>
                         </div>
                     </div>
