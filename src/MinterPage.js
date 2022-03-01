@@ -28,8 +28,11 @@ function MinterPage() {
     setWallet(address);
     setStatus(status);
 
-    const {whiteListed} = await isWalletWhiteListed(address);
-    setWalletWhiteListed(whiteListed);
+    if(address != ''){
+      const {whiteListed} = await isWalletWhiteListed(address);
+      setWalletWhiteListed(whiteListed);
+    }
+    
 
     const {maxSupply, totalSupply} = await getTokenCountData();
     setSupply(totalSupply);

@@ -44,6 +44,8 @@ const Example = (props) =>{
         
         document.getElementById("token_image").src = tokenImage;
 
+        document.getElementById("token_number").innerHTML = `COLLECTION NAME #${document.getElementById('token_input').value}`
+
         if(tokenOwner == undefined){
             document.getElementById("token_owner").innerHTML = `Owner: not owner yet`;
             document.getElementById("minted_by").innerHTML = `Minted by: not minted yet`
@@ -101,7 +103,7 @@ const Example = (props) =>{
                     <div className="col-lg-8 col-12 token_traits_holder">
                         <div className="container-fluid">
                             <div className="row">
-                                <h3>Collection name #NUMBER</h3>
+                                <h3 id="token_number">Collection name #NUMBER</h3>
                                 <h5 className="trait_item">Total bets: </h5>
                                 <span className="trait_item">Trait name: </span>
                                 <span className="trait_item">Trait name: </span>
