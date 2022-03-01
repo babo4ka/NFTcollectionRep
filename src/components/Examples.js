@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import SiteButton from './SiteButton';
 import example_img from '../images/example.jpg'
 
-import { getTokenImage } from '../utils/interact';
+import { getTokenData } from '../utils/interact';
 
 const BetsAbout = ()=>{
     const rebus_about = "You can bet on any token and win MATIC if you mint it. Bet price is 0.25  MATIC. " + 
@@ -34,13 +34,19 @@ const Example = (props) =>{
         document.getElementById("token_info").style.display = "flex";
     }
 
-    async function getImage(){
-        const {tokenMetadata} = await getTokenImage(document.getElementById('token_input').value);
-        let tokenImage = `https://ipfs.io/ipfs/${tokenMetadata["image"].split("ipfs://")[1]}`
+    async function getToken(){
+        document.getElementById("loading_info").style.display = "flex";
+        document.getElementById("loading_info").style.justifyContent = "center";
+
+        const {tokenMetadata, tokenImage, tokenOwner} = await getTokenData(document.getElementById('token_input').value);
         
         document.getElementById("token_image").src = tokenImage;
 
+        document.getElementById("token_owner").innerHTML = `Owner: ${tokenOwner}`;
+
         document.getElementById("token_info").style.display = "flex";
+
+        document.getElementById("loading_info").style.display = "none";
     }
 
     return(
@@ -55,7 +61,7 @@ const Example = (props) =>{
                             </div>
 
                             <div className='row justify-content-center'>
-                                <SiteButton func={()=>getImage()} text="Search token" id="search_btn" cn="col-lg-2 col-sm-4 col-4"></SiteButton>
+                                <SiteButton func={()=>getToken()} text="Search token" id="search_btn" cn="col-lg-2 col-sm-4 col-4"></SiteButton>
                             </div>
                         </div>
                     </div>
@@ -63,6 +69,12 @@ const Example = (props) =>{
                 </div>
             </div>
 
+            <div className="container-fluid">
+                <div className="row">
+                    <span className="col-12 mt-5" id="loading_info">Loading token data...</span>
+                </div>
+            </div>
+           
             <div className="container-fluid">
                 <div className="row justify-content-center" id="token_info">
 
@@ -78,7 +90,7 @@ const Example = (props) =>{
                                 <span className="trait_item">Trait name: </span>
                                 <span className="trait_item">Trait name: </span>
                                 <span className="trait_item">Trait name: </span>
-                                <span className="trait_item">Owner: </span>
+                                <span className="trait_item" id="token_owner">Owner: </span>
                                 <span className="trait_item">Minted by: </span>
                                 
                                 <div className="row justify-content-end">

@@ -4,7 +4,7 @@ export const web3 = new Web3("https://speedy-nodes-nyc.moralis.io/9fcfea6f5970d2
 const contractABI = require('../contract_abi.json');
 const contractAddress = "0x359a2d837308c6d054a7544257398043de5695da";
 
-export const getTokenImage = async (tokenId)=>{
+export const getTokenData = async (tokenId)=>{
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);
 
   let tokenURI = await window.contract.methods.tokenURI(tokenId).call();
@@ -13,8 +13,14 @@ export const getTokenImage = async (tokenId)=>{
 
   const tokenMetadata = await fetch(tokenURI).then((response)=>response.json());
 
+  const tokenImage = `https://ipfs.io/ipfs/${tokenMetadata["image"].split("ipfs://")[1]}`
+
+  const tokenOwner = await window.contract.methods.ownerOf(tokenId).call();
+
   return{
-    tokenMetadata:tokenMetadata
+    tokenMetadata:tokenMetadata,
+    tokenImage:tokenImage,
+    tokenOwner:tokenOwner
   }
 }
 
