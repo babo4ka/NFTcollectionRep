@@ -14,11 +14,22 @@ const MintWindow = (props) =>{
             <a href="#examples_txt" id="link_to_examples" className="minter_item">look on examples</a>
 
             <div id="current_tokens_count" className="minter_item">
-                0/count of tokens
+                {props.totalSupply} / {props.maxSupply} are minted
             </div>
 
-            <div id="token_cost" className="minter_item">
-                1 SYM costs *cost* MATIC
+
+            {props.whiteListed == true?(
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <span className="col-12">Congratz, You're whitelisted and can mint NFT for free!</span>
+                        <SiteButton id="mint_btn" cn="mint_btn fillable col-4 mt-4" text="GET NFT"></SiteButton>
+                    </div>
+                </div>
+            ):
+            (
+                <div>
+                <div id="token_cost" className="minter_item">
+                1 SYM costs 50 MATIC
             </div>
 
             {walletConnected == true?(
@@ -31,7 +42,7 @@ const MintWindow = (props) =>{
             
             
                     <div id="total_cost" className="minter_item">
-                        Total cost *cost * amount* MATIC
+                        Total cost {props.totalCost} MATIC
                     </div>
             
                     <SiteButton id="mint_btn" cn="mint_btn fillable" text="GET NFT"></SiteButton>
@@ -41,6 +52,9 @@ const MintWindow = (props) =>{
                     <SiteButton func={()=>props.onConnect()} text="Connect wallet"></SiteButton>    
                 </div>
             )}
+            </div>
+            )}
+           
 
 
             <div id="info_line" className="minter_item">

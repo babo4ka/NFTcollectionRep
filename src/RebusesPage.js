@@ -99,7 +99,8 @@ const RebusesPage = (props)=>{
                     <span>But there will be no prompts which places are right)0)</span><br/>
                     <span>It's time to get your brain on!</span><br/>
                     <span>Just pay 2 MATIC to open the rebus and go ahead!</span><br/>
-                    <span>If you will solve the rebus, you'll get one SYM and 50% of money other guys spent on tries</span>
+                    <span>If you will solve the rebus, you'll get one SYM and 50% of money other guys spent on tries</span><br/>
+                    <span>Once you get solve this rebus, ypu will be whitelisted and will be able to mint free token</span>
                 </div>
             </div>
           </div>

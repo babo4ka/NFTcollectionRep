@@ -1,5 +1,5 @@
 import './css/Examples.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import SiteButton from './SiteButton';
 import example_img from '../images/example.jpg'
 
@@ -28,25 +28,41 @@ const BetsAbout = ()=>{
 const Example = (props) =>{
     // const class_name = "col col-md-4 col-6 example";
     
-    function write(){
-        console.log(document.getElementById('token_input').value)
-
-        document.getElementById("token_info").style.display = "flex";
-    }
 
     async function getToken(){
+        if(document.getElementById('token_input').value == ""){
+            return;
+        }
+        setTokenIdToBet(document.getElementById('token_input').value);
         document.getElementById("loading_info").style.display = "flex";
         document.getElementById("loading_info").style.justifyContent = "center";
 
-        const {tokenMetadata, tokenImage, tokenOwner} = await getTokenData(document.getElementById('token_input').value);
+        const {tokenMetadata, 
+            tokenImage, 
+            tokenOwner,
+            tokenMintedBy} = await getTokenData(document.getElementById('token_input').value);
         
         document.getElementById("token_image").src = tokenImage;
 
-        document.getElementById("token_owner").innerHTML = `Owner: ${tokenOwner}`;
+        if(tokenOwner == undefined){
+            document.getElementById("token_owner").innerHTML = `Owner: not owner yet`;
+            document.getElementById("minted_by").innerHTML = `Minted by: not minted yet`
+        }else{
+            document.getElementById("token_owner").innerHTML = `Owner: ${tokenOwner}`;
+            document.getElementById("minted_by").innerHTML = `Minted by: ${tokenMintedBy}`;
+        }
+
+       
 
         document.getElementById("token_info").style.display = "flex";
 
         document.getElementById("loading_info").style.display = "none";
+    }
+
+    const [tokenIdToBet, setTokenIdToBet] = useState(0);
+
+    function bet(){
+        
     }
 
     return(
@@ -91,7 +107,7 @@ const Example = (props) =>{
                                 <span className="trait_item">Trait name: </span>
                                 <span className="trait_item">Trait name: </span>
                                 <span className="trait_item" id="token_owner">Owner: </span>
-                                <span className="trait_item">Minted by: </span>
+                                <span className="trait_item" id="minted_by">Minted by: </span>
                                 
                                 <div className="row justify-content-end">
                                     <div className="col-12 col-md-3 row">

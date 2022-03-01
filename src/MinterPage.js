@@ -9,18 +9,32 @@ import { useEffect, useState } from 'react';
 
 import { 
   connectWallet, 
-  getCurrentWalletConnected
+  getCurrentWalletConnected,
+  isWalletWhiteListed,
+  getTokenCountData
 } from './utils/interact';
 
 function MinterPage() { 
 
   const [wallet, setWallet] = useState();
   const [status, setStatus] = useState();
+  const [walletWhiteListed, setWalletWhiteListed] = useState(false);
+
+  const [supply, setSupply] = useState(0);
+  const [maxTokens, setMaxTokens] = useState(0);
 
   useEffect(async()=>{
     const {address, status} = await getCurrentWalletConnected();
     setWallet(address);
     setStatus(status);
+
+    const {whiteListed} = await isWalletWhiteListed(address);
+    setWalletWhiteListed(whiteListed);
+
+    const {maxSupply, totalSupply} = await getTokenCountData();
+    setSupply(totalSupply);
+    setMaxTokens(maxSupply);
+
 
     addWalletListener();
   }, [])
@@ -47,6 +61,7 @@ function MinterPage() {
 
   const [mintAmount, setMintAmount] = useState(1);
   const maxMintAmount = 5;
+
 
   function changeMintAmount(sign){
     setStatus("");
@@ -85,6 +100,10 @@ function MinterPage() {
         mintAmount={mintAmount}
         incMintAmount={()=>changeMintAmount("+")}
         decMintAmount={()=>changeMintAmount("-")}
+        whiteListed={walletWhiteListed}
+        totalSupply={supply}
+        maxSupply={maxTokens}
+        totalCost={mintAmount*50}
         >
         </MintWindow>
 
