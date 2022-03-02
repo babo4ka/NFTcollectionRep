@@ -28,6 +28,13 @@ const BetsAbout = ()=>{
 const Example = (props) =>{
     // const class_name = "col col-md-4 col-6 example";
     
+    useEffect(async ()=>{
+        if(props.walletConnected){
+            setTextBet("Bet on this token")
+        }else{
+            setTextBet("Connect wallet to bet")
+        }
+    }, [])
 
     async function getToken(){
         if(document.getElementById('token_input').value == ""){
@@ -63,9 +70,9 @@ const Example = (props) =>{
 
     const [tokenIdToBet, setTokenIdToBet] = useState(0);
 
-    function bet(){
-        
-    }
+
+
+    const [textBet, setTextBet] = useState("Connect wallet to bet")
 
     return(
         <div className="row">
@@ -114,7 +121,7 @@ const Example = (props) =>{
                                 <div className="row justify-content-end">
                                     <div className="col-12 col-md-3 row">
                                     <SiteButton 
-                                    text="Bet on this token"
+                                    text={textBet}
                                     cn="col-12 bet_btn"
                                     ></SiteButton>
 

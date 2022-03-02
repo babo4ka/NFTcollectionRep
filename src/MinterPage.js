@@ -11,7 +11,8 @@ import {
   connectWallet, 
   getCurrentWalletConnected,
   isWalletWhiteListed,
-  getTokenCountData
+  getTokenCountData,
+  bet
 } from './utils/interact';
 
 function MinterPage() { 
@@ -83,6 +84,7 @@ function MinterPage() {
     }
   }
 
+
   return (
     <div className="container-fluid">
 
@@ -113,9 +115,8 @@ function MinterPage() {
       </div>
 
       <h3 id="examples_txt">FIND TOKEN BY ID</h3>
-      {/* <hr class="line"/> */}
 
-      <Examples/>
+      <Examples walletConnected={wallet != ""}/>
 
       <h3 id="orders_txt">OFFERS FOR YOU</h3>
       <hr class="line"/>

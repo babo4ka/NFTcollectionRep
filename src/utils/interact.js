@@ -4,6 +4,24 @@ export const web3 = new Web3("https://speedy-nodes-nyc.moralis.io/9fcfea6f5970d2
 const contractABI = require('../contract_abi.json');
 const contractAddress = "0x1dc7d35718ecfd067d5b5b7769e987a6a45ba3ee";
 
+export const bet = async (tokenId)=>{
+  if(window.ethereum.chainId != 4){
+    return{ 
+      success:false,
+      status: "Switch to Rinkeby test network"
+    }
+  }
+
+  const contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  // const transactionParameters = {
+  //   to: contractAddress, // Required except during contract publications.
+  //   from: window.ethereum.selectedAddress, // must match user's active address.
+  //   data: window.contract.methods.bet(tokenId).encodeABI(),//make call to NFT smart contract 
+  //   value:parseInt(0.25).toString(16),
+  // };
+
+}
 
 export const getTokenCountData = async()=>{
   window.contract = await new web3.eth.Contract(contractABI, contractAddress);

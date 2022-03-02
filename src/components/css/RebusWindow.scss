@@ -8,16 +8,29 @@
     border: 1px solid white;
     border-radius: 15px;
     color: white;   
+
 }
 
 .rebus_main_content{
-    height: 250px;
+    height: 500px;
 
     background-color: rgb(109, 0, 73);
+    
 }
 
-.exmpl{
-    height: 20px;
-    width: 20px;
-    background-color: tan;
+
+#items div{
+    cursor: pointer;
+}
+
+.item{
+    height: 100px;
+    width: 100px;
+
+    margin: 0px 10px;
+}
+
+.item_img{
+    height: inherit;
+    width: inherit;
 }
