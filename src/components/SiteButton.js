@@ -18,9 +18,14 @@ export function PageButton(props){
 export function OpenRebusButton(props){
     const btn_class_name = "site_btn " + props.cn;
 
+    function openRebusFunc(){
+        props.setNumber();
+        props.openRebus()
+    }
+
     return(
         <button 
-        onClick={props.setNumber} 
+        onClick={()=>openRebusFunc()}
         data-bs-toggle={props.data_bs_toggle} 
         data-bs-target={props.data_bs_target} 
         data-bs-whatever={props.data_bs_whatever}

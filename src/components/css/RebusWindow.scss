@@ -27,10 +27,22 @@
     height: 100px;
     width: 100px;
 
-    margin: 0px 10px;
+    padding: 0;
+
+    margin: 50px 10px;
 }
 
 .item_img{
     height: inherit;
     width: inherit;
 }
+
+.nest{
+    height: 100px;
+    width: 100px;
+
+    margin: 50px 10px;
+
+    border: 1px solid black;
+}
+

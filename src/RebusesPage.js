@@ -8,6 +8,8 @@ import {
     getCurrentWalletConnected
 } from './utils/interact';
 
+import { Rebus1, Rebus2 } from "./AllRebuses";
+
 const Rebus = (props) =>{
 
     function rebusNumber(){
@@ -36,6 +38,7 @@ const Rebus = (props) =>{
                 <p className="rebus_desc">Total tries:</p>
                 {props.walletConnected == true?(
                 <OpenRebusButton 
+                openRebus={()=>props.openRebus()}
                 setNumber={()=>rebusNumber()} 
                 data_bs_toggle="modal" 
                 data_bs_target="#rebusWindow" 
@@ -107,6 +110,8 @@ const RebusesPage = (props)=>{
       )
   }
 
+  const [rebusData, setRebusData] = useState(null);
+
 
     return(
         <div className="container">
@@ -122,8 +127,8 @@ const RebusesPage = (props)=>{
     
             <div className="container cards_holder">
                 <div className="row cards_row">
-                    <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={1}></Rebus>
-                    <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={2}></Rebus>
+                    <Rebus openRebus={()=>setRebusData(Rebus1)} func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={1}></Rebus>
+                    <Rebus openRebus={()=>setRebusData(Rebus2)} func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={2}></Rebus>
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={3}></Rebus>
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={4}></Rebus>
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={5}></Rebus>
@@ -137,7 +142,7 @@ const RebusesPage = (props)=>{
                 </div>
             </div>
     
-            <RebusWindow></RebusWindow>
+            <RebusWindow rebusData={rebusData}></RebusWindow>
         </div>
     )
 }

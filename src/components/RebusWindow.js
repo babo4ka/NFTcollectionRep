@@ -3,26 +3,37 @@ import './css/RebusWindow.scss';
 import img from '../images/example.jpg'
 
 const RebusItem = (props)=>{
-    const [itemId, setItemId] = useState(props.itemId);
     const className = `item ${props.className}`
 
-    const handleDragStart = (e, params)=>{
-        console.log("dragging..." + params.id)
-    }
-
     return(
-        <div draggable onDragStart={(e)=>handleDragStart(e, {id:itemId})} className={className}>
+        <div key={props.key} draggable className={className}>
             <img className="item_img" src={img}></img>
         </div>
     )
 }
 
-const RebusWindow = () =>{
+const RebusNest = (props)=>{
+    const className = `nest ${props.className}`
+
+    return(
+        <div key={props.key} className={className}>
+            {props.nestId}
+        </div>
+    )
+}
+
+const RebusWindow = (props) =>{
 
     
     useEffect(()=>{
         
     });
+
+    //const rebusData = props.rebusData;
+    const rebusData = [
+        {title: 'items', items: [1,2,3,4,5]},
+        {title: 'nests', items: [11,22,33,44,55]}
+    ]
     
     const dragItem = useRef(null);
     const dragNode = useRef(null);
@@ -42,33 +53,29 @@ const RebusWindow = () =>{
                         <div className="container-fluid">
 
                             <div className="row">
-                                {/* items for rebus */}
-                                <div className="col-12" id="items">
-                                    <div className="container-fluid">
-                                        <div className="row justify-content-center">
-                                           <RebusItem className="col-2" itemId={1}></RebusItem>
-                                           <RebusItem className="col-2" itemId={2}></RebusItem>
-                                           <RebusItem className="col-2" itemId={3}></RebusItem>
-                                           <RebusItem className="col-2" itemId={54}></RebusItem>
-                                           <RebusItem className="col-2" itemId={6}></RebusItem>
-                                           <RebusItem className="col-2" itemId={223}></RebusItem>
+                            
+                                {rebusData.map((group, groupI)=>(
+                                    <div key={group.title} className="col-12" id={group.title}>
+                                        <div className="container-fluid">
+                                            <div>
+                                                {group.title == 'nests'?(
+                                                    <div className="row justify-content-center">
+                                                        {group.items.map((item, itemI) =>(
+                                                            <RebusNest key={itemI} nestId={item} className="col-2"/>
+                                                        ))}
+                                                    </div>
+                                                ):(
+                                                    <div className="row justify-content-center">
+                                                        {group.items.map((item, itemI) =>(
+                                                            <RebusItem key={itemI} itemId={item} className="col-2"/>
+                                                        ))} 
+                                                    </div>
+                                                )}
+                                                
+                                            </div>    
                                         </div>
                                     </div>
-                                </div>
-                                
-                                {/* nests for items */}
-                                <div className="col-12" id="nests">
-                                    <div className="container-fluid">
-                                        <div className="row justify-content-center">
-                                            <div className="col-2">nest</div>
-                                            <div className="col-2">nest</div>
-                                            <div className="col-2">nest</div>
-                                            <div className="col-2">nest</div>
-                                            <div className="col-2">nest</div>
-                                            <div className="col-2">nest</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                ))}
 
                             </div>
 

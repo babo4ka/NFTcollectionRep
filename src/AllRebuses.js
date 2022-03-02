@@ -1,46 +1,29 @@
-const RebusItem = (props)=>{
-    return(
-        <div>
-            {props.itemId}
-        </div>
-    )
-}
 
-const RebusNest = (props)=>{
-    return(
-        <div>
-            {props.nestId}
-        </div>
-    )
-}
 
 export const Rebus1 = () =>{
     const rebusNumber = 1;
 
-    const rebusData = {
-        itemsIds:[1,2,3,4,5,6,7],
+    const rebusData = [
+        {title: 'items', items: [1,2,3,4,5]},
+        {title: 'nests', items: [11,22,33,44,55]}
+    ]
 
-        nestsIds:[1,2,3,4,5]
+    return{
+        rebusNumber:rebusNumber,
+        rebusData:rebusData
     }
+}
 
-    return(
-        <div>
-            <div>
-                {rebusData.map(itemId => (
-                    <div>
-                        <RebusItem itemId={itemId}/>
-                    </div>
-                ))}
-            </div>
+export const Rebus2 = () =>{
+    const rebusNumber = 2;
 
-            <div>
-                {rebusData.map(nestId => (
-                    <div>
-                        <RebusNest nestId={nestId}/>
-                    </div>
-                ))}
-            </div>
-        </div>
-    )
+    const rebusData = [
+        {title: 'items', items: [1,2,3,4,5]},
+        {title: 'nests', items: [111,222,333,444,555]}
+    ]
 
+    return{
+        rebusNumber:rebusNumber,
+        rebusData:rebusData
+    }
 }
