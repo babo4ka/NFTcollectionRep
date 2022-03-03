@@ -20,7 +20,6 @@ export function OpenRebusButton(props){
 
     function openRebusFunc(){
         props.setNumber();
-        props.openRebus()
     }
 
     return(

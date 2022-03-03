@@ -31,18 +31,19 @@ const RebusWindow = (props) =>{
 
     });
 
-    //const rebusData = props.rebusData;
-    let rebusData = [
-        {title: 'items', items: [1,2,3,4,5]},
-        {title: 'nests', items: [11,22,33,44,55]}
-    ]
+    const rebusData = props.rebusData;
+    // let rebusData = [
+    //     {title: 'items', items: [1,2,3,4,5]},
+    //     {title: 'nests', items: [11,22,33,44,55]}
+    // ]
     
     const dragItem = useRef(null);
     const dragNode = useRef(null);
-
+    
+    const id = `rebusWindow${props.number}`
 
     return(
-        <div class="modal fade" id="rebusWindow" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content rebus_content">
 

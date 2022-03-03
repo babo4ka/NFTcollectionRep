@@ -8,13 +8,14 @@ import {
     connectWallet, 
     getCurrentWalletConnected
 } from './utils/interact';
+import { AllRebuses } from "./AllRebuses";
 
 
 
 const Rebus = (props) =>{
 
     function rebusNumber(){
-        var rebusWindow = document.getElementById('rebusWindow')
+        var rebusWindow = document.getElementById(`rebusWindow${props.number}`)
         rebusWindow.addEventListener('shown.bs.modal', function (event) {
         // Кнопка, запускающая модальное окно
         var button = event.relatedTarget
@@ -31,6 +32,7 @@ const Rebus = (props) =>{
         })
     }
 
+    const id = `#rebusWindow${props.number}`
 
     return(
         <div className="card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 rebus_body">
@@ -40,10 +42,9 @@ const Rebus = (props) =>{
                 <p className="rebus_desc">Total tries:</p>
                 {props.walletConnected == true?(
                 <OpenRebusButton 
-                openRebus={()=>props.openRebus()}
                 setNumber={()=>rebusNumber()} 
                 data_bs_toggle="modal" 
-                data_bs_target="#rebusWindow" 
+                data_bs_target={id}
                 data_bs_whatever={props.number}
                 cn="fillable" 
                 text="open rebus"></OpenRebusButton>
@@ -115,7 +116,13 @@ const RebusesPage = (props)=>{
   const [rebusNum, setRebusNum] = useState(1);
 
 
-    return(
+  const windows = AllRebuses().rebusData.map((item, itemI)=>
+  <RebusWindow rebusData={item} number={itemI+1}/>)
+
+  const opens = AllRebuses().rebusData.map((item, itemI)=>
+  <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={itemI+1}/>)
+    
+  return(
         <div className="container">
             <div class="row btn_holder">
                 <a href="/" className="col-sm-6" id="back_to_minter_btn">Back to minter page</a>
@@ -129,8 +136,8 @@ const RebusesPage = (props)=>{
     
             <div className="container cards_holder">
                 <div className="row cards_row">
-                    <Rebus openRebus={()=>setRebusNum(1)} func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={1}></Rebus>
-                    <Rebus openRebus={()=>setRebusNum(2)} func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={2}></Rebus>
+                    {/* <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={1}></Rebus>
+                    <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={2}></Rebus>
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={3}></Rebus>
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={4}></Rebus>
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={5}></Rebus>
@@ -140,11 +147,12 @@ const RebusesPage = (props)=>{
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={9}></Rebus>
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={10}></Rebus>
                     <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={11}></Rebus>
-                    <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={12}></Rebus>
+                    <Rebus func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={12}></Rebus> */}
+                    {opens}
                 </div>
             </div>
-    
-            <RebusWindow></RebusWindow>
+            {/* rebus windows */}
+            {windows}
         </div>
     )
 }
