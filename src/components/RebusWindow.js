@@ -1,6 +1,8 @@
 import React , {Component, useEffect, useRef, useState} from 'react';
 import './css/RebusWindow.scss';
+
 import img from '../images/example.jpg'
+
 
 const RebusItem = (props)=>{
     const className = `item ${props.className}`
@@ -26,11 +28,11 @@ const RebusWindow = (props) =>{
 
     
     useEffect(()=>{
-        
+
     });
 
     //const rebusData = props.rebusData;
-    const rebusData = [
+    let rebusData = [
         {title: 'items', items: [1,2,3,4,5]},
         {title: 'nests', items: [11,22,33,44,55]}
     ]
@@ -52,7 +54,7 @@ const RebusWindow = (props) =>{
                             
                         <div className="container-fluid">
 
-                            <div className="row">
+                            <div className="row" id="rebus_holder">
                             
                                 {rebusData.map((group, groupI)=>(
                                     <div key={group.title} className="col-12" id={group.title}>
