@@ -7,8 +7,8 @@ export const AllRebuses=()=>{
             {title: 'nests', items: [11,22,33,44,55]}
         ],
         [
-            {title: 'items', items: [1,2,3,4,5]},
-            {title: 'nests', items: [111,222,333,444,555]}
+            {title: 'items', items: [1,2,3]},
+            {title: 'nests', items: [111,222,333]}
         ],
         [
             {title: 'items', items: [1,2,3,4,5]},
@@ -16,7 +16,7 @@ export const AllRebuses=()=>{
         ],
         [
             {title: 'items', items: [1,2,3,4,5]},
-            {title: 'nests', items: [11111,22222,33333,44444,55555]}
+            {title: 'nests', items: [11111,22222,33333,44444,55555,66666]}
         ]
     ]
 

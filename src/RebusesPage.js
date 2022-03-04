@@ -113,7 +113,6 @@ const RebusesPage = (props)=>{
       )
   }
 
-  const [rebusNum, setRebusNum] = useState(1);
 
 
   const windows = AllRebuses().rebusData.map((item, itemI)=>
