@@ -1,8 +1,6 @@
 import React , {Component, useEffect, useRef, useState} from 'react';
 import './css/RebusWindow.scss';
 
-import img from '../images/example.jpg'
-
 
 const RebusItem = (props)=>{
     const className = `item ${props.className}`
@@ -24,13 +22,8 @@ const RebusNest = (props)=>{
     )
 }
 
+
 const RebusWindow = (props) =>{
-
-    
-    useEffect(()=>{
-
-    });
-
 
     const [rebusData, setRebusData] = useState(props.rebusData);
     
@@ -43,7 +36,7 @@ const RebusWindow = (props) =>{
     const handleDragStart = (e, params)=>{
         dragItem.current = params;
         dragNode.current = e.target;
-
+        
         dragNode.current.addEventListener('dragend', handleDragEnd)
         setTimeout(()=>{
             setDragging(true)
@@ -53,11 +46,7 @@ const RebusWindow = (props) =>{
     const handleDragEnd = ()=>{
         dragNode.current.removeEventListener('dragend', handleDragEnd)
         setDragging(false);
-        if(dragItem.current.groupI == 1){
-            setTook(took+1)
-        }else{
-            setTook(took-1)
-        }
+
         dragItem.current = null;
         dragNode.current = null;
 
@@ -67,7 +56,6 @@ const RebusWindow = (props) =>{
         if(!draggingToEmpty){
             const currentItem = dragItem.current;
             if(e.target != dragNode.current){
-                console.log("target is not the same")
                 setRebusData(oldData => {
                     let newData = JSON.parse(JSON.stringify(oldData));
                     newData[params.groupI].items.splice(params.itemI, 0, newData[currentItem.groupI].items.splice(currentItem.itemI, 1)[0])
@@ -76,10 +64,6 @@ const RebusWindow = (props) =>{
                 })
             }
         }
-    }
-
-    const fieldDragEnd = ()=>{
-        setDraggingToEmpty(false);
     }
 
     const fieldDragEnter = (e, groupI)=>{
@@ -97,6 +81,20 @@ const RebusWindow = (props) =>{
 
     }
 
+    const [sendingSolve, setSendingSolve] = useState(false);
+
+    function sureSending(){
+        setSendingSolve(!sendingSolve);
+        if(rebusData[1].items.length < rebusData[1].needed){
+            setSureSendingTxt("You took less cards than you need! You'll automatically fail this rebus. Are you sure?");
+        }else if(rebusData[1].items.length > rebusData[1].needed){
+            setSureSendingTxt("You took more cards than you need! You'll automatically fail this rebus. Are you sure?");
+        }else{
+            setSureSendingTxt("Are you sure with your answer?");
+        }
+    }
+
+    const [sureSendingTxt, setSureSendingTxt] = useState("");
 
 
     const getStyles = (params) =>{
@@ -107,15 +105,12 @@ const RebusWindow = (props) =>{
 
     const id = `rebusWindow${props.number}`
 
-    const needed = 6;
-    const [took, setTook] = useState(0);
-
     return(
         <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content rebus_content">
 
-                    <div className="rebus_header">
+                    <div className="rebus_header mt-2 mb-2">
                         <h5 class="modal-title" id="exampleModalLabel">#</h5>
                     </div>
                         
@@ -130,10 +125,10 @@ const RebusWindow = (props) =>{
                                         <div className="container-fluid">
                                             <div>
                                                 {group.title == 'nests'?(
-                                                    <div onDragEnd={(e)=>fieldDragEnd()} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
+                                                    <div onDragEnd={()=> setDraggingToEmpty(false)} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
                                                         <hr class="line_in_rebus mt-3"></hr>
                                                         <span className='col-6'>Move them here and put them in right order to solve rebus</span>
-                                                        <span className='col-6 text-end'>You took {took} of {needed} needed</span>
+                                                        <span className='col-6 text-end'>You need {group.needed} cards here</span>
                                                         {group.items.map((item, itemI) =>(
                                                             <RebusNest 
                                                             key={itemI} 
@@ -145,7 +140,7 @@ const RebusWindow = (props) =>{
                                                         ))}
                                                     </div>
                                                 ):(
-                                                    <div onDragEnd={(e)=>fieldDragEnd()} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
+                                                    <div onDragEnd={()=> setDraggingToEmpty(false)} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
                                                         <hr class="line_in_rebus mt-3"></hr>
                                                         <span className='col-6'>This is your cards to solve rebus</span>
                                                         <span className='col-6 text-end'>You can move them back if nessesary</span>
@@ -172,13 +167,30 @@ const RebusWindow = (props) =>{
 
                     </div>
 
-                    <div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                        <button type="button" class="btn btn-primary">Сохранить изменения</button>
+
+                    <div className="row justify-content-center mt-2 mb-2">
+                        {sendingSolve?(
+                            <div className="col-6 row justify-content-center text-center">
+                                <div className="col-12">
+                                   {sureSendingTxt}
+                                </div>
+
+                                <div className="col-12 row justify-content-center">
+                                    <button onClick={()=>setSendingSolve(!sendingSolve)} className="col-4 site_btn close_rebus_btn" id="think_more">let me think more</button>
+                                    <button className="col-4 site_btn close_rebus_btn" data-bs-dismiss="modal">yes, send solve</button>
+                                </div>
+                            </div>
+                            ):(
+                                <button onClick={sureSending} type="button" className="col-4 site_btn close_rebus_btn">Send solve</button>
+                            )}
                     </div>
                 </div>
             </div>
+
+    
         </div>
+
+
         )
     }
     

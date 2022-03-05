@@ -19,8 +19,6 @@
 }
 
 
-
-
 .item{
     height: 100px;
     width: 100px;
@@ -56,4 +54,16 @@
 
 .current{
     background-color: rgb(109, 0, 73);
+}
+
+.close_rebus_btn{
+    background-color: rgb(139, 0, 0);
+    color: black;
+    margin: 0px 5px;
+}
+
+#think_more{
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid white;
+    color: white;
 }
