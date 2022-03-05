@@ -38,25 +38,19 @@ const RebusWindow = (props) =>{
     const dragNode = useRef(null);
     
     const [dragging, setDragging] = useState(false);
+    const [draggingToEmpty, setDraggingToEmpty] = useState(false);
 
     const handleDragStart = (e, params)=>{
-        console.log(`start dragging...${params}`)
         dragItem.current = params;
         dragNode.current = e.target;
-        var plus;
-        if(params.groupI == 0){
-            plus = "-"
-        }else{
-            plus = "+"
-        }
+
         dragNode.current.addEventListener('dragend', handleDragEnd)
         setTimeout(()=>{
             setDragging(true)
         }, 0)
     }
 
-    const handleDragEnd = (plus)=>{
-        console.log(`End dragging...`)
+    const handleDragEnd = ()=>{
         dragNode.current.removeEventListener('dragend', handleDragEnd)
         setDragging(false);
         if(dragItem.current.groupI == 1){
@@ -67,22 +61,25 @@ const RebusWindow = (props) =>{
         dragItem.current = null;
         dragNode.current = null;
 
-
     }
 
     const handleDragEnter = (e, params)=>{
-        console.log(`entering drag...${params.itemI}, ${params.groupI}`)
-        const currentItem = dragItem.current;
-        if(e.target != dragNode.current){
-            console.log("target is not the same")
-            setRebusData(oldData => {
-                let newData = JSON.parse(JSON.stringify(oldData));
-                newData[params.groupI].items.splice(params.itemI, 0, newData[currentItem.groupI].items.splice(currentItem.itemI, 1)[0])
-                dragItem.current = params;
-                return newData;
-            })
+        if(!draggingToEmpty){
+            const currentItem = dragItem.current;
+            if(e.target != dragNode.current){
+                console.log("target is not the same")
+                setRebusData(oldData => {
+                    let newData = JSON.parse(JSON.stringify(oldData));
+                    newData[params.groupI].items.splice(params.itemI, 0, newData[currentItem.groupI].items.splice(currentItem.itemI, 1)[0])
+                    dragItem.current = params;
+                    return newData;
+                })
+            }
         }
+    }
 
+    const fieldDragEnd = ()=>{
+        setDraggingToEmpty(false);
     }
 
     const fieldDragEnter = (e, groupI)=>{
@@ -90,6 +87,7 @@ const RebusWindow = (props) =>{
         const currentItem = dragItem.current;
         if(rebusData[groupI].items.length == 0){
             console.log(`${currentItem.itemI} hello`)
+            setDraggingToEmpty(true)
             setRebusData(oldData => {
                 let newData = JSON.parse(JSON.stringify(oldData));
                 newData[groupI].items.push(newData[currentItem.groupI].items.splice(currentItem.itemI, 1)[0])
@@ -98,6 +96,8 @@ const RebusWindow = (props) =>{
         }
 
     }
+
+
 
     const getStyles = (params) =>{
         const currentItem = dragItem.current;
@@ -130,7 +130,7 @@ const RebusWindow = (props) =>{
                                         <div className="container-fluid">
                                             <div>
                                                 {group.title == 'nests'?(
-                                                    <div onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
+                                                    <div onDragEnd={(e)=>fieldDragEnd()} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
                                                         <hr class="line_in_rebus mt-3"></hr>
                                                         <span className='col-6'>Move them here and put them in right order to solve rebus</span>
                                                         <span className='col-6 text-end'>You took {took} of {needed} needed</span>
@@ -145,7 +145,7 @@ const RebusWindow = (props) =>{
                                                         ))}
                                                     </div>
                                                 ):(
-                                                    <div onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
+                                                    <div onDragEnd={(e)=>fieldDragEnd()} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
                                                         <hr class="line_in_rebus mt-3"></hr>
                                                         <span className='col-6'>This is your cards to solve rebus</span>
                                                         <span className='col-6 text-end'>You can move them back if nessesary</span>
