@@ -7,7 +7,7 @@ const RebusItem = (props)=>{
 
     return(
         <div onDragStart={(e)=>props.onDragStart(e)} onDragEnter={(e)=>props.onDragEnter(e)} key={props.key} draggable className={className}>
-           item{props.itemId}
+           <img class="item_img" src={props.image}></img>
         </div>
     )
 }
@@ -17,7 +17,7 @@ const RebusNest = (props)=>{
 
     return(
         <div draggable onDragStart={(e)=>props.onDragStart(e)}  onDragEnter={(e)=>props.onDragEnter(e)} key={props.key} className={className}>
-            {props.nestId}
+            <img class="item_img" src={props.image}></img>
         </div>
     )
 }
@@ -59,6 +59,7 @@ const RebusWindow = (props) =>{
                 setRebusData(oldData => {
                     let newData = JSON.parse(JSON.stringify(oldData));
                     newData[params.groupI].items.splice(params.itemI, 0, newData[currentItem.groupI].items.splice(currentItem.itemI, 1)[0])
+                    newData[params.groupI].pics.splice(params.itemI, 0, newData[currentItem.groupI].pics.splice(currentItem.itemI, 1)[0])
                     dragItem.current = params;
                     return newData;
                 })
@@ -70,11 +71,11 @@ const RebusWindow = (props) =>{
         
         const currentItem = dragItem.current;
         if(rebusData[groupI].items.length == 0){
-            console.log(`${currentItem.itemI} hello`)
             setDraggingToEmpty(true)
             setRebusData(oldData => {
                 let newData = JSON.parse(JSON.stringify(oldData));
                 newData[groupI].items.push(newData[currentItem.groupI].items.splice(currentItem.itemI, 1)[0])
+                newData[groupI].pics.push(newData[currentItem.groupI].pics.splice(currentItem.itemI, 1)[0])
                 return newData;
             })
         }
@@ -105,6 +106,24 @@ const RebusWindow = (props) =>{
 
     const id = `rebusWindow${props.number}`
 
+    function onRebusEnd(){
+
+        if(rebusData[1].needed > rebusData[1].items.length){
+            console.log("rebus failed(you have less)")
+        }else if(rebusData[1].needed < rebusData[1].items.length){
+            console.log("rebus failed(you have more)")
+        }else{
+            for(let i=0; i<rebusData[1].items.length; i++){
+                if(rebusData[1].order[i] != rebusData[1].items[i]){
+                    console.log("rebus failed(incorrect order)")
+                    return;
+                }
+            }
+            
+            console.log("rebus solved")
+        }
+    }
+
     return(
         <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -131,6 +150,7 @@ const RebusWindow = (props) =>{
                                                         <span className='col-6 text-end'>You need {group.needed} cards here</span>
                                                         {group.items.map((item, itemI) =>(
                                                             <RebusNest 
+                                                            image={group.pics[itemI]}
                                                             key={itemI} 
                                                             nestId={item} 
                                                             className="col-2"
@@ -146,6 +166,7 @@ const RebusWindow = (props) =>{
                                                         <span className='col-6 text-end'>You can move them back if nessesary</span>
                                                         {group.items.map((item, itemI) =>(
                                                             <RebusItem 
+                                                            image={group.pics[itemI]}
                                                             onDragEnter={dragging?(e)=>{handleDragEnter(e, {itemI, groupI})}:null}
                                                             onDragStart={(e)=>{handleDragStart(e, {itemI, groupI})}} 
                                                             key={itemI} 
@@ -177,7 +198,7 @@ const RebusWindow = (props) =>{
 
                                 <div className="col-12 row justify-content-center">
                                     <button onClick={()=>setSendingSolve(!sendingSolve)} className="col-4 site_btn close_rebus_btn" id="think_more">let me think more</button>
-                                    <button className="col-4 site_btn close_rebus_btn" data-bs-dismiss="modal">yes, send solve</button>
+                                    <button onClick={onRebusEnd} className="col-4 site_btn close_rebus_btn" data-bs-dismiss="modal">yes, send solve</button>
                                 </div>
                             </div>
                             ):(

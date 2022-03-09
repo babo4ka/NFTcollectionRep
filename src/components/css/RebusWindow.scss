@@ -32,13 +32,14 @@
 }
 
 .item_img{
-    height: inherit;
-    width: inherit;
+    height: 100%;
+    width: 100%;
 }
 
 .nest{
     height: 100px;
     width: 100px;
+    padding: 0;
 
     margin: 50px 10px;
 
