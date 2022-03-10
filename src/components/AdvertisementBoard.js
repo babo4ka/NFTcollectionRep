@@ -21,7 +21,10 @@ const AdvertisementBoard = ()=>{
                         <div className="row">
                             <div className="col-12">
                                 <div class="carousel-item mb-3 active">
-                                    <img src={image} class="d-block car_image" alt="..."/>
+                                    <p>
+                                        <a href="https://google.com"><img src={image} class="d-block car_image" alt="..."/> </a>
+                                    </p>
+                                    
                                 </div>
 
                                 <div class="carousel-item mb-3">
