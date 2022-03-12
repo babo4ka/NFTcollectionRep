@@ -1,9 +1,39 @@
 import './css/AdvertisementBoard.scss'
-import image from '../images/bckgrnd.png'
-import car1 from '../images/car1.jpg'
-import car2 from '../images/car2.jpg'
+
+import { AdObjects } from './AdObjects';
 
 const AdvertisementBoard = ()=>{
+
+    const adObjects = AdObjects().objects;
+
+    const Ad = (props)=>{
+        const className = props.i==0?"carousel-item mb-3 active":"carousel-item mb-3"
+        return(
+            <div class={className}>
+                {props.link == ""?(
+                    <img src={props.image} class="d-block car_image" alt="..."></img>
+                ):(
+                    <a href={props.link}><img src={props.image} class="d-block car_image" alt="..."></img></a>
+                )}   
+            </div>
+        )
+    }
+
+    const Indicator = (props)=>{
+        const slide = `Slide${props.slide+1}`
+
+        return(
+            <div>
+            {props.i == 0?(
+                <button type="button" data-bs-target="#advertismentCaourusel" data-bs-slide-to={props.slide} class="active" aria-current="true" aria-label={slide}></button>
+            ):(
+                <button type="button" data-bs-target="#advertismentCaourusel" data-bs-slide-to={props.slide} aria-label={slide}></button>
+            )}
+            </div>
+        )
+    }
+
+
     return(
         <div className="container-fluid">
         <div id="ads" className="row justify-content-center">
@@ -12,28 +42,19 @@ const AdvertisementBoard = ()=>{
                 <div id="advertismentCaourusel" class="carousel slide" data-bs-ride="carousel">
 
                     <div class="carousel-indicators mb-4">
-                        <button type="button" data-bs-target="#advertismentCaourusel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#advertismentCaourusel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#advertismentCaourusel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        {adObjects.map((object, I)=>(
+                            <Indicator slide={I} i={I}/>
+                        ))}
                     </div>
 
                     <div class="carousel-inner container-fluid pt-2 sds">
                         <div className="row">
                             <div className="col-12">
-                                <div class="carousel-item mb-3 active">
-                                    <p>
-                                        <a href="https://google.com"><img src={image} class="d-block car_image" alt="..."/> </a>
-                                    </p>
-                                    
-                                </div>
 
-                                <div class="carousel-item mb-3">
-                                    <img src={car1} class="d-block car_image" alt="..."/>
-                                </div>
-
-                                <div class="carousel-item mb-3">
-                                    <img src={car2} class="d-block car_image" alt="..."/>
-                                </div>
+                                {adObjects.map((object, I) =>(
+                                    <Ad image={object.imageLink} link={object.link} i={I}/>
+                                ))}
+                                
                             </div>
                         </div>
                     </div>
