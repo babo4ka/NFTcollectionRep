@@ -130,7 +130,7 @@ const RebusWindow = (props) =>{
                 <div class="modal-content rebus_content">
 
                     <div className="rebus_header mt-2 mb-2">
-                        <h5 class="modal-title" id="exampleModalLabel">#</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Rebus #{props.number}</h5>
                     </div>
                         
                     <div className="rebus_main_content">

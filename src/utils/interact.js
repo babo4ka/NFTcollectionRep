@@ -4,6 +4,25 @@ export const web3 = new Web3("https://speedy-nodes-nyc.moralis.io/9fcfea6f5970d2
 const contractABI = require('../contract_abi.json');
 const contractAddress = "0x1dc7d35718ecfd067d5b5b7769e987a6a45ba3ee";
 
+const rebusesABI = require('../rebuses_abi.json');
+const rebusesAddress = "0x4f360d9be05e83914f04232c2e9a072371d9f875"
+
+export const getRebusData = async()=>{
+  const contract = await new web3.eth.Contract(rebusesABI, rebusesAddress);
+
+  var rebusData = [];
+
+  for(let i=1;i<=2;i++){
+    const _rebusData = await contract.methods.rebuses(i).call();
+    rebusData.push(_rebusData);
+  }
+
+
+  return{
+    rebusData:rebusData
+  }
+}
+
 export const bet = async (tokenId)=>{
   if(window.ethereum.chainId != 4){
     return{ 
