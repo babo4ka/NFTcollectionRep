@@ -7,7 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { 
     connectWallet, 
     getCurrentWalletConnected,
-    getRebusData
+    getRebusData,
+    startRebus
 } from './utils/interact';
 import { AllRebuses } from "./AllRebuses";
 
@@ -16,6 +17,7 @@ import { AllRebuses } from "./AllRebuses";
 const Rebus = (props) =>{
 
     const id = `#rebusWindow${props.number}`
+
 
     return(
         <div className="card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 rebus_body">
@@ -30,6 +32,7 @@ const Rebus = (props) =>{
                 data_bs_whatever={props.number}
                 cn="fillable" 
                 text="open rebus"></OpenRebusButton>
+                
                 ):(
                     <SiteButton
                     func={()=>props.func()}
@@ -45,6 +48,8 @@ const Rebus = (props) =>{
 
 const RebusesPage = (props)=>{
 
+  
+
     const [wallet, setWallet] = useState();
     const [status, setStatus] = useState();
 
@@ -59,7 +64,7 @@ const RebusesPage = (props)=>{
       setAllRebusData(rebusData);
       
       setWindows( AllRebuses().rebusData.map((item, itemI)=>
-      <RebusWindow rebusData={item} number={itemI+1}/>));
+      <RebusWindow  rebusData={item} number={itemI+1}/>));
 
       setOpens(AllRebuses().rebusData.map((item, itemI)=>(
         <Rebus 
@@ -110,13 +115,6 @@ const RebusesPage = (props)=>{
     const [windows, setWindows] = useState();
     const [opens, setOpens] = useState();
 
-//   const windows = AllRebuses().rebusData.map((item, itemI)=>
-//   <RebusWindow rebusData={item} number={itemI+1}/>)
-
-//   const opens = AllRebuses().rebusData.map((item, itemI)=>(
-//   <Rebus 
-//   tries={allRebusData[itemI].tries} 
-//   func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={itemI+1}/>))
     
   return(
         <div className="container">
@@ -135,7 +133,6 @@ const RebusesPage = (props)=>{
                     {opens}
                 </div>
             </div>
-            {/* rebus windows */}
             {windows}
         </div>
     )

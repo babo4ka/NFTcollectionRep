@@ -7,21 +7,6 @@ const contractAddress = "0x1dc7d35718ecfd067d5b5b7769e987a6a45ba3ee";
 const rebusesABI = require('../rebuses_abi.json');
 const rebusesAddress = "0x4f360d9be05e83914f04232c2e9a072371d9f875"
 
-export const getRebusData = async()=>{
-  const contract = await new web3.eth.Contract(rebusesABI, rebusesAddress);
-
-  var rebusData = [];
-
-  for(let i=1;i<=2;i++){
-    const _rebusData = await contract.methods.rebuses(i).call();
-    rebusData.push(_rebusData);
-  }
-
-
-  return{
-    rebusData:rebusData
-  }
-}
 
 export const bet = async (tokenId)=>{
   if(window.ethereum.chainId != 4){
@@ -146,3 +131,66 @@ export const connectWallet = async () => {
       };
     }
   };
+
+
+  //Rebuses interact
+export const getRebusData = async()=>{
+  const contract = await new web3.eth.Contract(rebusesABI, rebusesAddress);
+
+  var rebusData = [];
+
+  for(let i=1;i<=2;i++){
+    const _rebusData = await contract.methods.rebuses(i).call();
+    rebusData.push(_rebusData);
+  }
+
+
+  return{
+    rebusData:rebusData
+  }
+}
+
+export const startRebusSolving = async(rebusNum)=>{
+  const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+
+  if(chainId != 4){
+    return{ 
+      success:false,
+      status: "Switch to Rinkeby test network"
+    }
+  }
+
+  const contract = await new web3.eth.Contract(rebusesABI, rebusesAddress);
+
+  // var cost = await contract.methods.rebusCost().call();
+  
+  var cost = 0.0001;
+  cost = web3.utils.toWei(cost.toString(), "ether")
+
+  let gasLimit = 285000;
+  const transactionParameters = {
+    gasLimit:String(gasLimit),
+    to: rebusesAddress, 
+    from: window.ethereum.selectedAddress,
+    data: contract.methods.startRebusSolving(rebusNum).encodeABI(),//make call to NFT smart contract 
+    value:parseInt(cost).toString(16),
+  };
+
+  try {
+    const txHash = await window.ethereum
+        .request({
+            method: 'eth_sendTransaction',
+            params: [transactionParameters]
+        });
+    return {
+        success: true,
+        status: "",
+      }
+ } catch (error) {
+    return {
+        success: false,
+        status: "Something went wrong: " + error.message
+    }
+}
+
+}
