@@ -41,6 +41,16 @@ const Rebus = (props) =>{
                     </SiteButton>
                 )}
 
+                {props.beingSolved?(
+                  <div>
+                      <span id="solving">Maybe this rebus is being solved by smn.!</span>
+                  </div>
+                ):(
+                  <div>
+                      <span>Rebus is free! Go ahead :)</span>
+                  </div>
+                )}
+
             </div>
         </div>
     )
@@ -68,8 +78,9 @@ const RebusesPage = (props)=>{
 
       setOpens(AllRebuses().rebusData.map((item, itemI)=>(
         <Rebus 
+        beingSolved={rebusData[itemI].beingSolved}
         tries={rebusData[itemI].tries} 
-        func={()=>connectWalletPressed()} walletConnected={wallet!=""} number={itemI+1}/>)));
+        func={()=>connectWalletPressed()} walletConnected={address!=""} number={itemI+1}/>)));
 
       addWalletListener();
     }, [])

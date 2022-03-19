@@ -2,6 +2,7 @@ import React , {Component, useEffect, useRef, useState} from 'react';
 import './css/RebusWindow.scss';
 
 import { startRebusSolving } from '../utils/interact';
+import SiteButton from './SiteButton';
 
 const RebusItem = (props)=>{
     const className = `item ${props.className}`
@@ -84,15 +85,20 @@ const RebusWindow = (props) =>{
     }
 
     const [sendingSolve, setSendingSolve] = useState(false);
+    const [timeUp, setTimeUp] = useState(false);
 
     function sureSending(){
-        setSendingSolve(!sendingSolve);
-        if(rebusData[1].items.length < rebusData[1].needed){
-            setSureSendingTxt("You took less cards than you need! You'll automatically fail this rebus. Are you sure?");
-        }else if(rebusData[1].items.length > rebusData[1].needed){
-            setSureSendingTxt("You took more cards than you need! You'll automatically fail this rebus. Are you sure?");
+        if(!timeUp){
+            setSendingSolve(!sendingSolve);
+            if(rebusData[1].items.length < rebusData[1].needed){
+                setSureSendingTxt("You took less cards than you need! You'll automatically fail this rebus. Are you sure?");
+            }else if(rebusData[1].items.length > rebusData[1].needed){
+                setSureSendingTxt("You took more cards than you need! You'll automatically fail this rebus. Are you sure?");
+            }else{
+                setSureSendingTxt("Are you sure with your answer?");
+            }
         }else{
-            setSureSendingTxt("Are you sure with your answer?");
+            onRebusEnd();
         }
     }
 
@@ -143,6 +149,7 @@ const RebusWindow = (props) =>{
             if(totalTime <= 0){
                 clearInterval(timer);
                 setTimeToShow("Time is out!")
+                setTimeUp(true);
             }else{
 
                 if(totalTime<10){
@@ -159,123 +166,125 @@ const RebusWindow = (props) =>{
         
         var window = document.getElementById(id)
         window.addEventListener('show.bs.modal', async function (event) { 
-            await startRebus();
+            if(!started){
+                await startRebus();
+            }
         })
 
         window.addEventListener('hidden.bs.modal', function (event) { 
             clearInterval(timer);
             timeToSolve = 3*60;
+            setRebusStartError("Confirm the transaction")
         })
 
     }, [])
         
-    const [rebusHeader, setRebuseHeader] = useState(`Rebus# ${props.number}`)
+    const [rebusStartError, setRebusStartError] = useState("Confirm the transaction")
     const [started, setStarted] = useState(false);
 
     async function startRebus(){
-        // setTimeout(function(){
-        //     setStarted(true)
-        //     setTimer();
-        // }, 5000)
-
         const {success, status} = await startRebusSolving(props.number);
 
         if(success){
             setStarted(true);
             setTimer();
         }else{
-            setRebuseHeader(`Couldn't start rebus :( ${status}`)
+            setRebusStartError(`Couldn't start rebus :( ${status}`)
         }
 
     }
 
     return(
-        <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id={id} tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content rebus_content">
-
-                    <div className="rebus_header mt-2 mb-2 row pe-3 ps-3">
-                        <h5 class="modal-title col-12" id="exampleModalLabel">{rebusHeader}</h5>
-                        <span id="timer" className="col-12 text-end">Time left: {timeToShow}</span>
-                    </div>
-                        
-                    <div className="rebus_main_content">
-                        {started? (
-                            <div className="container-fluid">
-
-                                <div className="row" id="rebus_holder">
-
-                                    {rebusData.map((group, groupI)=>(
-                                        <div key={group.title} className="col-12" id={group.title}>
-                                            <div className="container-fluid">
-                                                <div>
-                                                    {group.title == 'nests'?(
-                                                        <div onDragEnd={()=> setDraggingToEmpty(false)} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
-                                                            <hr class="line_in_rebus mt-3"></hr>
-                                                            <span className='col-6'>Move them here and put them in right order to solve rebus</span>
-                                                            <span className='col-6 text-end'>You need {group.needed} cards here</span>
-                                                            {group.items.map((item, itemI) =>(
-                                                                <RebusNest 
-                                                                image={group.pics[itemI]}
-                                                                key={itemI} 
-                                                                nestId={item} 
-                                                                className="col-2"
-                                                                onDragStart={(e)=>{handleDragStart(e, {itemI, groupI})}} 
-                                                                onDragEnter={dragging?(e)=>{handleDragEnter(e, {itemI, groupI})}:null}
-                                                                />
-                                                            ))}
-                                                        </div>
-                                                    ):(
-                                                        <div onDragEnd={()=> setDraggingToEmpty(false)} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
-                                                            <hr class="line_in_rebus mt-3"></hr>
-                                                            <span className='col-6'>This is your cards to solve rebus</span>
-                                                            <span className='col-6 text-end'>You can move them back if nessesary</span>
-                                                            {group.items.map((item, itemI) =>(
-                                                                <RebusItem 
-                                                                image={group.pics[itemI]}
-                                                                onDragEnter={dragging?(e)=>{handleDragEnter(e, {itemI, groupI})}:null}
-                                                                onDragStart={(e)=>{handleDragStart(e, {itemI, groupI})}} 
-                                                                key={itemI} 
-                                                                itemId={item} 
-                                                                className={dragging?getStyles({itemI, groupI}):"col-2"}
-                                                                />
-                                                            ))} 
-                                                        </div>
-                                                    )}
-                                                    
-                                                </div>    
-                                            </div>
-                                        </div>
-                                    ))}
-
-                                </div>
-
+                    {started? (
+                        <div>
+                            <div className="rebus_header mt-2 mb-2 row pe-3 ps-3">
+                                <h5 class="modal-title col-12" id="exampleModalLabel">Rebus #{props.number}</h5>
+                                <span id="timer" className="col-12 text-end">Time left: {timeToShow}</span>
                             </div>
-                        ):(
-                            ""
-                        )}
                             
-                        
+                            <div className="rebus_main_content">
+                            
+                                <div className="container-fluid">
 
-                    </div>
+                                    <div className="row" id="rebus_holder">
 
+                                        {rebusData.map((group, groupI)=>(
+                                            <div key={group.title} className="col-12" id={group.title}>
+                                                <div className="container-fluid">
+                                                    <div>
+                                                        {group.title == 'nests'?(
+                                                            <div onDragEnd={()=> setDraggingToEmpty(false)} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
+                                                                <hr class="line_in_rebus mt-3"></hr>
+                                                                <span className='col-6'>Move them here and put them in right order to solve rebus</span>
+                                                                <span className='col-6 text-end'>You need {group.needed} cards here</span>
+                                                                {group.items.map((item, itemI) =>(
+                                                                    <RebusNest 
+                                                                    image={group.pics[itemI]}
+                                                                    key={itemI} 
+                                                                    nestId={item} 
+                                                                    className="col-2"
+                                                                    onDragStart={(e)=>{handleDragStart(e, {itemI, groupI})}} 
+                                                                    onDragEnter={dragging?(e)=>{handleDragEnter(e, {itemI, groupI})}:null}
+                                                                    />
+                                                                ))}
+                                                            </div>
+                                                        ):(
+                                                            <div onDragEnd={()=> setDraggingToEmpty(false)} onDragEnter={(e)=>fieldDragEnter(e, groupI)} className="row justify-content-center row_holder">
+                                                                <hr class="line_in_rebus mt-3"></hr>
+                                                                <span className='col-6'>This is your cards to solve rebus</span>
+                                                                <span className='col-6 text-end'>You can move them back if nessesary</span>
+                                                                {group.items.map((item, itemI) =>(
+                                                                    <RebusItem 
+                                                                    image={group.pics[itemI]}
+                                                                    onDragEnter={dragging?(e)=>{handleDragEnter(e, {itemI, groupI})}:null}
+                                                                    onDragStart={(e)=>{handleDragStart(e, {itemI, groupI})}} 
+                                                                    key={itemI} 
+                                                                    itemId={item} 
+                                                                    className={dragging?getStyles({itemI, groupI}):"col-2"}
+                                                                    />
+                                                                ))} 
+                                                            </div>
+                                                        )}
+                                                        
+                                                    </div>    
+                                                </div>
+                                            </div>
+                                        ))}
 
-                    <div className="row justify-content-center mt-2 mb-2">
-                        {sendingSolve?(
-                            <div className="col-6 row justify-content-center text-center">
-                                <div className="col-12">
-                                   {sureSendingTxt}
-                                </div>
+                                    </div>
 
-                                <div className="col-12 row justify-content-center">
-                                    <button onClick={()=>setSendingSolve(!sendingSolve)} className="col-4 site_btn close_rebus_btn" id="think_more">let me think more</button>
-                                    <button onClick={onRebusEnd} className="col-4 site_btn close_rebus_btn" data-bs-dismiss="modal">yes, send solve</button>
                                 </div>
                             </div>
-                            ):(
-                                <button onClick={sureSending} type="button" className="col-4 site_btn close_rebus_btn">Send solve</button>
-                            )}
-                    </div>
+
+                            <div className="row justify-content-center mt-2 mb-2">
+                                {sendingSolve?(
+                                    <div className="col-6 row justify-content-center text-center">
+                                        <div className="col-12">
+                                            {sureSendingTxt}
+                                        </div>
+
+                                        <div className="col-12 row justify-content-center">
+                                            <button onClick={()=>setSendingSolve(!sendingSolve)} className="col-4 site_btn close_rebus_btn" id="think_more">let me think more</button>
+                                            <button onClick={onRebusEnd} className="col-4 site_btn close_rebus_btn" data-bs-dismiss="modal">yes, send solve</button>
+                                        </div>
+                                    </div>
+                                ):(
+                                    <button onClick={sureSending} type="button" className="col-4 site_btn close_rebus_btn">Send solve</button>
+                                )}
+                            </div>
+
+                        </div>
+                    ):(
+                        <div className='container-fluid'>
+                            <div className='row justify-content-center'>
+                                <span className="col-8 mt-3 text-center">{rebusStartError}</span>
+                                <button data-bs-dismiss="modal" className="col-4 mt-3 mb-3 site_btn close_rebus_btn">Close window</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 

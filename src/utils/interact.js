@@ -182,6 +182,7 @@ export const startRebusSolving = async(rebusNum)=>{
             method: 'eth_sendTransaction',
             params: [transactionParameters]
         });
+        //ДОБАВИТЬ THEN
     return {
         success: true,
         status: "",
