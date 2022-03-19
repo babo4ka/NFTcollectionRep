@@ -160,7 +160,7 @@ export const startRebusSolving = async(rebusNum)=>{
     }
   }
 
-  const contract = await new web3.eth.Contract(rebusesABI, rebusesAddress);
+  const contract = new web3.eth.Contract(rebusesABI, rebusesAddress);
 
   // var cost = await contract.methods.rebusCost().call();
   
@@ -181,12 +181,11 @@ export const startRebusSolving = async(rebusNum)=>{
         .request({
             method: 'eth_sendTransaction',
             params: [transactionParameters]
-        });
-        //ДОБАВИТЬ THEN
-    return {
-        success: true,
-        status: "",
-      }
+        })
+        return{
+          success:true,
+          status:""
+        }
  } catch (error) {
     return {
         success: false,

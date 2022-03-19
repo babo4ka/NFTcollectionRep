@@ -36,10 +36,16 @@ const Example = (props) =>{
         }
     }, [])
 
+    const [loadingInfo, setLoadingInfo] = useState('Loading token data...');
+
     async function getToken(){
-        if(document.getElementById('token_input').value == ""){
+        if(document.getElementById('token_input').value == "" || Number(document.getElementById('token_input').value)<0){
+            setLoadingInfo("Enter number between 1 and 4000");
+            document.getElementById("loading_info").style.justifyContent = "center";
+            document.getElementById("loading_info").style.display = "flex";
             return;
         }
+        setLoadingInfo("Loading token data...");
         setTokenIdToBet(document.getElementById('token_input').value);
         document.getElementById("loading_info").style.display = "flex";
         document.getElementById("loading_info").style.justifyContent = "center";
@@ -96,7 +102,7 @@ const Example = (props) =>{
 
             <div className="container-fluid">
                 <div className="row">
-                    <span className="col-12 mt-5" id="loading_info">Loading token data...</span>
+                    <span className="col-12 mt-5" id="loading_info">{loadingInfo}</span>
                 </div>
             </div>
            
