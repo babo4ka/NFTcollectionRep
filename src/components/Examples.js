@@ -39,7 +39,7 @@ const Example = (props) =>{
     const [loadingInfo, setLoadingInfo] = useState('Loading token data...');
 
     async function getToken(){
-        if(document.getElementById('token_input').value == "" || Number(document.getElementById('token_input').value)<0){
+        if(document.getElementById('token_input').value == "" || Number(document.getElementById('token_input').value)<1){
             setLoadingInfo("Enter number between 1 and 4000");
             document.getElementById("loading_info").style.justifyContent = "center";
             document.getElementById("loading_info").style.display = "flex";
