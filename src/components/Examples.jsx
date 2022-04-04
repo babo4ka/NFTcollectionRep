@@ -2,7 +2,6 @@ import './css/Examples.scss';
 import { useEffect, useState } from 'react';
 import SiteButton from './SiteButton.jsx';
 import example_img from '../images/example.jpg'
-
 import { getTokenData } from '../utils/interact';
 
 const BetsAbout = ()=>{
@@ -87,7 +86,7 @@ const Example = (props) =>{
                     <div className="col-12">
                         <div className="container">
 
-                            <div className="row">
+                            <div className="row justify-content-center">
                                 <input type="text" className="col-12" id="token_input" placeholder='Enter token ID'/>
                             </div>
 
