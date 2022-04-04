@@ -1,9 +1,9 @@
-import MintWindow from './components/MintWindow';
-import AdvertisementBoard from './components/AdvertisementBoard';
-import Examples from './components/Examples';
+import MintWindow from './MintWindow';
+import AdvertisementBoard from './AdvertisementBoard';
+import Examples from './Examples';
 
-import './MinterPage.scss';
-import SiteButton, {PageButton} from './components/SiteButton';
+import './css/MinterPage.scss';
+import SiteButton, {PageButton} from './SiteButton.jsx';
 
 import { useEffect, useState } from 'react';
 
@@ -13,7 +13,7 @@ import {
   isWalletWhiteListed,
   getTokenCountData,
   bet
-} from './utils/interact';
+} from '../utils/interact';
 
 function MinterPage() { 
 
@@ -120,7 +120,7 @@ function MinterPage() {
       <Examples walletConnected={wallet != ""}/>
 
       <h3 id="orders_txt">OFFERS FOR YOU</h3>
-      <hr class="line"/>
+      <hr className="line"/>
 
       <div className="row welcomes">
 

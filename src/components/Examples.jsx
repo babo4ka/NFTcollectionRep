@@ -1,6 +1,6 @@
 import './css/Examples.scss';
 import { useEffect, useState } from 'react';
-import SiteButton from './SiteButton';
+import SiteButton from './SiteButton.jsx';
 import example_img from '../images/example.jpg'
 
 import { getTokenData } from '../utils/interact';
@@ -10,15 +10,15 @@ const BetsAbout = ()=>{
     "As soon as you minted token you bet on, you will recieve 85% of total bets!"
     
     return(
-        <div class="modal fade" id="bets_about" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bets_about_modal">
+        <div className="modal fade" id="bets_about" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content bets_about_modal">
 
                     <div className="bets_about_content">
                         {rebus_about}
                     </div>
 
-                    <button class="site_btn mt-5" data-bs-dismiss="modal">Got it!</button>
+                    <button className="site_btn mt-5" data-bs-dismiss="modal">Got it!</button>
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@ const Example = (props) =>{
                     <div className="col-12">
                         <div className="container">
 
-                            <div classname="row">
+                            <div className="row">
                                 <input type="text" className="col-12" id="token_input" placeholder='Enter token ID'/>
                             </div>
 

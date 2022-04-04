@@ -1,11 +1,11 @@
-import './AdvertismentForm.scss';
-import SiteButton from './components/SiteButton';
+import './css/AdvertismentForm.scss';
+import SiteButton from './SiteButton';
 import { useEffect, useState } from 'react';
 
 import { 
     connectWallet, 
     getCurrentWalletConnected
-} from './utils/interact';
+} from '../utils/interact';
 
 const AdvertismentForm = ()=>{
 

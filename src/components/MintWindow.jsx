@@ -1,5 +1,5 @@
 import './css/MintWindow.scss'
-import SiteButton from './SiteButton';
+import SiteButton from './SiteButton.jsx';
 
 const MintWindow = (props) =>{
     const objClassName = "container mint_window " + props.cn;

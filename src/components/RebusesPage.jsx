@@ -1,6 +1,6 @@
-import SiteButton, { OpenRebusButton } from "./components/SiteButton";
-import './RebusesPage.scss';
-import RebusWindow from "./components/RebusWindow";
+import SiteButton, { OpenRebusButton } from "./SiteButton";
+import './css/RebusesPage.scss';
+import RebusWindow from "./RebusWindow";
 import React, { useEffect, useState } from 'react';
 
 
@@ -9,8 +9,8 @@ import {
     getCurrentWalletConnected,
     getRebusData,
     startRebus
-} from './utils/interact';
-import { AllRebuses } from "./AllRebuses";
+} from '../utils/interact';
+import { AllRebuses } from "../utils/AllRebuses";
 
 
 
@@ -74,10 +74,11 @@ const RebusesPage = (props)=>{
       setAllRebusData(rebusData);
       
       setWindows( AllRebuses().rebusData.map((item, itemI)=>
-      <RebusWindow  rebusData={item} number={itemI+1}/>));
+      <RebusWindow key={itemI} rebusData={item} number={itemI+1}/>));
 
       setOpens(AllRebuses().rebusData.map((item, itemI)=>(
         <Rebus 
+        key={itemI}
         beingSolved={rebusData[itemI].beingSolved}
         tries={rebusData[itemI].tries} 
         func={()=>connectWalletPressed()} walletConnected={address!=""} number={itemI+1}/>)));
@@ -129,7 +130,7 @@ const RebusesPage = (props)=>{
     
   return(
         <div className="container">
-            <div class="row btn_holder">
+            <div className="row btn_holder">
                 <a href="/" className="col-sm-6" id="back_to_minter_btn">Back to minter page</a>
             </div>
         

@@ -2,7 +2,7 @@ import React , {Component, useEffect, useRef, useState} from 'react';
 import './css/RebusWindow.scss';
 
 import { startRebusSolving } from '../utils/interact';
-import SiteButton from './SiteButton';
+
 
 const RebusItem = (props)=>{
     const className = `item ${props.className}`

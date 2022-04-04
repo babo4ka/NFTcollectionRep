@@ -1,12 +1,12 @@
-import MinterPage  from './MinterPage';
-import RebusesPage from './RebusesPage';
+import MinterPage  from './components/MinterPage.jsx';
+import RebusesPage from './components/RebusesPage.jsx';
 import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-import AdvertismentForm from './AdvertismentForm';
+import AdvertismentForm from './components/AdvertismentForm.jsx';
 
 
 function App() {

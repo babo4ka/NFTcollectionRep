@@ -1,4 +1,4 @@
-import exmpl from './images/example.jpg'
+import exmpl from '../images/example.jpg'
 
 export const AllRebuses=()=>{
     // const rebusNumber = [1,2];
