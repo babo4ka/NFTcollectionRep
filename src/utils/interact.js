@@ -1,5 +1,6 @@
 import Web3 from 'web3';
 
+
 export const web3 = new Web3("https://speedy-nodes-nyc.moralis.io/9fcfea6f5970d20ff23ae056/eth/rinkeby");
 const contractABI = require('../contract_abi.json');
 const contractAddress = "0x1dc7d35718ecfd067d5b5b7769e987a6a45ba3ee";
@@ -28,9 +29,10 @@ export const bet = async (tokenId)=>{
 }
 
 export const getTokenCountData = async()=>{
-  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  window.contract = new web3.eth.Contract(contractABI, contractAddress);
   const maxSupply = await window.contract.methods.maxSupply().call();
   const totalSupply = await window.contract.methods.totalSupply().call();
+
 
   return{
     maxSupply:maxSupply,

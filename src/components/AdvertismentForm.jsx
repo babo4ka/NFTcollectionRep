@@ -6,15 +6,20 @@ import {
     connectWallet, 
     getCurrentWalletConnected
 } from '../utils/interact';
+import { useDispatch, useSelector } from 'react-redux';
+import { set_wallet_action } from '../store/walletInteractReducer';
 
 const AdvertismentForm = ()=>{
 
-    const [wallet, setWallet] = useState();
+    // const [wallet, setWallet] = useState();
+    const wallet = useSelector(state => state.walletInteractReducer.wallet)
+
+    const dispatch = useDispatch()
     const [status, setStatus] = useState();
 
     useEffect(async()=>{
         const {address, status} = await getCurrentWalletConnected();
-        setWallet(address);
+        dispatch(set_wallet_action(address))
         setStatus(status);
 
         addWalletListener();
@@ -24,10 +29,10 @@ const AdvertismentForm = ()=>{
         if (window.ethereum) {
         window.ethereum.on("accountsChanged", (accounts) => {
             if (accounts.length > 0) {
-            setWallet(accounts[0]);
-            } else {
-            setWallet("");
-            }
+                dispatch(set_wallet_action(accounts[0]))
+              } else {
+                dispatch(set_wallet_action(''))
+              }
         });
         } else {
 
@@ -37,7 +42,7 @@ const AdvertismentForm = ()=>{
     const connectWalletPressed = async () => {
         const walletResponse = await connectWallet();
         setStatus(walletResponse.status);
-        setWallet(walletResponse.address);
+        dispatch(set_wallet_action(walletResponse.address))
     };
 
     //плюс/минус на кнопке доп функций

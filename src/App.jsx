@@ -6,31 +6,35 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { store } from './store/store.js';
 import AdvertismentForm from './components/AdvertismentForm.jsx';
+import { Provider } from 'react-redux';
 
 
 function App() {
   return (
 
-    <Router>
-      <div>
-      <Switch>
+    <Provider store={store}>
+      <Router>
+        <div>
+        <Switch>
 
-        <Route exact path="/">
-          <MinterPage></MinterPage>
-        </Route>
+          <Route exact path="/">
+            <MinterPage></MinterPage>
+          </Route>
 
-        <Route exact path="/rebuses">
-          <RebusesPage></RebusesPage>
-        </Route>
+          <Route exact path="/rebuses">
+            <RebusesPage></RebusesPage>
+          </Route>
 
-        <Route exact path="/adsorder">
-          <AdvertismentForm></AdvertismentForm>
-        </Route>
-        
-      </Switch>
-      </div>
-    </Router>
+          <Route exact path="/adsorder">
+            <AdvertismentForm></AdvertismentForm>
+          </Route>
+          
+        </Switch>
+        </div>
+      </Router>
+    </Provider>
 
   );
 }

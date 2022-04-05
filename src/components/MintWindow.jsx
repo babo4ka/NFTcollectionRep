@@ -1,20 +1,39 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './css/MintWindow.scss'
 import SiteButton from './SiteButton.jsx';
+import { getTokenCountData } from '../utils/interact';
+import { set_maxSupply_action, set_minted_action } from '../store/collectionInteractReducer';
+
+const config = require('../config.json')
 
 const MintWindow = (props) =>{
     const objClassName = "container mint_window " + props.cn;
 
     let walletConnected = props.walletConnected;
 
+    const collection_data = useSelector(state => state.collectionInteractReducer)
+    const totalSupply = collection_data.minted
+    const maxSupply = collection_data.maxSupply
+
+    const dispatch = useDispatch()
+
+    useEffect(async ()=>{
+        const {totalSupply, maxSupply} = await getTokenCountData();
+
+        dispatch(set_minted_action(totalSupply))
+        dispatch(set_maxSupply_action(maxSupply))
+    }, [])
+
     return(
         <div className={objClassName}>
         
-            <h3 id="collection_name" className="minter_item">COLLECTION NAME</h3>
+            <h3 id="collection_name" className="minter_item">{config.collection_name}</h3>
 
             <a href="#examples_txt" id="link_to_examples" className="minter_item">look on examples</a>
 
             <div id="current_tokens_count" className="minter_item">
-                {props.totalSupply} / {props.maxSupply} are minted
+                {totalSupply} / {maxSupply} are minted
             </div>
 
 
