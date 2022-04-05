@@ -1,10 +1,9 @@
 import {createStore, combineReducers} from 'redux'
-import { collectionInteractReducer } from './collectionInteractReducer'
-import { walletInteractReducer } from './walletInteractReducer'
+import { interactReducer } from './interactReducer'
+
 
 const rootReducer = combineReducers({
-    collectionInteractReducer,
-    walletInteractReducer
+    interactReducer
 })
 
 export const store = createStore(rootReducer)

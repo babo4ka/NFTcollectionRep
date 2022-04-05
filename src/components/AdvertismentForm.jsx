@@ -4,49 +4,52 @@ import { useEffect, useState } from 'react';
 
 import { 
     connectWallet, 
-    getCurrentWalletConnected
+    getCurrentWalletConnected,
+    isWalletWhiteListed
 } from '../utils/interact';
 import { useDispatch, useSelector } from 'react-redux';
-import { set_wallet_action } from '../store/walletInteractReducer';
+import { set_status_action, set_wallet_action, set_whitelisted_action } from '../store/interactReducer';
 
 const AdvertismentForm = ()=>{
 
-    // const [wallet, setWallet] = useState();
-    const wallet = useSelector(state => state.walletInteractReducer.wallet)
+    const wallet = useSelector(state => state.interactReducer.wallet)
 
     const dispatch = useDispatch()
-    const [status, setStatus] = useState();
 
     useEffect(async()=>{
         const {address, status} = await getCurrentWalletConnected();
         dispatch(set_wallet_action(address))
-        setStatus(status);
+        dispatch(set_status_action(status))
 
         addWalletListener();
     }, [])
 
-    function addWalletListener() {
+    async function addWalletListener() {
         if (window.ethereum) {
-        window.ethereum.on("accountsChanged", (accounts) => {
-            if (accounts.length > 0) {
-                dispatch(set_wallet_action(accounts[0]))
-              } else {
-                dispatch(set_wallet_action(''))
-              }
-        });
+            window.ethereum.on("accountsChanged", async (accounts) => {
+                if (accounts.length > 0) {
+                  dispatch(set_wallet_action(accounts[0]))
+                  const { whiteListed } = await isWalletWhiteListed(accounts[0]);
+                  dispatch(set_whitelisted_action(whiteListed))
+                } else {
+                  dispatch(set_wallet_action(''))
+                  dispatch(set_whitelisted_action(false))
+                }
+              });
         } else {
-
         }
     }
 
     const connectWalletPressed = async () => {
         const walletResponse = await connectWallet();
-        setStatus(walletResponse.status);
+        dispatch(set_status_action(walletResponse.status))
         dispatch(set_wallet_action(walletResponse.address))
     };
 
     //плюс/минус на кнопке доп функций
     const [plus, setPlus] = useState("+");
+    //процент добавления к цене при доп опциях
+    const [perc, setPerc] = useState(0);
 
     function add_rem(){
         if(plus == "+"){
@@ -102,20 +105,16 @@ const AdvertismentForm = ()=>{
     function calcAdsType(){
         var type = document.getElementById('duration_form').value;
         setDurationType(type);
-        
     }
     //выбор количества продолжительности
     function calcDurationCount(action){
         if(action == '+'){
-            setDurationCount(durationCount+1);
+            setDurationCount(prev => prev + 1);
         }else{
             if(durationCount != 1)
-            setDurationCount(durationCount-1);
+            setDurationCount(prev => prev - 1);
         }
     }
-    //процент добавления к цене при доп опциях
-    const [perc, setPerc] = useState(0);
-
 
     const image_load_field = document.getElementById("image_load_label");
 

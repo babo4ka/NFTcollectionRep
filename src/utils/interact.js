@@ -41,7 +41,7 @@ export const getTokenCountData = async()=>{
 }
 
 export const isWalletWhiteListed = async(wallet)=>{
-  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  window.contract = new web3.eth.Contract(contractABI, contractAddress);
   const whiteListed = await window.contract.methods.whiteListed(wallet).call();
 
   return{
@@ -50,7 +50,7 @@ export const isWalletWhiteListed = async(wallet)=>{
 }
 
 export const getTokenData = async (tokenId)=>{
-  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+  window.contract = new web3.eth.Contract(contractABI, contractAddress);
 
   let tokenURI = await window.contract.methods.tokenURIforData(tokenId).call();
 

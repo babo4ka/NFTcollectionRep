@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import SiteButton from './SiteButton.jsx';
 import example_img from '../images/example.jpg'
 import { getTokenData } from '../utils/interact';
+import { useSelector } from 'react-redux';
 
 const BetsAbout = ()=>{
-    const rebus_about = "You can bet on any token and win MATIC if you mint it. Bet price is 0.25  MATIC. " + 
+    const bets_about = "You can bet on any token and win MATIC if you mint it. Bet price is 0.25  MATIC. " + 
     "As soon as you minted token you bet on, you will recieve 85% of total bets!"
     
     return(
@@ -14,7 +15,7 @@ const BetsAbout = ()=>{
                 <div className="modal-content bets_about_modal">
 
                     <div className="bets_about_content">
-                        {rebus_about}
+                        {bets_about}
                     </div>
 
                     <button className="site_btn mt-5" data-bs-dismiss="modal">Got it!</button>
@@ -24,11 +25,14 @@ const BetsAbout = ()=>{
     )
 }
 
-const Example = (props) =>{
+const Example = () =>{
     // const class_name = "col col-md-4 col-6 example";
     
+    const wallet = useSelector(state => state.interactReducer.wallet)
+    const [textBet, setTextBet] = useState("Connect wallet to bet")
+
     useEffect(async ()=>{
-        if(props.walletConnected){
+        if(wallet != ''){
             setTextBet("Bet on this token")
         }else{
             setTextBet("Connect wallet to bet")
@@ -36,6 +40,7 @@ const Example = (props) =>{
     }, [])
 
     const [loadingInfo, setLoadingInfo] = useState('Loading token data...');
+    const [tokenIdToBet, setTokenIdToBet] = useState(0);
 
     async function getToken(){
         if(document.getElementById('token_input').value == "" || Number(document.getElementById('token_input').value)<1){
@@ -72,12 +77,6 @@ const Example = (props) =>{
 
         document.getElementById("loading_info").style.display = "none";
     }
-
-    const [tokenIdToBet, setTokenIdToBet] = useState(0);
-
-
-
-    const [textBet, setTextBet] = useState("Connect wallet to bet")
 
     return(
         <div className="row">

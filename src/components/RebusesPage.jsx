@@ -6,20 +6,20 @@ import React, { useEffect, useState } from 'react';
 
 import {
   connectWallet,
-  getCurrentWalletConnected,
   getRebusData,
-  startRebus
+  startRebus,
+  isWalletWhiteListed
 } from '../utils/interact';
 import { AllRebuses } from "../utils/AllRebuses";
 import { useDispatch, useSelector } from "react-redux";
-import { set_wallet_action } from "../store/walletInteractReducer";
+import { set_status_action, set_wallet_action, set_whitelisted_action } from "../store/interactReducer";
 
 
 
 const Rebus = (props) => {
 
   const id = `#rebusWindow${props.number}`
-  const wallet = useSelector(state => state.walletInteractReducer.wallet)
+  const wallet = useSelector(state => state.interactReducer.wallet)
 
   return (
     <div className="card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 rebus_body">
@@ -60,10 +60,8 @@ const Rebus = (props) => {
 
 const RebusesPage = (props) => {
 
-  const wallet = useSelector(state => state.walletInteractReducer.wallet)
   const dispatch = useDispatch()
-
-  const [status, setStatus] = useState();
+  const status = useSelector(state => state.interactReducer.status)
 
   const [allRebusData, setAllRebusData] = useState();
 
@@ -85,13 +83,16 @@ const RebusesPage = (props) => {
     addWalletListener();
   }, [])
 
-  function addWalletListener() {
+  async function addWalletListener() {
     if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
+      window.ethereum.on("accountsChanged", async (accounts) => {
         if (accounts.length > 0) {
           dispatch(set_wallet_action(accounts[0]))
+          const { whiteListed } = await isWalletWhiteListed(accounts[0]);
+          dispatch(set_whitelisted_action(whiteListed))
         } else {
           dispatch(set_wallet_action(''))
+          dispatch(set_whitelisted_action(false))
         }
       });
     } else {
@@ -101,7 +102,7 @@ const RebusesPage = (props) => {
 
   const connectWalletPressed = async () => {
     const walletResponse = await connectWallet();
-    setStatus(walletResponse.status);
+    dispatch(set_status_action(walletResponse.status))
     dispatch(set_wallet_action(walletResponse.address))
   };
 

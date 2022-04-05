@@ -14,38 +14,38 @@ import {
   bet
 } from '../utils/interact';
 import { useDispatch, useSelector } from 'react-redux';
-import { set_wallet_action } from '../store/walletInteractReducer';
+import { set_status_action, set_wallet_action, set_whitelisted_action } from '../store/interactReducer'
 
 function MinterPage() {
 
 
-  const wallet = useSelector(state => state.walletInteractReducer.wallet)
-  const [status, setStatus] = useState();
-  const [walletWhiteListed, setWalletWhiteListed] = useState(false);
+  const wallet = useSelector(state => state.interactReducer.wallet)
 
   const dispatch = useDispatch()
 
   useEffect(async () => {
     const { address, status } = await getCurrentWalletConnected();
-    setStatus(status);
-
+    dispatch(set_status_action(status))
     dispatch(set_wallet_action(address))
 
     if (address != '') {
       const { whiteListed } = await isWalletWhiteListed(address);
-      setWalletWhiteListed(whiteListed);
+      dispatch(set_whitelisted_action(whiteListed))
     }
 
     addWalletListener();
   }, [])
 
-  function addWalletListener() {
+  async function addWalletListener() {
     if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
+      window.ethereum.on("accountsChanged", async (accounts) => {
         if (accounts.length > 0) {
           dispatch(set_wallet_action(accounts[0]))
+          const { whiteListed } = await isWalletWhiteListed(accounts[0]);
+          dispatch(set_whitelisted_action(whiteListed))
         } else {
           dispatch(set_wallet_action(''))
+          dispatch(set_whitelisted_action(false))
         }
       });
     } else {
@@ -57,29 +57,8 @@ function MinterPage() {
 
     dispatch(set_wallet_action(walletResponse.address))
 
-    setStatus(walletResponse.status);
+    dispatch(set_status_action(walletResponse.status))
   };
-
-  const [mintAmount, setMintAmount] = useState(1);
-  const maxMintAmount = 5;
-
-
-  function changeMintAmount(sign) {
-    setStatus("");
-    if (sign == "-") {
-      if (mintAmount > 1) {
-        setMintAmount(mintAmount - 1)
-      } else {
-        setStatus("You cannot mint less than 1 NFT")
-      }
-    } else if (sign == "+") {
-      if (mintAmount < maxMintAmount) {
-        setMintAmount(mintAmount + 1)
-      } else {
-        setStatus("You cannot mint more than 5 NFTs")
-      }
-    }
-  }
 
 
   return (
@@ -95,24 +74,13 @@ function MinterPage() {
 
       <div className="minter row">
 
-        <MintWindow
-          onConnect={() => connectWalletPressed()}
-          walletConnected={wallet != ""}
-          cn=" col col-md-7"
-          status={status}
-          mintAmount={mintAmount}
-          incMintAmount={() => changeMintAmount("+")}
-          decMintAmount={() => changeMintAmount("-")}
-          whiteListed={walletWhiteListed}
-          totalCost={mintAmount * 50}
-        >
-        </MintWindow>
+        <MintWindow onConnect={() => connectWalletPressed()} cn=" col col-md-7"></MintWindow>
 
       </div>
 
       <h3 id="examples_txt">FIND TOKEN BY ID</h3>
 
-      <Examples walletConnected={wallet != ""} />
+      <Examples/>
 
       <h3 id="orders_txt">OFFERS FOR YOU</h3>
       <hr className="line" />
