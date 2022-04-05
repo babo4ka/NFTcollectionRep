@@ -8,6 +8,7 @@ const contractAddress = "0x1dc7d35718ecfd067d5b5b7769e987a6a45ba3ee";
 const rebusesABI = require('../rebuses_abi.json');
 const rebusesAddress = "0x4f360d9be05e83914f04232c2e9a072371d9f875"
 
+const config = require('../config.json')
 
 export const bet = async (tokenId)=>{
   if(window.ethereum.chainId != 4){
@@ -137,7 +138,7 @@ export const connectWallet = async () => {
 
   //Rebuses interact
 export const getRebusData = async()=>{
-  const contract = await new web3.eth.Contract(rebusesABI, rebusesAddress);
+  const contract = new web3.eth.Contract(rebusesABI, rebusesAddress);
 
   var rebusData = [];
 
@@ -163,15 +164,15 @@ export const startRebusSolving = async(rebusNum)=>{
   }
 
   const contract = new web3.eth.Contract(rebusesABI, rebusesAddress);
-
-  // var cost = await contract.methods.rebusCost().call();
   
   var cost = 0.0001;
+  //var cost = config.rebusPrice;
   cost = web3.utils.toWei(cost.toString(), "ether")
 
-  let gasLimit = 285000;
-  const transactionParameters = {
-    gasLimit:String(gasLimit),
+  
+  let transactionParameters = config.tx_params;
+
+  transactionParameters = {...transactionParameters,
     to: rebusesAddress, 
     from: window.ethereum.selectedAddress,
     data: contract.methods.startRebusSolving(rebusNum).encodeABI(),//make call to NFT smart contract 

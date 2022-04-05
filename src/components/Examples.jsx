@@ -5,8 +5,10 @@ import example_img from '../images/example.jpg'
 import { getTokenData } from '../utils/interact';
 import { useSelector } from 'react-redux';
 
+const config = require('../config.json')
+
 const BetsAbout = ()=>{
-    const bets_about = "You can bet on any token and win MATIC if you mint it. Bet price is 0.25  MATIC. " + 
+    const bets_about = `You can bet on any token and win ${config.currency} if you mint it. Bet price is ${config.betPrice}  ${config.currency}. ` + 
     "As soon as you minted token you bet on, you will recieve 85% of total bets!"
     
     return(
@@ -43,7 +45,7 @@ const Example = () =>{
     const [tokenIdToBet, setTokenIdToBet] = useState(0);
 
     async function getToken(){
-        if(document.getElementById('token_input').value == "" || Number(document.getElementById('token_input').value)<1){
+        if(isNaN(document.getElementById('token_input').value) || document.getElementById('token_input').value == "" || Number(document.getElementById('token_input').value)<1){
             setLoadingInfo("Enter number between 1 and 4000");
             document.getElementById("loading_info").style.justifyContent = "center";
             document.getElementById("loading_info").style.display = "flex";

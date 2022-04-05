@@ -10,17 +10,19 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { set_status_action, set_wallet_action, set_whitelisted_action } from '../store/interactReducer';
 
+const config = require('../config.json')
+
 const AdvertismentForm = ()=>{
 
-    const wallet = useSelector(state => state.interactReducer.wallet)
-
     const dispatch = useDispatch()
+
+    const wallet = useSelector(state => state.interactReducer.wallet)
 
     useEffect(async()=>{
         const {address, status} = await getCurrentWalletConnected();
         dispatch(set_wallet_action(address))
         dispatch(set_status_action(status))
-
+        console.log('s')
         addWalletListener();
     }, [])
 
@@ -161,7 +163,7 @@ const AdvertismentForm = ()=>{
     return(
         <div className="container">
 
-            <div class="row btn_holder">
+            <div className="row btn_holder">
                 <a href="/" className="col-sm-6" id="back_to_minter_btn">Back to minter page</a>
             </div>
 
@@ -169,7 +171,7 @@ const AdvertismentForm = ()=>{
 
             {wallet != ""?(
                 <div className='row justify-content-center wallet_holder'>
-                    <span className="col-7">Wallet connected: {wallet}</span>
+                    <span className="col-7 text-truncate">Wallet connected: {wallet}</span>
                 </div>
             ):(
                 <div className='row justify-content-center'>                 
@@ -192,7 +194,7 @@ const AdvertismentForm = ()=>{
                         </div>
                         <div className="col-12 col-md-8 row">
                             <ImagePreview></ImagePreview>
-                            <label id="image_load_label" for="image_load">Browse...</label>
+                            <label id="image_load_label" htmlFor="image_load">Browse...</label>
                             <input 
                             accept='.jpg,.jpeg,.png' 
                             onChange={(e)=>loadImg(e)} 
@@ -224,16 +226,17 @@ const AdvertismentForm = ()=>{
                                 <p>Choose show duration</p>
 
                                 <select 
-                                class="form-select" 
+                                className="form-select" 
                                 aria-label="Default select example"
                                 id="duration_form"
                                 onChange={calcAdsType}
+                                defaultValue={'hours'}
                                 >
-                                    <option class="dur_item" value="hours" selected>Hours</option>
-                                    <option class="dur_item" value="12 hours">12 hours</option>
-                                    <option class="dur_item" value="days">Days</option>
-                                    <option class="dur_item" value="weeks">Weeks</option>
-                                    <option class="dur_item" value="months">Months</option>
+                                    <option className="dur_item" value="hours">Hours</option>
+                                    <option className="dur_item" value="12 hours">12 hours</option>
+                                    <option className="dur_item" value="days">Days</option>
+                                    <option className="dur_item" value="weeks">Weeks</option>
+                                    <option className="dur_item" value="months">Months</option>
                                 </select>
 
                                 <div className="row amount_btns">
@@ -244,7 +247,7 @@ const AdvertismentForm = ()=>{
                             </div>
 
                             <div className="col-md-4 btns_holder holder">
-                                <div classname="row form_btns">
+                                <div className="row form_btns">
                                     <SiteButton func={()=>clearFields()} cn="col-md-12 form_btn" tn="form_btn_text" id="reset_btn" text="Reset"></SiteButton>
                                     <SiteButton func={()=>writetocon()} cn="col-md-12 form_btn" tn="form_btn_text" id="submit_btn" text="Submit"></SiteButton>
                                 </div>
@@ -256,7 +259,7 @@ const AdvertismentForm = ()=>{
                             <div className="col-12 col-lg-7 form_footer" id="price_text">
                                 <h5>Your price now is {(durationTypeMap.get(durationType) * durationCount) 
                                     +
-                                    (durationTypeMap.get(durationType) * durationCount * perc)} MATIC</h5>
+                                    (durationTypeMap.get(durationType) * durationCount * perc)} {config.currency}</h5>
                             </div>
 
                             <div className="col-12 col-lg-5 form_footer" id="add_btn_box">

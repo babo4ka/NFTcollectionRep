@@ -158,6 +158,16 @@
     color: white;
 }
 
+.form_btns{
+    justify-content: end;
+}
+
+@media (max-width:767px) {
+    .form_btns{
+        justify-content: center;
+    }
+}
+
 #reset_btn{
     background-color: rgb(151, 0, 0);
 }

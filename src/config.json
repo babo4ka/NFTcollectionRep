@@ -1,3 +1,17 @@
 {
-    "collection_name":"Pandumbs"
+    "collection_name":"Pandumbs",
+    "collection_sym":"PNDMB",
+    "currency":"MATIC",
+    "cjain_id":4,
+    "price":50,
+    "maxMintAmount":5,
+    "rebusPrice":2,
+    "betPrice":0.25,
+    "tx_params":{
+        "to":"",
+        "from":"",
+        "data":"",
+        "value":"",
+        "gasLimit":"285000"
+    }
 }

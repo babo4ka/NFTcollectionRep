@@ -16,10 +16,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { set_status_action, set_wallet_action, set_whitelisted_action } from '../store/interactReducer'
 
+const config = require('../config.json')
+
 function MinterPage() {
 
-
-  const wallet = useSelector(state => state.interactReducer.wallet)
 
   const dispatch = useDispatch()
 
@@ -100,9 +100,9 @@ function MinterPage() {
 
         <div className="col col-sm welcome_page" id="rebus_welc">
 
-          <h2>TRY TO GET SYM CHEEPER</h2>
+          <h2>TRY TO GET {config.collection_sym} CHEEPER</h2>
           <br />
-          <h3 >Just solve one of proposed rebuses and get one SYM</h3>
+          <h3 >Just solve one of proposed rebuses and get one {config.collection_sym}</h3>
           <br />
           <PageButton page="/rebuses" cn="order_btn fillable" text="Let's try!"></PageButton>
 

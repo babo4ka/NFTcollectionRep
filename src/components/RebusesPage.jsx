@@ -2,8 +2,6 @@ import SiteButton, { OpenRebusButton } from "./SiteButton";
 import './css/RebusesPage.scss';
 import RebusWindow from "./RebusWindow";
 import React, { useEffect, useState } from 'react';
-
-
 import {
   connectWallet,
   getRebusData,
@@ -14,18 +12,18 @@ import { AllRebuses } from "../utils/AllRebuses";
 import { useDispatch, useSelector } from "react-redux";
 import { set_status_action, set_wallet_action, set_whitelisted_action } from "../store/interactReducer";
 
+const config = require('../config.json')
 
-
-const Rebus = (props) => {
+const Rebus = (props, {wallet}) => {
 
   const id = `#rebusWindow${props.number}`
-  const wallet = useSelector(state => state.interactReducer.wallet)
+  
 
   return (
     <div className="card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 rebus_body">
       <div className="card-body card_body">
         <h1 className="rebus_number">#{props.number}</h1>
-        <p className="card-text rebus_desc">Try to solve this rebus for 2 MATIC and get one SYM</p>
+        <p className="card-text rebus_desc">Try to solve this rebus for {config.rebusPrice} {config.currency} and get one {config.collection_sym}</p>
         <p className="rebus_desc">Total tries: {props.tries}</p>
         {wallet != '' ? (
           <OpenRebusButton
@@ -33,8 +31,9 @@ const Rebus = (props) => {
             data_bs_target={id}
             data_bs_whatever={props.number}
             cn="fillable"
-            text="open rebus"></OpenRebusButton>
-
+            text="open rebus"
+          >
+          </OpenRebusButton>
         ) : (
           <SiteButton
             func={() => props.func()}
@@ -58,27 +57,18 @@ const Rebus = (props) => {
   )
 }
 
-const RebusesPage = (props) => {
+const RebusesPage = () => {
 
   const dispatch = useDispatch()
+  const wallet = useSelector(state => state.interactReducer.wallet)
   const status = useSelector(state => state.interactReducer.status)
 
   const [allRebusData, setAllRebusData] = useState();
+  const [localRebusData, setLocalRebusData] = useState(AllRebuses().rebusData)
 
   useEffect(async () => {
-
     const { rebusData } = await getRebusData();
     setAllRebusData(rebusData);
-
-    setWindows(AllRebuses().rebusData.map((item, itemI) =>
-      <RebusWindow key={itemI} rebusData={item} number={itemI + 1} />));
-
-    setOpens(AllRebuses().rebusData.map((item, itemI) => (
-      <Rebus
-        key={itemI}
-        beingSolved={rebusData[itemI].beingSolved}
-        tries={rebusData[itemI].tries}
-        func={() => connectWalletPressed()} number={itemI + 1} />)));
 
     addWalletListener();
   }, [])
@@ -114,8 +104,8 @@ const RebusesPage = (props) => {
             <span>Hello! Feel free to try solving any of these rebuses</span><br />
             <span>They are quite simple</span><br />
             <span>There will be some cards. You will have some time to put them in right order</span><br />
-            <span>Just pay 2 MATIC to open the rebus and go ahead!</span><br />
-            <span>If you will solve the rebus, you'll get one SYM and 50% of money other guys spent on tries</span><br />
+            <span>Just pay {config.rebusPrice} {config.currency} to open the rebus and go ahead!</span><br />
+            <span>If you will solve the rebus, you'll get one {config.collection_sym} and 50% of money other guys spent on tries</span><br />
             <span>Once you get solve this rebus, you will be whitelisted and will be able to mint free token</span>
           </div>
         </div>
@@ -124,8 +114,8 @@ const RebusesPage = (props) => {
   }
 
 
-  const [windows, setWindows] = useState();
-  const [opens, setOpens] = useState();
+  // const [windows, setWindows] = useState();
+  // const [opens, setOpens] = useState();
 
 
   return (
@@ -142,10 +132,23 @@ const RebusesPage = (props) => {
 
       <div className="container cards_holder">
         <div className="row cards_row">
-          {opens}
+          {allRebusData != undefined?(
+            localRebusData.map((item, itemI) => (
+              <Rebus
+                key={itemI}
+                beingSolved={allRebusData[itemI].beingSolved}
+                tries={allRebusData[itemI].tries}
+                func={() => connectWalletPressed()} number={itemI + 1}
+                wallet={wallet} />
+            ))
+          ):(
+            'Loading rebuses...'
+          )}
+          
         </div>
       </div>
-      {windows}
+      {localRebusData.map((item, itemI) =>
+      <RebusWindow key={itemI} rebusData={item} number={itemI + 1} />)}
     </div>
   )
 }

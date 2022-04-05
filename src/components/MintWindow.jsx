@@ -10,6 +10,8 @@ const config = require('../config.json')
 const MintWindow = (props) => {
     const objClassName = "container mint_window " + props.cn;
 
+    const dispatch = useDispatch()
+
     const wallet = useSelector(state => state.interactReducer.wallet)
     const status = useSelector(state => state.interactReducer.status)
     const whiteListed = useSelector(state => state.interactReducer.whiteListed)
@@ -18,25 +20,23 @@ const MintWindow = (props) => {
     const totalSupply = collection_data.minted
     const maxSupply = collection_data.maxSupply
 
-    const dispatch = useDispatch()
-
     const [mintAmount, setMintAmount] = useState(1);
-    const [totalCost, setTotalCost] = useState(50)
-    const maxMintAmount = 5;
+    const [totalCost, setTotalCost] = useState(config.price)
+    const maxMintAmount = config.maxMintAmount;
 
     const changeMintAmount = sign => {
         dispatch(set_status_action(''))
         if (sign == "-") {
             if (mintAmount > 1) {
                 setMintAmount(prev => prev - 1)
-                setTotalCost(prev => prev - 50)
+                setTotalCost(prev => prev - config.price)
             } else {
                 dispatch(set_status_action("You cannot mint less than 1 NFT"))
             }
         } else if (sign == "+") {
             if (mintAmount < maxMintAmount) {
                 setMintAmount(prev => prev + 1)
-                setTotalCost(prev => prev + 50)
+                setTotalCost(prev => prev + config.price)
             } else {
                 dispatch(set_status_action("You cannot mint more than 5 NFTs"))
             }
@@ -73,7 +73,7 @@ const MintWindow = (props) => {
                 (
                     <div>
                         <div id="token_cost" className="minter_item">
-                            1 SYM costs 50 MATIC
+                            1 {config.collection_sym} costs {config.price} {config.currency}
                         </div>
 
                         {wallet != '' ? (
@@ -86,7 +86,7 @@ const MintWindow = (props) => {
 
 
                                 <div id="total_cost" className="minter_item">
-                                    Total cost {totalCost} MATIC
+                                    Total cost {totalCost} {config.currency}
                                 </div>
 
                                 <SiteButton id="mint_btn" cn="mint_btn fillable" text="GET NFT"></SiteButton>
