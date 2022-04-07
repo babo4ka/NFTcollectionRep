@@ -61,6 +61,7 @@ const RebusesPage = () => {
 
   const dispatch = useDispatch()
   const wallet = useSelector(state => state.interactReducer.wallet)
+
   const status = useSelector(state => state.interactReducer.status)
 
   const [allRebusData, setAllRebusData] = useState();
@@ -113,9 +114,6 @@ const RebusesPage = () => {
     )
   }
 
-
-  // const [windows, setWindows] = useState();
-  // const [opens, setOpens] = useState();
 
 
   return (
