@@ -1,5 +1,6 @@
 import Web3 from 'web3';
-
+import { set_rebus_status } from '../store/rebusReducer';
+import {store} from '../store/store'
 
 export const web3 = new Web3(Web3.givenProvider);
 const contractABI = require('../contract_abi.json');
@@ -183,18 +184,22 @@ export const startRebusSolving = async (rebusNum) => {
   const result = await contract.methods.startRebusSolving(rebusNum)
   .send({from:window.ethereum.selectedAddress, value:parseInt(cost)})
   .on('transactionHash', ()=>{
-    return{
-      success:false,
-      status:"plase wait"
-    }
-  })
-  .on('confirmation', ()=>{
+    store.dispatch(set_rebus_status('pending'))
     return{
       success:true,
       status:""
     }
   })
+  .on('confirmation', ()=>{
+    store.dispatch(set_rebus_status('solving'))
+    console.log('i dispatched to solving')
+    // return{
+    //   success:true,
+    //   status:""
+    // }
+  })
   .on('error', err=>{
+    store.dispatch(set_rebus_status('null'))
     return{
       success:false,
       status: "Something went wrong: " + err.message

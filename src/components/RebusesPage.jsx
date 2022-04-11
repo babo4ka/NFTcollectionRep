@@ -1,7 +1,7 @@
 import SiteButton, { OpenRebusButton } from "./SiteButton";
 import './css/RebusesPage.scss';
 import RebusWindow from "./RebusWindow";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   connectWallet,
   getRebusData,
@@ -11,6 +11,9 @@ import {
 import { AllRebuses } from "../utils/AllRebuses";
 import { useDispatch, useSelector } from "react-redux";
 import { set_status_action, set_wallet_action, set_whitelisted_action } from "../store/interactReducer";
+
+import {store} from '../store/store'
+import { set_rebus_status } from "../store/rebusReducer";
 
 const config = require('../config.json')
 
@@ -66,6 +69,7 @@ const RebusesPage = () => {
 
   const [allRebusData, setAllRebusData] = useState();
   const [localRebusData, setLocalRebusData] = useState(AllRebuses().rebusData)
+
 
   useEffect(async () => {
     const { rebusData } = await getRebusData();

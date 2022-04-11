@@ -16,10 +16,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { set_status_action, set_wallet_action, set_whitelisted_action } from '../store/interactReducer'
 
+
 const config = require('../config.json')
 
 function MinterPage() {
-
 
   const dispatch = useDispatch()
 

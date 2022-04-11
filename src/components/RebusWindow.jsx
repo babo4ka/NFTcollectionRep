@@ -3,6 +3,9 @@ import './css/RebusWindow.scss';
 
 import { startRebusSolving, listenToEvent } from '../utils/interact';
 
+import {store} from '../store/store'
+import { useSelector } from 'react-redux';
+
 const config = require('../config.json')
 
 const RebusItem = (props) => {
@@ -182,12 +185,29 @@ const RebusWindow = (props) => {
     const [rebusStartError, setRebusStartError] = useState("Confirm the transaction")
     const [started, setStarted] = useState(false);
 
+    const rebusStatus = useRef(useSelector(state => state.rebusReducer.status))
+
+    store.subscribe(()=>{
+        const newStatus = store.getState().rebusReducer.status
+        
+
+        if(newStatus != rebusStatus.current){
+            console.log(`i got new status ${newStatus}`)
+            rebusStatus.current = newStatus
+            if(newStatus == 'solving'){
+                setStarted(true)
+                setTimer()
+            }else if(newStatus == 'pending'){
+                setRebusStartError('Please wait until transaction is complete...')
+            }
+        }
+    })
+
     async function startRebus() {
         const { success, status } = await startRebusSolving(props.number);
-
+        
         if (success) {
-            setStarted(true);
-            setTimer();
+            setRebusStartError('Please wait until transaction is complete...')
         } else {
             setRebusStartError(`Couldn't start rebus :( ${status}`)
         }
