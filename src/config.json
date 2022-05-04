@@ -6,6 +6,14 @@
         "price":50,
         "betPrice":0.25
     },
+
+    "uebisha":{
+        "collection_name":"Uebisha",
+        "collection_sym":"UBSH",
+        "maxMintAmount":10,
+        "price":1,
+        "betPrice":0.25
+    },
     
     "currency":"MATIC",
     "chain_id":4,

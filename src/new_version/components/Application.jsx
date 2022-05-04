@@ -1,21 +1,30 @@
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
   } from "react-router-dom";
 import PandumbsMinterPage from "./pandumbs/PandumbsMinterPage";
-
-
+import './Application.scss'
+import { Provider } from "react-redux";
+import {store} from '../store/store'
+import UebishaMinterPage from "./uebisha/UebishaMinterPage";
 const Application = () => {
-     return(
-        <Router>
-            <Switch>
-                <Route exact path="/pandumbs">
-                    <PandumbsMinterPage/>
-                </Route>
-            </Switch>
-        </Router>
+    
+    
+    return(
+         <Provider store={store}>
+            <Router>
+                <Switch>
+                    <Route exact path="/pandumbs">
+                        <PandumbsMinterPage/>
+                    </Route>
+
+                    <Route exact path="/uebisha">
+                        <UebishaMinterPage/>
+                    </Route>
+                </Switch>
+            </Router>
+        </Provider>
      )
 }
 
