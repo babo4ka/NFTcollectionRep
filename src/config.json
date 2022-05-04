@@ -1,12 +1,14 @@
 {
-    "collection_name":"Pandumbs",
-    "collection_sym":"PNDMB",
+    "pandumbs":{
+        "collection_name":"Pandumbs",
+        "collection_sym":"PNDMB",
+        "maxMintAmount":5,
+        "price":50,
+        "betPrice":0.25
+    },
+    
     "currency":"MATIC",
     "chain_id":4,
-    "price":50,
-    "maxMintAmount":5,
-    "rebusPrice":2,
-    "betPrice":0.25,
     "tx_params":{
         "to":"",
         "from":"",

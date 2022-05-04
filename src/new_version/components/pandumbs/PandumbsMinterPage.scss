@@ -1,0 +1,59 @@
+@import '../variables.scss';
+
+body{
+    background-color: $p_back_color;
+    color: $text_color;
+}
+
+.minter_area{
+    margin-top: 80px;
+}
+
+.counter_item{
+    margin: 0px 10px;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.p_count_btn{
+    color: $p_acent_color;
+    cursor: pointer;
+}
+
+.p_count_btn:hover{
+    color: #f7e060;
+}
+
+.mint_btn{
+    border: none;
+    font-weight: 500;
+}
+
+.p_mint_btn{
+    background-color: $p_acent_color;
+}
+
+.p_mint_btn:hover{
+    background-color: #f7e060;
+}
+
+.higher_area_item{
+    margin: 0px 30px;
+}
+
+.price_enter{
+    background: none;
+    color: $text_color;
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    border-radius: 0;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+
+    text-align: center;
+}
+
+.price_enter::-webkit-inner-spin-button,
+.price_enter::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+}

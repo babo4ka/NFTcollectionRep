@@ -1,0 +1,70 @@
+@import './variables.scss';
+
+.minter_link {
+    text-decoration: none;
+    color: $text_color;
+    font-size: 20px;
+
+    font-weight: 500;
+
+    position: relative;
+}
+
+.p_active {
+    color: $p_acent_color;
+}
+
+.p_link:hover {
+    color: $p_acent_color;
+}
+
+.u_link:hover {
+    color: $u_acent_color;
+}
+
+
+.p_link:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '';
+
+    -webkit-transition: all .3s ease-in-out;
+    -moz--transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+
+    height: 1px;
+}
+
+
+.p_link:hover:after {
+    background-color: $p_acent_color;
+    width: 40%;
+    z-index: -1;
+}
+
+.u_link:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '';
+
+    -webkit-transition: all .3s ease-in-out;
+    -moz--transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+
+    height: 1px;
+}
+
+
+.u_link:hover:after {
+    background-color: $u_acent_color;
+    width: 40%;
+    z-index: -1;
+}
