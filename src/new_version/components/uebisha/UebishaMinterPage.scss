@@ -5,6 +5,9 @@
 .u_count_btn{
     color: $u_acent_color;
     cursor: pointer;
+
+    background: none;
+    border: none;
 }
 
 .u_count_btn:hover{
@@ -22,7 +25,7 @@
 
 
 .u_examples_image_holder{
-    height: 250px;
+    height: 200px;
     width: 200px;
     padding: 0;
     

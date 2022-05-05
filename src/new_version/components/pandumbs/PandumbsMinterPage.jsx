@@ -2,7 +2,7 @@ import MintersLinks from '../MintersLinks'
 import './PandumbsMinterPage.scss'
 import { useEffect, useState } from 'react'
 import example_img from './rebus_img_4.png'
-import { getCurrentWalletConnected } from '../../utils/interact.js'
+import { connectWallet, getCurrentWalletConnected } from '../../utils/interact.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { set_status_action, set_wallet_action } from '../../store/interactReducer.js'
 import $ from 'jquery'
@@ -10,28 +10,67 @@ const config = require('../../../config.json')
 
 const PandumbsMinterPage = () => {
 
-    
+
     const [status, setStatus] = useState('')
     const wallet = useSelector(state => state.interact.wallet)
-    
+
     const dispatch = useDispatch()
 
-    useEffect(async ()=>{
-        const {address, status} = await getCurrentWalletConnected()
+    useEffect(async () => {
+        const { address, status } = await getCurrentWalletConnected()
         setStatus(status)
         dispatch(set_status_action(status))
         dispatch(set_wallet_action(address))
 
-        $(window).ready(()=>{
+        $(window).ready(() => {
             console.log("sas")
             $('body').css('background-color', '#0B0B0C')
         })
+
+        addWalletListener()
     }, [])
 
-    const [price, setPrice] = useState(50)
+    async function addWalletListener() {
+        if (window.ethereum) {
+            window.ethereum.on("accountsChanged", async (accounts) => {
+                if (accounts.length > 0) {
+                    dispatch(set_wallet_action(accounts[0]))
+                } else {
+                    dispatch(set_wallet_action(''))
+                }
+            });
+        } else {
+        }
+    }
 
-    const choosePrice = () =>{
-        setPrice($('#p_price_choose').val()>50?$('#p_price_choose').val():50)
+    const connectWalletPressed = async() =>{
+        const walletResponse = await connectWallet()
+
+        dispatch(set_wallet_action(walletResponse.address))
+
+        dispatch(set_status_action(walletResponse.status))
+    }
+
+    const minimalPrice = config.pandumbs.price
+    const [price, setPrice] = useState(minimalPrice)
+
+    const choosePrice = () => {
+        setPrice($('#p_price_choose').val() > minimalPrice ? $('#p_price_choose').val() : minimalPrice)
+    }
+
+    const maxMintAmount = 5
+    const [mintAmount, setMintAmount] = useState(1)
+    const decAmount = () =>{
+        setMintAmount(prev=>{
+            if(prev == 1)return prev
+            return prev-1
+        })
+    }
+    const incAmount = () =>{
+        setMintAmount(prev=>{
+            if(prev == maxMintAmount)return prev
+            return prev + 1
+        })
     }
 
     return (
@@ -39,14 +78,14 @@ const PandumbsMinterPage = () => {
 
             <div className="row justify-content-center">
                 <div className="links col-12">
-                    <MintersLinks active_link='pndmb' active_class={'p_active'}/>
+                    <MintersLinks active_link='pndmb' active_class={'p_active'} />
                 </div>
 
-                <div className="wallet_info row justify-content-center mt-5">
-                    {wallet==""?(
-                        <button className="col-4 site_btn p_site_btn">Connect wallet</button>
-                    ):(
-                        <span><h4>wallet connected: {wallet}</h4></span>
+                <div className="wallet_info row justify-content-center text-center mt-5">
+                    {wallet == "" ? (
+                        <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
+                    ) : (
+                        <span><h6>wallet connected: {wallet}</h6></span>
                     )}
                 </div>
 
@@ -63,9 +102,9 @@ const PandumbsMinterPage = () => {
                         <span className="col-12">Current price is {config.pandumbs.price} {config.currency}</span>
                         <span className="col-12">0/0 already minted</span>
                         <div className="counter">
-                            <span className="counter_item p_count_btn">-</span>
-                            <span className="counter_item">1</span>
-                            <span className="counter_item p_count_btn">+</span>
+                            <button onClick={decAmount} className="counter_item p_count_btn">-</button>
+                            <span className="counter_item">{mintAmount}</span>
+                            <button onClick={incAmount} className="counter_item p_count_btn">+</button>
                         </div>
                         <button className="col-4 site_btn p_site_btn mt-2">MINT NOW</button>
                         <span className="mt-2">or you can mint for any price you want (higher than {config.pandumbs.price})</span>
@@ -85,10 +124,10 @@ const PandumbsMinterPage = () => {
                 </div>
 
                 <span className="status_area col-12 text-center mt-3">
-                    {status==''?(""):
-                    (
-                        <h4>{status}</h4>
-                    )}
+                    {status == '' ? ("") :
+                        (
+                            <h4>{status}</h4>
+                        )}
                 </span>
             </div>
 

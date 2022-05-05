@@ -8,6 +8,7 @@ import './Application.scss'
 import { Provider } from "react-redux";
 import {store} from '../store/store'
 import UebishaMinterPage from "./uebisha/UebishaMinterPage";
+import MainPage from "./MainPage";
 const Application = () => {
     
     
@@ -15,6 +16,10 @@ const Application = () => {
          <Provider store={store}>
             <Router>
                 <Switch>
+                <Route exact path="/">
+                        <MainPage/>
+                    </Route>
+
                     <Route exact path="/pandumbs">
                         <PandumbsMinterPage/>
                     </Route>
