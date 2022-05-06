@@ -9,9 +9,9 @@ import { Provider } from "react-redux";
 import {store} from '../store/store'
 import UebishaMinterPage from "./uebisha/UebishaMinterPage";
 import MainPage from "./MainPage";
+
 const Application = () => {
-    
-    
+
     return(
          <Provider store={store}>
             <Router>

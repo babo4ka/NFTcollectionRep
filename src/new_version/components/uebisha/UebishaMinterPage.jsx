@@ -101,24 +101,44 @@ const UebishaMinterPage = () => {
                         <span className="col-12">Hello, here you can mint some {config.uebisha.collection_sym}</span>
                         <span className="col-12">Current price is {config.uebisha.price} {config.currency}</span>
                         <span className="col-12">0/0 already minted</span>
-                        <div className="counter">
+                        {wallet == ""?(
+                                <button onClick={connectWalletPressed} className="col-4 site_btn u_site_btn higher_area_item">Connect wallet</button>
+                        ):(
+                            <div>
+                            <div className="counter">
                             <button onClick={decAmount} className="counter_item u_count_btn">-</button>
                             <span className="counter_item">{mintAmount}</span>
                             <button onClick={incAmount} className="counter_item u_count_btn">+</button>
                         </div>
                         <button className="col-4 site_btn u_site_btn mt-2">MINT NOW</button>
+                        </div>
+                        )}
+
+
                         <span className="mt-2">or you can mint for any price you want (higher than {config.uebisha.price})</span>
 
                         <div className="higher_price_area row justify-content-center mt-2">
-                            <input onChange={choosePrice} id="u_price_choose" className="col-4 price_enter higher_area_item" min={config.uebisha.price} placeholder="Enter your price" type="number" />
-                            <button className="col-4 site_btn u_site_btn higher_area_item">MINT FOR {price}</button>
+                            {wallet ==""?(
+                                <button onClick={connectWalletPressed} className="col-4 site_btn u_site_btn higher_area_item">Connect wallet</button>
+                            ):(
+                                <div>
+                                <input onChange={choosePrice} id="u_price_choose" className="col-4 price_enter higher_area_item" min={config.uebisha.price} placeholder="Enter your price" type="number" />
+                                <button className="col-4 site_btn u_site_btn higher_area_item">MINT FOR {price}</button>
+                                </div>
+                            )}
                         </div>
 
                         <span className="mt-2">you also can bet on any token</span>
 
                         <div className="bet_area row justify-content-center mt-2">
-                            <input className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
-                            <button className="col-4 site_btn u_site_btn higher_area_item">BET ON</button>
+                            {wallet == ""?(
+                                <button onClick={connectWalletPressed} className="col-4 site_btn u_site_btn higher_area_item">Connect wallet</button>
+                            ):(
+                                <div>
+                                <input className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
+                                <button className="col-4 site_btn u_site_btn higher_area_item">BET ON</button>
+                            </div>
+                            )}
                         </div>
                     </div>
                 </div>

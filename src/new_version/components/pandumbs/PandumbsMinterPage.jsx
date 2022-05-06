@@ -43,7 +43,7 @@ const PandumbsMinterPage = () => {
         }
     }
 
-    const connectWalletPressed = async() =>{
+    const connectWalletPressed = async () => {
         const walletResponse = await connectWallet()
 
         dispatch(set_wallet_action(walletResponse.address))
@@ -60,15 +60,15 @@ const PandumbsMinterPage = () => {
 
     const maxMintAmount = 5
     const [mintAmount, setMintAmount] = useState(1)
-    const decAmount = () =>{
-        setMintAmount(prev=>{
-            if(prev == 1)return prev
-            return prev-1
+    const decAmount = () => {
+        setMintAmount(prev => {
+            if (prev == 1) return prev
+            return prev - 1
         })
     }
-    const incAmount = () =>{
-        setMintAmount(prev=>{
-            if(prev == maxMintAmount)return prev
+    const incAmount = () => {
+        setMintAmount(prev => {
+            if (prev == maxMintAmount) return prev
             return prev + 1
         })
     }
@@ -101,25 +101,46 @@ const PandumbsMinterPage = () => {
                         <span className="col-12">Hello, here you can mint some {config.pandumbs.collection_sym}</span>
                         <span className="col-12">Current price is {config.pandumbs.price} {config.currency}</span>
                         <span className="col-12">0/0 already minted</span>
-                        <div className="counter">
-                            <button onClick={decAmount} className="counter_item p_count_btn">-</button>
-                            <span className="counter_item">{mintAmount}</span>
-                            <button onClick={incAmount} className="counter_item p_count_btn">+</button>
-                        </div>
-                        <button className="col-4 site_btn p_site_btn mt-2">MINT NOW</button>
+
+                        {wallet == "" ? (
+                            <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
+                        ) : (
+                            <div>
+                                <div className="counter">
+                                    <button onClick={decAmount} className="counter_item p_count_btn">-</button>
+                                    <span className="counter_item">{mintAmount}</span>
+                                    <button onClick={incAmount} className="counter_item p_count_btn">+</button>
+                                </div>
+                                <button className="col-4 site_btn p_site_btn mt-2">MINT NOW</button>
+                            </div>
+                        )}
+
                         <span className="mt-2">or you can mint for any price you want (higher than {config.pandumbs.price})</span>
 
-                        <div className="higher_price_area row justify-content-center mt-2">
-                            <input onChange={choosePrice} id="p_price_choose" className="col-4 price_enter higher_area_item" min={config.pandumbs.price} placeholder="Enter your price" type="number" />
-                            <button id="p_montfor_btn" className="col-4 site_btn p_site_btn higher_area_item">MINT FOR {price}</button>
-                        </div>
+                        {wallet == "" ? (
+                            <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
+                        ) : (
+                            <div>
+                                <div className="higher_price_area row justify-content-center mt-2">
+                                    <input onChange={choosePrice} id="p_price_choose" className="col-4 price_enter higher_area_item" min={config.pandumbs.price} placeholder="Enter your price" type="number" />
+                                    <button id="p_montfor_btn" className="col-4 site_btn p_site_btn higher_area_item">MINT FOR {price}</button>
+                                </div>
+                            </div>
+                        )}
 
                         <span className="mt-2">you also can bet on any token</span>
 
-                        <div className="bet_area row justify-content-center mt-2">
-                            <input className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
-                            <button className="col-4 site_btn p_site_btn higher_area_item">BET ON</button>
-                        </div>
+                        {wallet == "" ? (
+                            <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
+                        ) : (
+                            <div>
+                                <div className="bet_area row justify-content-center mt-2">
+                                    <input className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
+                                    <button className="col-4 site_btn p_site_btn higher_area_item">BET ON</button>
+                                </div>
+                            </div>
+                        )}
+
                     </div>
                 </div>
 
