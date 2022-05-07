@@ -1,7 +1,7 @@
 import './UebishaMinterPage.scss'
 import MintersLinks from '../MintersLinks'
 import { useEffect, useState } from 'react'
-import { connectWallet, getCurrentWalletConnected, getUTokenCountData, u_bet } from '../../utils/interact.js'
+import { connectWallet, getCurrentWalletConnected, getUTokenCountData, u_bet, u_exists, u_mint } from '../../utils/interact.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { set_status_action, set_wallet_action } from '../../store/interactReducer.js'
 import example_img from './u_examples.gif'
@@ -75,13 +75,46 @@ const UebishaMinterPage = () => {
         })
     }
 
-    const onBetPressed = async () =>{
+    const onBetPressed = async () => {
         let bet_id = Number($("#u_bet_enter").val())
-        if(bet_id < 1 || bet_id>maxSupply){
+        if (bet_id < 1 || bet_id > maxSupply) {
             dispatch(set_status_action(`Please, enter number between 1 and ${maxSupply}`))
             return
         }
         const result = await u_bet(bet_id)
+        dispatch(set_status_action(result.status))
+    }
+
+    const generateToken = async (tokens) => {
+        let token = Math.floor(Math.random() * 11250) + 1
+        let exists = await u_exists(token)
+        if (!exists && !tokens.includes(token)) {
+            return token
+        }
+        return generateToken()
+    }
+
+    const onMinMintPressed = async () => {
+        let tokens = []
+        for (let i = 0; i < mintAmount; i++) {
+            let token = await generateToken(tokens)
+            tokens.push(token)
+        }
+
+        const result = await u_mint(tokens)
+
+        dispatch(set_status_action(result.status))
+    }
+
+    const onMoreMintPressed = async () => {
+        let tokens = []
+        for (let i = 0; i < mintAmount; i++) {
+            let token = await generateToken(tokens)
+            tokens.push(token)
+        }
+
+        const result = await u_mint(tokens, price)
+
         dispatch(set_status_action(result.status))
     }
 
@@ -122,7 +155,7 @@ const UebishaMinterPage = () => {
                                     <span className="counter_item">{mintAmount}</span>
                                     <button onClick={incAmount} className="counter_item u_count_btn">+</button>
                                 </div>
-                                <button className="col-4 site_btn u_site_btn mt-2">MINT NOW</button>
+                                <button onClick={onMinMintPressed} className="col-4 site_btn u_site_btn mt-2">MINT NOW</button>
                             </div>
                         )}
 
@@ -135,7 +168,7 @@ const UebishaMinterPage = () => {
                             ) : (
                                 <div>
                                     <input onChange={choosePrice} id="u_price_choose" className="col-4 price_enter higher_area_item" min={config.uebisha.price} placeholder="Enter your price" type="number" />
-                                    <button className="col-4 site_btn u_site_btn higher_area_item">MINT FOR {price}</button>
+                                    <button onClick={onMoreMintPressed} className="col-4 site_btn u_site_btn higher_area_item">MINT FOR {price}</button>
                                 </div>
                             )}
                         </div>

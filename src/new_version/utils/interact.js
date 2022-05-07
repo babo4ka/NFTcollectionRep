@@ -27,6 +27,54 @@ export const getUTokenCountData = async () => {
   }
 }
 
+export const u_exists = async (tokenId) =>{
+  const contract = new web3.eth.Contract(u_abi, u_address);
+
+  return await contract.methods.exists(tokenId).call()
+}
+
+export const u_mint = async (tokens, cost = 1) => {
+  if (window.ethereum.chainId != config.chain_id) {
+    return {
+      success: false,
+      status: "Switch to Rinkeby test network"
+    }
+  }
+
+  const contract = new web3.eth.Contract(u_abi, u_address);
+  let costFinal = web3.utils.toWei((cost * tokens.length).toString(), "ether")
+
+  const transactionParameters = {
+    ...config.tx_params,
+    to: u_address, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: contract.methods.mint(tokens).encodeABI(),//make call to NFT smart contract 
+    value: parseInt(costFinal).toString(16),
+  };
+
+  try {
+    const txHash = await window.ethereum
+      .request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters]
+      });
+    return {
+      success: true,
+      status: (
+        <div className="row">
+        <a className="link_scan col-12" target="_blank" href={`https://rinkeby.etherscan.io/tx/${String(txHash)}`}>Go check your transaction on Etherscan<img src={click_img} alt=''></img></a>
+        <a className="link_scan col-12" target="_blank" href={`https://opensea.io`}>Opensea collection page<img src={click_img} alt=''></img></a>
+        </div>
+      )
+    }
+  } catch (error) {
+    return {
+      success: false,
+      status: "Something went wrong: " + error.message
+    }
+  }
+}
+
 export const u_bet = async (tokenId) => {
   if (window.ethereum.chainId != config.chain_id) {
     return {
