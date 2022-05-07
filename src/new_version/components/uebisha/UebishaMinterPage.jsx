@@ -1,13 +1,15 @@
 import './UebishaMinterPage.scss'
 import MintersLinks from '../MintersLinks'
 import { useEffect, useState } from 'react'
-import { connectWallet, getCurrentWalletConnected, getUTokenCountData, u_bet, u_exists, u_mint } from '../../utils/interact.js'
+import { connectWallet, getCurrentWalletConnected, bet, exists, mint, web3 } from '../../utils/interact.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { set_status_action, set_wallet_action } from '../../store/interactReducer.js'
+import { set_status_action, set_wallet_action, set_u_minted_action, set_u_maxSupply_action } from '../../store/interactReducer.js'
 import example_img from './u_examples.gif'
 import $ from 'jquery'
 const config = require('../../../config.json')
 
+const address = "0x0e21873f05abae756ad2dcc51d3c5d127cd34506"
+const abi = require('./u_contract_abi.json')
 
 const UebishaMinterPage = () => {
 
@@ -28,9 +30,23 @@ const UebishaMinterPage = () => {
             $('body').css('background-color', '#392570')
         })
 
-        await getUTokenCountData()
+        await getTokenCountData()
         addWalletListener()
     }, [])
+
+    const getTokenCountData = async () => {
+        const contract = new web3.eth.Contract(abi, address);
+        const maxSupply = await contract.methods.maxSupply().call();
+        const totalSupply = await contract.methods.totalSupply().call();
+      
+        dispatch(set_u_minted_action(totalSupply))
+        dispatch(set_u_maxSupply_action(maxSupply))
+      
+        return {
+          maxSupply: maxSupply,
+          totalSupply: totalSupply
+        }
+      }
 
     async function addWalletListener() {
         if (window.ethereum) {
@@ -81,14 +97,14 @@ const UebishaMinterPage = () => {
             dispatch(set_status_action(`Please, enter number between 1 and ${maxSupply}`))
             return
         }
-        const result = await u_bet(bet_id)
+        const result = await bet(bet_id, abi, address)
         dispatch(set_status_action(result.status))
     }
 
     const generateToken = async (tokens) => {
         let token = Math.floor(Math.random() * 11250) + 1
-        let exists = await u_exists(token)
-        if (!exists && !tokens.includes(token)) {
+        let texists = await exists(token, abi, address)
+        if (!texists && !tokens.includes(token)) {
             return token
         }
         return generateToken()
@@ -101,7 +117,7 @@ const UebishaMinterPage = () => {
             tokens.push(token)
         }
 
-        const result = await u_mint(tokens)
+        const result = await mint(tokens, abi, address)
 
         dispatch(set_status_action(result.status))
     }
@@ -113,7 +129,7 @@ const UebishaMinterPage = () => {
             tokens.push(token)
         }
 
-        const result = await u_mint(tokens, price)
+        const result = await mint(tokens, abi, address, price)
 
         dispatch(set_status_action(result.status))
     }
@@ -139,7 +155,6 @@ const UebishaMinterPage = () => {
                         <div className="u_examples_image_holder">
                             <img className="u_examples_image" src={example_img} />
                         </div>
-                        <span className="mt-3">These are examples of 20 random tokens</span>
                     </div>
 
                     <div className="mint_nav col-12 col-md-6 row text-center justify-content-center">

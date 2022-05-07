@@ -1,39 +1,16 @@
 import Web3 from 'web3';
-import { set_u_maxSupply_action, set_u_minted_action } from '../store/interactReducer.js';
-import { store } from '../store/store.js'
 import click_img from '../click.png'
 export const web3 = new Web3(Web3.givenProvider);
-// const contractABI = require('../contract_abi.json');
-// const contractAddress = "0x1dc7d35718ecfd067d5b5b7769e987a6a45ba3ee";
 
 const config = require('../../config.json')
 
-// ВАЗИМОДЕЙСТВИЯ С UEBISHA
-const u_address = "0x0e21873f05abae756ad2dcc51d3c5d127cd34506"
-const u_abi = require('../components/uebisha/u_contract_abi.json')
-
-
-export const getUTokenCountData = async () => {
-  const contract = new web3.eth.Contract(u_abi, u_address);
-  const maxSupply = await contract.methods.maxSupply().call();
-  const totalSupply = await contract.methods.totalSupply().call();
-
-  store.dispatch(set_u_minted_action(totalSupply))
-  store.dispatch(set_u_maxSupply_action(maxSupply))
-
-  return {
-    maxSupply: maxSupply,
-    totalSupply: totalSupply
-  }
-}
-
-export const u_exists = async (tokenId) =>{
-  const contract = new web3.eth.Contract(u_abi, u_address);
+export const exists = async (tokenId, abi, address) =>{
+  const contract = new web3.eth.Contract(abi, address);
 
   return await contract.methods.exists(tokenId).call()
 }
 
-export const u_mint = async (tokens, cost = 1) => {
+export const mint = async (tokens, abi, address, cost = 1) => {
   if (window.ethereum.chainId != config.chain_id) {
     return {
       success: false,
@@ -41,12 +18,12 @@ export const u_mint = async (tokens, cost = 1) => {
     }
   }
 
-  const contract = new web3.eth.Contract(u_abi, u_address);
+  const contract = new web3.eth.Contract(abi, address);
   let costFinal = web3.utils.toWei((cost * tokens.length).toString(), "ether")
 
   const transactionParameters = {
     ...config.tx_params,
-    to: u_address, // Required except during contract publications.
+    to: address, // Required except during contract publications.
     from: window.ethereum.selectedAddress, // must match user's active address.
     data: contract.methods.mint(tokens).encodeABI(),//make call to NFT smart contract 
     value: parseInt(costFinal).toString(16),
@@ -75,7 +52,7 @@ export const u_mint = async (tokens, cost = 1) => {
   }
 }
 
-export const u_bet = async (tokenId) => {
+export const bet = async (tokenId, abi, address) => {
   if (window.ethereum.chainId != config.chain_id) {
     return {
       success: false,
@@ -83,11 +60,11 @@ export const u_bet = async (tokenId) => {
     }
   }
 
-  const contract = new web3.eth.Contract(u_abi, u_address);
+  const contract = new web3.eth.Contract(abi, address);
   const cost = web3.utils.toWei("0.01", "ether")
   const transactionParameters = {
     ...config.tx_params,
-    to: u_address, // Required except during contract publications.
+    to: address, // Required except during contract publications.
     from: window.ethereum.selectedAddress, // must match user's active address.
     data: contract.methods.bet(tokenId).encodeABI(),//make call to NFT smart contract 
     value: parseInt(cost).toString(16),

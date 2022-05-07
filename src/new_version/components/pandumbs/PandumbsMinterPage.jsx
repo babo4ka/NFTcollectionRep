@@ -92,7 +92,6 @@ const PandumbsMinterPage = () => {
                         <div className="p_examples_image_holder">
                             <img className="p_examples_image" src={example_img} />
                         </div>
-                        <span className="mt-3">These are examples of 20 random tokens</span>
                     </div>
 
                     <div className="mint_nav col-12 col-md-6 row text-center justify-content-center">
