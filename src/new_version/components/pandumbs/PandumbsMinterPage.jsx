@@ -11,19 +11,17 @@ const config = require('../../../config.json')
 const PandumbsMinterPage = () => {
 
 
-    const [status, setStatus] = useState('')
+    const status = useSelector(state => state.interact.status)
     const wallet = useSelector(state => state.interact.wallet)
 
     const dispatch = useDispatch()
 
     useEffect(async () => {
         const { address, status } = await getCurrentWalletConnected()
-        setStatus(status)
         dispatch(set_status_action(status))
         dispatch(set_wallet_action(address))
 
         $(window).ready(() => {
-            console.log("sas")
             $('body').css('background-color', '#0B0B0C')
         })
 
@@ -144,7 +142,7 @@ const PandumbsMinterPage = () => {
                     </div>
                 </div>
 
-                <span className="status_area col-12 text-center mt-3">
+                <span className="col-12 text-center status_area">
                     {status == '' ? ("") :
                         (
                             <h4>{status}</h4>

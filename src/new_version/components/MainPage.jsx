@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './MainPage.scss'
 import $ from 'jquery'
 import pandumbs_link_img from './pandumbs/rebus_img_4.png'
-import uebisha_link_img from './uebisha/uebishe4.png'
+import uebisha_link_img from './uebisha/u_examples.gif'
 
 const MainPage = () =>{
 

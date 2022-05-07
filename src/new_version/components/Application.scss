@@ -41,3 +41,19 @@ body{
 .price_enter::-webkit-outer-spin-button{
     -webkit-appearance: none;
 }
+
+.status_area{
+    margin-top: 50px;
+}
+
+.link_scan{
+    height: 32px;
+    text-decoration: none;
+    color: $text_color;
+}
+
+.link_scan_holder{
+    font-size: 20px;
+
+    font-weight: 500;
+}

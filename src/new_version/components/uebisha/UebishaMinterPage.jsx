@@ -1,32 +1,34 @@
 import './UebishaMinterPage.scss'
 import MintersLinks from '../MintersLinks'
 import { useEffect, useState } from 'react'
-import { connectWallet, getCurrentWalletConnected } from '../../utils/interact.js'
+import { connectWallet, getCurrentWalletConnected, getUTokenCountData, u_bet } from '../../utils/interact.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { set_status_action, set_wallet_action } from '../../store/interactReducer.js'
-import example_img from './uebishe4.png'
+import example_img from './u_examples.gif'
 import $ from 'jquery'
 const config = require('../../../config.json')
 
 
 const UebishaMinterPage = () => {
 
-    const [status, setStatus] = useState('')
+    const status = useSelector(state => state.interact.status)
     const wallet = useSelector(state => state.interact.wallet)
+
+    const minted = useSelector(state => state.interact.u_minted)
+    const maxSupply = useSelector(state => state.interact.u_maxSupply)
 
     const dispatch = useDispatch()
 
     useEffect(async () => {
         const { address, status } = await getCurrentWalletConnected()
-        setStatus(status)
         dispatch(set_status_action(status))
         dispatch(set_wallet_action(address))
 
         $(window).ready(() => {
-            console.log("sas")
             $('body').css('background-color', '#392570')
         })
 
+        await getUTokenCountData()
         addWalletListener()
     }, [])
 
@@ -58,19 +60,29 @@ const UebishaMinterPage = () => {
         setPrice($('#u_price_choose').val() > minimalPrice ? $('#u_price_choose').val() : minimalPrice)
     }
 
-    const maxMintAmount = 15
+    const maxMintAmount = 5
     const [mintAmount, setMintAmount] = useState(1)
-    const decAmount = () =>{
-        setMintAmount(prev=>{
-            if(prev == 1)return prev
-            return prev-1
+    const decAmount = () => {
+        setMintAmount(prev => {
+            if (prev == 1) return prev
+            return prev - 1
         })
     }
-    const incAmount = () =>{
-        setMintAmount(prev=>{
-            if(prev == maxMintAmount)return prev
+    const incAmount = () => {
+        setMintAmount(prev => {
+            if (prev == maxMintAmount) return prev
             return prev + 1
         })
+    }
+
+    const onBetPressed = async () =>{
+        let bet_id = Number($("#u_bet_enter").val())
+        if(bet_id < 1 || bet_id>maxSupply){
+            dispatch(set_status_action(`Please, enter number between 1 and ${maxSupply}`))
+            return
+        }
+        const result = await u_bet(bet_id)
+        dispatch(set_status_action(result.status))
     }
 
     return (
@@ -100,30 +112,30 @@ const UebishaMinterPage = () => {
                     <div className="mint_nav col-12 col-md-6 row text-center justify-content-center">
                         <span className="col-12">Hello, here you can mint some {config.uebisha.collection_sym}</span>
                         <span className="col-12">Current price is {config.uebisha.price} {config.currency}</span>
-                        <span className="col-12">0/0 already minted</span>
-                        {wallet == ""?(
-                                <button onClick={connectWalletPressed} className="col-4 site_btn u_site_btn higher_area_item">Connect wallet</button>
-                        ):(
+                        <span className="col-12">{minted} / {maxSupply} already minted</span>
+                        {wallet == "" ? (
+                            <button onClick={connectWalletPressed} className="col-4 site_btn u_site_btn higher_area_item">Connect wallet</button>
+                        ) : (
                             <div>
-                            <div className="counter">
-                            <button onClick={decAmount} className="counter_item u_count_btn">-</button>
-                            <span className="counter_item">{mintAmount}</span>
-                            <button onClick={incAmount} className="counter_item u_count_btn">+</button>
-                        </div>
-                        <button className="col-4 site_btn u_site_btn mt-2">MINT NOW</button>
-                        </div>
+                                <div className="counter">
+                                    <button onClick={decAmount} className="counter_item u_count_btn">-</button>
+                                    <span className="counter_item">{mintAmount}</span>
+                                    <button onClick={incAmount} className="counter_item u_count_btn">+</button>
+                                </div>
+                                <button className="col-4 site_btn u_site_btn mt-2">MINT NOW</button>
+                            </div>
                         )}
 
 
                         <span className="mt-2">or you can mint for any price you want (higher than {config.uebisha.price})</span>
 
                         <div className="higher_price_area row justify-content-center mt-2">
-                            {wallet ==""?(
+                            {wallet == "" ? (
                                 <button onClick={connectWalletPressed} className="col-4 site_btn u_site_btn higher_area_item">Connect wallet</button>
-                            ):(
+                            ) : (
                                 <div>
-                                <input onChange={choosePrice} id="u_price_choose" className="col-4 price_enter higher_area_item" min={config.uebisha.price} placeholder="Enter your price" type="number" />
-                                <button className="col-4 site_btn u_site_btn higher_area_item">MINT FOR {price}</button>
+                                    <input onChange={choosePrice} id="u_price_choose" className="col-4 price_enter higher_area_item" min={config.uebisha.price} placeholder="Enter your price" type="number" />
+                                    <button className="col-4 site_btn u_site_btn higher_area_item">MINT FOR {price}</button>
                                 </div>
                             )}
                         </div>
@@ -131,22 +143,22 @@ const UebishaMinterPage = () => {
                         <span className="mt-2">you also can bet on any token</span>
 
                         <div className="bet_area row justify-content-center mt-2">
-                            {wallet == ""?(
+                            {wallet == "" ? (
                                 <button onClick={connectWalletPressed} className="col-4 site_btn u_site_btn higher_area_item">Connect wallet</button>
-                            ):(
+                            ) : (
                                 <div>
-                                <input className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
-                                <button className="col-4 site_btn u_site_btn higher_area_item">BET ON</button>
-                            </div>
+                                    <input id="u_bet_enter" className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
+                                    <button onClick={onBetPressed} className="col-4 site_btn u_site_btn higher_area_item">BET ON</button>
+                                </div>
                             )}
                         </div>
                     </div>
                 </div>
 
-                <span className="status_area col-12 text-center mt-3">
+                <span className="col-12 text-center status_area">
                     {status == '' ? ("") :
                         (
-                            <h4>{status}</h4>
+                            <div className="link_scan_holder">{status}</div>
                         )}
                 </span>
             </div>
