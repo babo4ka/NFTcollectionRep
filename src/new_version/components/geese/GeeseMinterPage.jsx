@@ -27,7 +27,7 @@ const GeeseMinterPage = () => {
         dispatch(set_wallet_action(address))
 
         $(window).ready(() => {
-            $('body').css('background-color', '#2f0c0f')
+            $('body').css('background-color', '#0B0B0C')
         })
 
         await getTokenCountData()

@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 import click_img from '../click.png'
-export const web3 = new Web3(Web3.givenProvider);
+export const web3 = new Web3(Web3.givenProvider || "https://speedy-nodes-nyc.moralis.io/9fcfea6f5970d20ff23ae056/eth/rinkeby");
 
 const config = require('../../config.json')
 
