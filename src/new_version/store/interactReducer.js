@@ -69,8 +69,8 @@ export const set_u_maxSupply_action = maxSupply => ({type:SET_U_MAXSUPPLY, maxSu
 export const set_p_minted_action = minted => ({type:SET_P_MINTED, minted})
 export const set_p_maxSupply_action = maxSupply => ({type:SET_P_MAXSUPPLY, maxSupply})
 
-export const set_g_minted_action = minted => ({type:SET_P_MINTED, minted})
-export const set_g_maxSupply_action = maxSupply => ({type:SET_P_MAXSUPPLY, maxSupply})
+export const set_g_minted_action = minted => ({type:SET_G_MINTED, minted})
+export const set_g_maxSupply_action = maxSupply => ({type:SET_G_MAXSUPPLY, maxSupply})
 //wallet
 export const set_wallet_action = wallet => ({type:SET_WALLET, wallet})
 export const set_whitelisted_action = whiteListed => ({type:SET_WHITELISTED, whiteListed})

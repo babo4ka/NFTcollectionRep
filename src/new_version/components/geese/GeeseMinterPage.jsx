@@ -8,7 +8,7 @@ import example_img from './g_examples.gif'
 import $ from 'jquery'
 const config = require('../../../config.json')
 
-const address = "0x0e21873f05abae756ad2dcc51d3c5d127cd34506"
+const address = "0x5e559c0b511300034decaa6ff055e63638dfc06b"
 const abi = require('./g_contract_abi.json')
 
 const GeeseMinterPage = () => {
@@ -30,7 +30,7 @@ const GeeseMinterPage = () => {
             $('body').css('background-color', '#2f0c0f')
         })
 
-        // await getTokenCountData()
+        await getTokenCountData()
         addWalletListener()
     }, [])
 
