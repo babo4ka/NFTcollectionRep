@@ -4,15 +4,23 @@
         "collection_sym":"PNDMB",
         "maxMintAmount":5,
         "price":50,
-        "betPrice":0.25
+        "betPrice":0.01
     },
 
     "uebisha":{
         "collection_name":"Uebisha",
         "collection_sym":"UBSH",
-        "maxMintAmount":10,
+        "maxMintAmount":5,
         "price":1,
-        "betPrice":0.25
+        "betPrice":0.01
+    },
+
+    "geese":{
+        "collection_name":"PocketPixelGeese",
+        "collection_sym":"PoPG",
+        "maxMintAmount":5,
+        "price":1,
+        "betPrice":0.01
     },
     
     "currency":"MATIC",

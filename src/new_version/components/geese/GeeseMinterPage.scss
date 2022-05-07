@@ -1,37 +1,35 @@
 @import '../variables.scss';
 
-
-
-.u_count_btn{
-    color: $u_acent_color;
+.g_count_btn{
+    color: $g_acent_color;
     cursor: pointer;
     font-size: 35px!important;
     background: none;
     border: none;
 }
 
-.u_count_btn:hover{
-    color: #b1a2fa;
+.g_count_btn:hover{
+    color: #960101;
 }
 
-.u_site_btn{
-    background-color: $u_acent_color;
-    color: $u_back_color;
+.g_site_btn{
+    background-color: $g_acent_color;
+    color: $g_back_color;
 }
 
-.u_site_btn:hover{
-    background-color: #b1a2fa;
+.g_site_btn:hover{
+    background-color: #960101;
 }
 
 
-.u_examples_image_holder{
+.g_examples_image_holder{
     height: 250px;
     width: 250px;
     padding: 0;
     
 }
 
-.u_examples_image{
+.g_examples_image{
     height: inherit;
     width: inherit;
     box-shadow: 0px 0px 3px .1px rgba(255, 255, 255, 0.65);

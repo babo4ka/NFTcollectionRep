@@ -6,6 +6,7 @@ const MintersLinks = ({active_class, active_link}) =>{
             <div className="row justify-content-center text-center">
                 <Link className={`col-4 minter_link p_link ${active_link=='pndmb'?active_class:''}`} to="/pandumbs">Pandumbs</Link>
                 <Link className={`col-4 minter_link u_link ${active_link=='ubsh'?active_class:''}`} to="/uebisha">Uebisha</Link>
+                <Link className={`col-4 minter_link g_link ${active_link=='gopg'?active_class:''}`} to="/geese">PocketPixelGeese</Link>
             </div>
         </div>
     )

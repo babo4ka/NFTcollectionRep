@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import {store} from '../store/store'
 import UebishaMinterPage from "./uebisha/UebishaMinterPage";
 import MainPage from "./MainPage";
+import GeeseMinterPage from "./geese/GeeseMinterPage";
 
 const Application = () => {
 
@@ -26,6 +27,10 @@ const Application = () => {
 
                     <Route exact path="/uebisha">
                         <UebishaMinterPage/>
+                    </Route>
+
+                    <Route exact path="/geese">
+                        <GeeseMinterPage/>
                     </Route>
                 </Switch>
             </Router>
