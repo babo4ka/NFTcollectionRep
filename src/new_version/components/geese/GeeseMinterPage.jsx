@@ -41,11 +41,6 @@ const GeeseMinterPage = () => {
       
         dispatch(set_g_minted_action(totalSupply))
         dispatch(set_g_maxSupply_action(maxSupply))
-      
-        return {
-          maxSupply: maxSupply,
-          totalSupply: totalSupply
-        }
       }
 
     async function addWalletListener() {
@@ -102,7 +97,7 @@ const GeeseMinterPage = () => {
     }
 
     const generateToken = async (tokens) => {
-        let token = Math.floor(Math.random() * 11250) + 1
+        let token = Math.floor(Math.random() *625) + 1
         let texists = await exists(token, abi, address)
         if (!texists && !tokens.includes(token)) {
             return token

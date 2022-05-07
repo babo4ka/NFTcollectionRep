@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './MainPage.scss'
 import $ from 'jquery'
-import pandumbs_link_img from './pandumbs/rebus_img_4.png'
+import pandumbs_link_img from './pandumbs/p_examples.gif'
 import uebisha_link_img from './uebisha/u_examples.gif'
 import geese_link_img from './geese/g_examples.gif'
 

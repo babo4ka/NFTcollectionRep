@@ -1,18 +1,24 @@
 import MintersLinks from '../MintersLinks'
 import './PandumbsMinterPage.scss'
 import { useEffect, useState } from 'react'
-import example_img from './rebus_img_4.png'
-import { connectWallet, getCurrentWalletConnected } from '../../utils/interact.js'
+import example_img from './p_examples.gif'
+import { connectWallet, getCurrentWalletConnected, bet, exists, mint, web3 } from '../../utils/interact.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { set_status_action, set_wallet_action } from '../../store/interactReducer.js'
+import { set_status_action, set_wallet_action, set_p_maxSupply_action, set_p_minted_action } from '../../store/interactReducer.js'
 import $ from 'jquery'
 const config = require('../../../config.json')
 
+
+const address = "0x53d0b1a91dfc5e629580c2a55ae6ee12f5339b89"
+const abi = require('./p_contract_abi.json')
 const PandumbsMinterPage = () => {
 
 
     const status = useSelector(state => state.interact.status)
     const wallet = useSelector(state => state.interact.wallet)
+
+    const minted = useSelector(state => state.interact.p_minted)
+    const maxSupply = useSelector(state => state.interact.p_maxSupply)
 
     const dispatch = useDispatch()
 
@@ -25,8 +31,18 @@ const PandumbsMinterPage = () => {
             $('body').css('background-color', '#0B0B0C')
         })
 
+        await getTokenCountData()
         addWalletListener()
     }, [])
+
+    const getTokenCountData = async () => {
+        const contract = new web3.eth.Contract(abi, address);
+        const maxSupply = await contract.methods.maxSupply().call();
+        const totalSupply = await contract.methods.totalSupply().call();
+      
+        dispatch(set_p_minted_action(totalSupply))
+        dispatch(set_p_maxSupply_action(maxSupply))
+      }
 
     async function addWalletListener() {
         if (window.ethereum) {
@@ -56,7 +72,7 @@ const PandumbsMinterPage = () => {
         setPrice($('#p_price_choose').val() > minimalPrice ? $('#p_price_choose').val() : minimalPrice)
     }
 
-    const maxMintAmount = 5
+    const maxMintAmount = config.pandumbs.maxMintAmount
     const [mintAmount, setMintAmount] = useState(1)
     const decAmount = () => {
         setMintAmount(prev => {
@@ -69,6 +85,49 @@ const PandumbsMinterPage = () => {
             if (prev == maxMintAmount) return prev
             return prev + 1
         })
+    }
+
+    const onBetPressed = async () => {
+        let bet_id = Number($("#p_bet_enter").val())
+        if (bet_id < 1 || bet_id > maxSupply) {
+            dispatch(set_status_action(`Please, enter number between 1 and ${maxSupply}`))
+            return
+        }
+        const result = await bet(bet_id, abi, address)
+        dispatch(set_status_action(result.status))
+    }
+
+    const generateToken = async (tokens) => {
+        let token = Math.floor(Math.random() * 5000) + 1
+        let texists = await exists(token, abi, address)
+        if (!texists && !tokens.includes(token)) {
+            return token
+        }
+        return generateToken()
+    }
+
+    const onMinMintPressed = async () => {
+        let tokens = []
+        for (let i = 0; i < mintAmount; i++) {
+            let token = await generateToken(tokens)
+            tokens.push(token)
+        }
+
+        const result = await mint(tokens, abi, address)
+
+        dispatch(set_status_action(result.status))
+    }
+
+    const onMoreMintPressed = async () => {
+        let tokens = []
+        for (let i = 0; i < mintAmount; i++) {
+            let token = await generateToken(tokens)
+            tokens.push(token)
+        }
+
+        const result = await mint(tokens, abi, address, price)
+
+        dispatch(set_status_action(result.status))
     }
 
     return (
@@ -97,7 +156,7 @@ const PandumbsMinterPage = () => {
                     <div className="mint_nav col-12 col-md-6 row text-center justify-content-center">
                         <span className="col-12">Hello, here you can mint some {config.pandumbs.collection_sym}</span>
                         <span className="col-12">Current price is {config.pandumbs.price} {config.currency}</span>
-                        <span className="col-12">0/0 already minted</span>
+                        <span className="col-12">{minted} / {maxSupply} already minted</span>
 
                         {wallet == "" ? (
                             <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
@@ -108,7 +167,7 @@ const PandumbsMinterPage = () => {
                                     <span className="counter_item">{mintAmount}</span>
                                     <button onClick={incAmount} className="counter_item p_count_btn">+</button>
                                 </div>
-                                <button className="col-4 site_btn p_site_btn mt-2">MINT NOW</button>
+                                <button onClick={onMinMintPressed} className="col-4 site_btn p_site_btn mt-2">MINT NOW</button>
                             </div>
                         )}
 
@@ -120,7 +179,7 @@ const PandumbsMinterPage = () => {
                             <div>
                                 <div className="higher_price_area row justify-content-center mt-2">
                                     <input onChange={choosePrice} id="p_price_choose" className="col-4 price_enter higher_area_item" min={config.pandumbs.price} placeholder="Enter your price" type="number" />
-                                    <button id="p_montfor_btn" className="col-4 site_btn p_site_btn higher_area_item">MINT FOR {price}</button>
+                                    <button onClick={onMoreMintPressed} id="p_montfor_btn" className="col-4 site_btn p_site_btn higher_area_item">MINT FOR {price}</button>
                                 </div>
                             </div>
                         )}
@@ -132,8 +191,8 @@ const PandumbsMinterPage = () => {
                         ) : (
                             <div>
                                 <div className="bet_area row justify-content-center mt-2">
-                                    <input className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
-                                    <button className="col-4 site_btn p_site_btn higher_area_item">BET ON</button>
+                                    <input id="p_bet_enter" className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
+                                    <button onClick={onBetPressed} className="col-4 site_btn p_site_btn higher_area_item">BET ON</button>
                                 </div>
                             </div>
                         )}

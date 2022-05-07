@@ -41,11 +41,6 @@ const UebishaMinterPage = () => {
       
         dispatch(set_u_minted_action(totalSupply))
         dispatch(set_u_maxSupply_action(maxSupply))
-      
-        return {
-          maxSupply: maxSupply,
-          totalSupply: totalSupply
-        }
       }
 
     async function addWalletListener() {
