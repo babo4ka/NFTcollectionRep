@@ -38,10 +38,10 @@ const UebishaMinterPage = () => {
         const contract = new web3.eth.Contract(abi, address);
         const maxSupply = await contract.methods.maxSupply().call();
         const totalSupply = await contract.methods.totalSupply().call();
-      
+
         dispatch(set_u_minted_action(totalSupply))
         dispatch(set_u_maxSupply_action(maxSupply))
-      }
+    }
 
     async function addWalletListener() {
         if (window.ethereum) {
@@ -129,13 +129,13 @@ const UebishaMinterPage = () => {
         dispatch(set_status_action(result.status))
     }
 
-    const [marginStyles, setMarginStyles] = useState($(window).width()<768?'mt-2':'')
+    const [marginStyles, setMarginStyles] = useState($(window).width() < 768 ? 'mt-2' : '')
 
-    useEffect(async ()=>{
-        $(window).resize(()=>{
-            if($(window).width()<768){
+    useEffect(async () => {
+        $(window).resize(() => {
+            if ($(window).width() < 768) {
                 setMarginStyles('mt-2')
-            }else{
+            } else {
                 setMarginStyles('')
             }
         })
@@ -184,33 +184,33 @@ const UebishaMinterPage = () => {
 
                         <span className="mt-2">or you can mint for any price you want (higher than {config.uebisha.price})</span>
 
-                       
-                            {wallet == "" ? (
-                                <button onClick={connectWalletPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>Connect wallet</button>
-                            ) : (
-                                <div>
-                                     <div className="higher_price_area row justify-content-center mt-2">
-                                        <input onChange={choosePrice} id="u_price_choose" className="col-12 col-md-4 price_enter higher_area_item" min={config.uebisha.price} placeholder="Enter your price" type="number" />
-                                        <button onClick={onMoreMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>MINT FOR {price}</button>
-                                    </div>
+
+                        {wallet == "" ? (
+                            <button onClick={connectWalletPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>Connect wallet</button>
+                        ) : (
+                            <div>
+                                <div className="higher_price_area row justify-content-center mt-2">
+                                    <input onChange={choosePrice} id="u_price_choose" className="col-12 col-md-4 price_enter higher_area_item" min={config.uebisha.price} placeholder="Enter your price" type="number" />
+                                    <button onClick={onMoreMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>MINT FOR {price}</button>
                                 </div>
-                            )}
-                        
+                            </div>
+                        )}
+
 
                         <span className="mt-2">you also can bet on any token</span>
 
-                        
-                            {wallet == "" ? (
-                                <button onClick={connectWalletPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>Connect wallet</button>
-                            ) : (
-                                <div>
-                                    <div className="bet_area row justify-content-center mt-2">
-                                        <input id="u_bet_enter" className="col-12 col-md-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
-                                        <button onClick={onBetPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>BET ON</button>
-                                    </div>
+
+                        {wallet == "" ? (
+                            <button onClick={connectWalletPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>Connect wallet</button>
+                        ) : (
+                            <div>
+                                <div className="bet_area row justify-content-center mt-2">
+                                    <input id="u_bet_enter" className="col-12 col-md-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
+                                    <button onClick={onBetPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>BET ON</button>
                                 </div>
-                            )}
-                        
+                            </div>
+                        )}
+
                     </div>
                 </div>
 
