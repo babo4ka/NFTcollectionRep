@@ -9,7 +9,7 @@ import $ from 'jquery'
 const config = require('../../../config.json')
 
 
-const address = "0x53d0b1a91dfc5e629580c2a55ae6ee12f5339b89"
+const address = "0x56a6eacc65cb26926257a6d2921fc0133a96ac04"
 const abi = require('./p_contract_abi.json')
 const PandumbsMinterPage = () => {
 
@@ -130,8 +130,20 @@ const PandumbsMinterPage = () => {
         dispatch(set_status_action(result.status))
     }
 
+    const [marginStyles, setMarginStyles] = useState($(window).width()<768?'mt-2':'')
+
+    useEffect(async ()=>{
+        $(window).resize(()=>{
+            if($(window).width()<768){
+                setMarginStyles('mt-2')
+            }else{
+                setMarginStyles('')
+            }
+        })
+    }, [])
+
     return (
-        <div className="container-fluid mb-5">
+        <div className="container-fluid mb-5 p-0">
 
             <div className="row justify-content-center">
                 <div className="links col-12">
@@ -140,46 +152,46 @@ const PandumbsMinterPage = () => {
 
                 <div className="wallet_info row justify-content-center text-center mt-5">
                     {wallet == "" ? (
-                        <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
+                        <button onClick={connectWalletPressed} className="col-12 col-md-4 site_btn p_site_btn">Connect wallet</button>
                     ) : (
                         <span><h6>wallet connected: {wallet}</h6></span>
                     )}
                 </div>
 
-                <div className="minter_area col-12 row">
+                <div className="minter_area p-0 justify-content-center col-12 row">
                     <div className="examples col-12 col-md-6 row text-center justify-content-center">
                         <div className="p_examples_image_holder">
                             <img className="p_examples_image" src={example_img} />
                         </div>
                     </div>
 
-                    <div className="mint_nav col-12 col-md-6 row text-center justify-content-center">
-                        <span className="col-12">Hello, here you can mint some {config.pandumbs.collection_sym}</span>
-                        <span className="col-12">Current price is {config.pandumbs.price} {config.currency}</span>
-                        <span className="col-12">{minted} / {maxSupply} already minted</span>
+                    <div className={`${marginStyles} mint_nav col-12 col-md-6 row text-center justify-content-center`}>
+                        <span className={`col-12 ${marginStyles}`}>Hello, here you can mint some {config.pandumbs.collection_sym}</span>
+                        <span className={`col-12 ${marginStyles}`}>Current price is {config.pandumbs.price} {config.currency}</span>
+                        <span className={`col-12 ${marginStyles}`}>{minted} / {maxSupply} already minted</span>
 
                         {wallet == "" ? (
-                            <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
+                            <button onClick={connectWalletPressed} className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn higher_area_item`}>Connect wallet</button>
                         ) : (
                             <div>
-                                <div className="counter">
+                                <div className={`counter ${marginStyles}`}>
                                     <button onClick={decAmount} className="counter_item p_count_btn">-</button>
                                     <span className="counter_item">{mintAmount}</span>
                                     <button onClick={incAmount} className="counter_item p_count_btn">+</button>
                                 </div>
-                                <button onClick={onMinMintPressed} className="col-4 site_btn p_site_btn mt-2">MINT NOW</button>
+                                <button onClick={onMinMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn`}>MINT NOW</button>
                             </div>
                         )}
 
                         <span className="mt-2">or you can mint for any price you want (higher than {config.pandumbs.price})</span>
 
                         {wallet == "" ? (
-                            <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
+                            <button onClick={connectWalletPressed} className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn`}>Connect wallet</button>
                         ) : (
                             <div>
                                 <div className="higher_price_area row justify-content-center mt-2">
-                                    <input onChange={choosePrice} id="p_price_choose" className="col-4 price_enter higher_area_item" min={config.pandumbs.price} placeholder="Enter your price" type="number" />
-                                    <button onClick={onMoreMintPressed} id="p_montfor_btn" className="col-4 site_btn p_site_btn higher_area_item">MINT FOR {price}</button>
+                                    <input onChange={choosePrice} id="p_price_choose" className="col-12 col-md-4 price_enter higher_area_item" min={config.pandumbs.price} placeholder="Enter your price" type="number" />
+                                    <button onClick={onMoreMintPressed} id="p_montfor_btn" className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn higher_area_item`}>MINT FOR {price}</button>
                                 </div>
                             </div>
                         )}
@@ -187,12 +199,12 @@ const PandumbsMinterPage = () => {
                         <span className="mt-2">you also can bet on any token</span>
 
                         {wallet == "" ? (
-                            <button onClick={connectWalletPressed} className="col-4 site_btn p_site_btn">Connect wallet</button>
+                            <button onClick={connectWalletPressed} className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn`}>Connect wallet</button>
                         ) : (
                             <div>
                                 <div className="bet_area row justify-content-center mt-2">
-                                    <input id="p_bet_enter" className="col-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
-                                    <button onClick={onBetPressed} className="col-4 site_btn p_site_btn higher_area_item">BET ON</button>
+                                    <input id="p_bet_enter" className="col-12 col-md-4 price_enter higher_area_item" placeholder="Enter tokenId" type="number" />
+                                    <button onClick={onBetPressed} className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn higher_area_item`}>BET ON</button>
                                 </div>
                             </div>
                         )}
