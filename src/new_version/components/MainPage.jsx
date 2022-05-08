@@ -15,10 +15,10 @@ const MainPage = () =>{
     return(
         <div className="container links_main">
             <div className="row justify-content-center text-center">
-                <span className="col-12 mb-5" id="collection_choose_txt"><h5>choose collection to mint</h5></span>
+                <span className="col-12 mb-3" id="collection_choose_txt"><h5>choose collection to mint</h5></span>
                 
                 <div className="col-md-4 col-12 text-center justify-content-center row">
-                    <Link to="/pandumbs" className="link_txt row justify-content-center link_holder">
+                    <Link to="/pandumbs" className="mt-3 mb-5 link_txt row justify-content-center link_holder">
                         <div className="link_img_holder">
                             <img src={pandumbs_link_img} className="link_img" alt="" />
                         </div>
@@ -30,7 +30,7 @@ const MainPage = () =>{
                 
 
                 <div className="col-md-4 col-12 text-center justify-content-center row">
-                    <Link to="/uebisha" className="link_txt row justify-content-center link_holder">
+                    <Link to="/uebisha" className="mt-3 mb-5 link_txt row justify-content-center link_holder">
                         <div className="link_img_holder">
                             <img src={uebisha_link_img} className="link_img" alt="" />
                         </div>
@@ -41,7 +41,7 @@ const MainPage = () =>{
                 </div>
 
                 <div className="col-md-4 col-12 text-center justify-content-center row">
-                    <Link to="/geese" className="link_txt row justify-content-center link_holder">
+                    <Link to="/geese" className="mt-3 mb-5 link_txt row justify-content-center link_holder">
                         <div className="link_img_holder">
                             <img src={geese_link_img} className="link_img" alt="" />
                         </div>
