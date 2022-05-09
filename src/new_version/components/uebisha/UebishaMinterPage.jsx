@@ -8,7 +8,7 @@ import example_img from './u_examples.gif'
 import $ from 'jquery'
 const config = require('../../../config.json')
 
-const address = "0x3f6f3b851ac0e12dc5d7106ef044f97121c62aa3"
+const address = "0x1889715820eFc90375906C01d36dbD60ed2DA7fc"
 const abi = require('./u_contract_abi.json')
 
 const UebishaMinterPage = () => {
@@ -105,7 +105,10 @@ const UebishaMinterPage = () => {
         return generateToken()
     }
 
+    const [minting, setMinting] = useState(false)
+
     const onMinMintPressed = async () => {
+        setMinting(true)
         let tokens = []
         for (let i = 0; i < mintAmount; i++) {
             let token = await generateToken(tokens)
@@ -113,11 +116,12 @@ const UebishaMinterPage = () => {
         }
 
         const result = await mint(tokens, abi, address)
-
+        setMinting(false)
         dispatch(set_status_action(result.status))
     }
 
     const onMoreMintPressed = async () => {
+        setMinting(true)
         let tokens = []
         for (let i = 0; i < mintAmount; i++) {
             let token = await generateToken(tokens)
@@ -125,7 +129,7 @@ const UebishaMinterPage = () => {
         }
 
         const result = await mint(tokens, abi, address, price)
-
+        setMinting(false)
         dispatch(set_status_action(result.status))
     }
 
@@ -177,7 +181,7 @@ const UebishaMinterPage = () => {
                                     <span className="counter_item">{mintAmount}</span>
                                     <button onClick={incAmount} className="counter_item u_count_btn">+</button>
                                 </div>
-                                <button onClick={onMinMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn`}>MINT NOW</button>
+                                <button onClick={onMinMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn`}>{minting?"MINTING...":"MINT NOW"}</button>
                             </div>
                         )}
 
@@ -191,7 +195,7 @@ const UebishaMinterPage = () => {
                             <div>
                                 <div className="higher_price_area row justify-content-center mt-2">
                                     <input onChange={choosePrice} id="u_price_choose" className="col-12 col-md-4 price_enter higher_area_item" min={config.uebisha.price} placeholder="Enter your price" type="number" />
-                                    <button onClick={onMoreMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>MINT FOR {price}</button>
+                                    <button onClick={onMoreMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn u_site_btn higher_area_item`}>{minting?"MINTING...":`MINT FOR ${price}`}</button>
                                 </div>
                             </div>
                         )}

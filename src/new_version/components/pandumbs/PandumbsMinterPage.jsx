@@ -9,7 +9,7 @@ import $ from 'jquery'
 const config = require('../../../config.json')
 
 
-const address = "0x56a6eacc65cb26926257a6d2921fc0133a96ac04"
+const address = "0xc82b5F39399ff8399D51E98bd78748f4A3F03dd3"
 const abi = require('./p_contract_abi.json')
 const PandumbsMinterPage = () => {
 
@@ -106,19 +106,9 @@ const PandumbsMinterPage = () => {
         return generateToken()
     }
 
+    const [minting, setMinting] = useState(false)
     const onMinMintPressed = async () => {
-        let tokens = []
-        for (let i = 0; i < mintAmount; i++) {
-            let token = await generateToken(tokens)
-            tokens.push(token)
-        }
-
-        const result = await mint(tokens, abi, address)
-
-        dispatch(set_status_action(result.status))
-    }
-
-    const onMoreMintPressed = async () => {
+        setMinting(true)
         let tokens = []
         for (let i = 0; i < mintAmount; i++) {
             let token = await generateToken(tokens)
@@ -126,7 +116,20 @@ const PandumbsMinterPage = () => {
         }
 
         const result = await mint(tokens, abi, address, price)
+        setMinting(false)
+        dispatch(set_status_action(result.status))
+    }
 
+    const onMoreMintPressed = async () => {
+        setMinting(true)
+        let tokens = []
+        for (let i = 0; i < mintAmount; i++) {
+            let token = await generateToken(tokens)
+            tokens.push(token)
+        }
+
+        const result = await mint(tokens, abi, address, price)
+        setMinting(false)
         dispatch(set_status_action(result.status))
     }
 
@@ -179,7 +182,7 @@ const PandumbsMinterPage = () => {
                                     <span className="counter_item">{mintAmount}</span>
                                     <button onClick={incAmount} className="counter_item p_count_btn">+</button>
                                 </div>
-                                <button onClick={onMinMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn`}>MINT NOW</button>
+                                <button onClick={onMinMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn`}>{minting?"MINTING...":"MINT NOW"}</button>
                             </div>
                         )}
 
@@ -191,7 +194,7 @@ const PandumbsMinterPage = () => {
                             <div>
                                 <div className="higher_price_area row justify-content-center mt-2">
                                     <input onChange={choosePrice} id="p_price_choose" className="col-12 col-md-4 price_enter higher_area_item" min={config.pandumbs.price} placeholder="Enter your price" type="number" />
-                                    <button onClick={onMoreMintPressed} id="p_montfor_btn" className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn higher_area_item`}>MINT FOR {price}</button>
+                                    <button onClick={onMoreMintPressed} id="p_montfor_btn" className={`${marginStyles} col-12 col-md-4 site_btn p_site_btn higher_area_item`}>{minting?"MINTING...":`MINT FOR ${price}`}</button>
                                 </div>
                             </div>
                         )}

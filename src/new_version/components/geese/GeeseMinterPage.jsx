@@ -8,7 +8,7 @@ import example_img from './g_examples.gif'
 import $ from 'jquery'
 const config = require('../../../config.json')
 
-const address = "0x2565e7e098e778421876f60572aad19134c52c39"
+const address = "0x00Fe3195639ff8a08Efaa715311A760679856771"
 const abi = require('./g_contract_abi.json')
 
 const GeeseMinterPage = () => {
@@ -104,8 +104,10 @@ const GeeseMinterPage = () => {
         }
         return generateToken()
     }
+    const [minting, setMinting] = useState(false)
 
     const onMinMintPressed = async () => {
+        setMinting(true)
         let tokens = []
         for (let i = 0; i < mintAmount; i++) {
             let token = await generateToken(tokens)
@@ -113,11 +115,12 @@ const GeeseMinterPage = () => {
         }
 
         const result = await mint(tokens, abi, address)
-
+        setMinting(false)
         dispatch(set_status_action(result.status))
     }
 
     const onMoreMintPressed = async () => {
+        setMinting(true)
         let tokens = []
         for (let i = 0; i < mintAmount; i++) {
             let token = await generateToken(tokens)
@@ -125,7 +128,7 @@ const GeeseMinterPage = () => {
         }
 
         const result = await mint(tokens, abi, address, price)
-
+        setMinting(false)
         dispatch(set_status_action(result.status))
     }
 
@@ -177,7 +180,7 @@ const GeeseMinterPage = () => {
                                     <span className="counter_item">{mintAmount}</span>
                                     <button onClick={incAmount} className="counter_item g_count_btn">+</button>
                                 </div>
-                                <button onClick={onMinMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn g_site_btn`}>MINT NOW</button>
+                                <button onClick={onMinMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn g_site_btn`}>{minting?"MINTING...":"MINT NOW"}</button>
                             </div>
                         )}
 
@@ -191,7 +194,7 @@ const GeeseMinterPage = () => {
                                 <div>
                                     <div className="higher_price_area row justify-content-center mt-2">
                                         <input onChange={choosePrice} id="g_price_choose" className="col-12 col-md-4 price_enter higher_area_item" min={config.geese.price} placeholder="Enter your price" type="number" />
-                                        <button onClick={onMoreMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn g_site_btn higher_area_item`}>MINT FOR {price}</button>
+                                        <button onClick={onMoreMintPressed} className={`${marginStyles} col-12 col-md-4 site_btn g_site_btn higher_area_item`}>{minting?"MINTING...":`MINT FOR ${price}`}</button>
                                     </div>
                                 </div>
                             )}
