@@ -9,7 +9,7 @@ import $ from 'jquery'
 const config = require('../../../config.json')
 
 
-const address = "0xc82b5F39399ff8399D51E98bd78748f4A3F03dd3"
+const address = "0x96a55Ca510C44834c931859E298555324027e26C"
 const abi = require('./p_contract_abi.json')
 const PandumbsMinterPage = () => {
 

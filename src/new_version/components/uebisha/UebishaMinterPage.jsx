@@ -8,7 +8,7 @@ import example_img from './u_examples.gif'
 import $ from 'jquery'
 const config = require('../../../config.json')
 
-const address = "0x1889715820eFc90375906C01d36dbD60ed2DA7fc"
+const address = "0x9605B523088396EE5D90be1b765D15B3fAC31087"
 const abi = require('./u_contract_abi.json')
 
 const UebishaMinterPage = () => {

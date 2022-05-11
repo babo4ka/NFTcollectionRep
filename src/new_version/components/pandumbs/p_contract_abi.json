@@ -304,6 +304,11 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_to",
+				"type": "address"
+			},
+			{
 				"internalType": "uint256[]",
 				"name": "tokens",
 				"type": "uint256[]"
@@ -338,24 +343,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "tokens",
-				"type": "uint256[]"
-			}
-		],
-		"name": "ownerMints",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

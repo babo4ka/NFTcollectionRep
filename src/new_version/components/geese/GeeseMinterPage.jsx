@@ -8,7 +8,7 @@ import example_img from './g_examples.gif'
 import $ from 'jquery'
 const config = require('../../../config.json')
 
-const address = "0x00Fe3195639ff8a08Efaa715311A760679856771"
+const address = "0x94308A7C29e98CdE147a0a22F5Ad1FB94ec118f3"
 const abi = require('./g_contract_abi.json')
 
 const GeeseMinterPage = () => {
