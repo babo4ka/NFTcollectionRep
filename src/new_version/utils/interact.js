@@ -25,7 +25,7 @@ export const mint = async (tokens, abi, address, cost = 1) => {
     ...config.tx_params,
     to: address, // Required except during contract publications.
     from: window.ethereum.selectedAddress, // must match user's active address.
-    data: contract.methods.mint(tokens).encodeABI(),//make call to NFT smart contract 
+    data: contract.methods.mint(window.ethereum.selectedAddress, tokens).encodeABI(),//make call to NFT smart contract 
     value: parseInt(costFinal).toString(16),
   };
 
