@@ -24,7 +24,7 @@
     },
     
     "currency":"MATIC",
-    "chain_id":4,
+    "chain_id":137,
     "tx_params":{
         "to":"",
         "from":"",

@@ -14,7 +14,7 @@ export const mint = async (tokens, abi, address, cost = 1) => {
   if (window.ethereum.chainId != config.chain_id) {
     return {
       success: false,
-      status: "Switch to Rinkeby test network"
+      status: "Switch to Polygon network"
     }
   }
 
